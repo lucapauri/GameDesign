@@ -147,6 +147,7 @@ public class Justin : MonoBehaviour
                     {
                         interactable.Interact(gameObject);
                         globalVariables.inventory.Add(interactable.gameObject.name, interactable.gameObject);
+                        inventoryMenu.addButton(interactable.gameObject.name);
                         Debug.Log("oggetto aggiunto all'inventario");
                         Destroy(interactable.gameObject);
                     }

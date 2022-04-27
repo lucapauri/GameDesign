@@ -5,13 +5,16 @@ using UnityEngine;
 public class InventoryMenu : MonoBehaviour
 {
     public static bool isMenu = false;
-    public GameObject Menu;
+    public GameObject menu;
+    public GameObject buttonPrefab;
+    private List<GameObject> buttons;
 
     private void Start()
     {
-        Menu = GameObject.FindGameObjectWithTag("InventoryMenu");
+        menu = GameObject.FindGameObjectWithTag("InventoryMenu");
+        buttons = new List<GameObject>();
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -33,16 +36,25 @@ public class InventoryMenu : MonoBehaviour
 
     private void SetPause()
     {
-        Menu.SetActive(true);
+        menu.SetActive(true);
     }
 
     public void Resume()
     {
-        Menu.SetActive(false);
+        menu.SetActive(false);
     }
 
     public bool isActive()
     {
         return isMenu;
+    }
+
+    public void addButton(string name)
+    {
+        GameObject go = Instantiate(buttonPrefab);
+        go.transform.SetParent(menu.transform, false);
+        go.GetComponent<RectTransform>().Translate(new Vector3(0, 100, 0));
+        go.GetComponentInChildren<UnityEngine.UI.Text>().text = name;
+        buttons.Add(go);
     }
 }
