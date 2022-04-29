@@ -47,6 +47,7 @@ public class Justin : MonoBehaviour
 
     //animation variables
     private Animator animator;
+    private float movingTime;
 
 
 
@@ -123,10 +124,15 @@ public class Justin : MonoBehaviour
                 _characterController.Move(transform.forward * _inputSpeed * _speed * Time.deltaTime);
 
             //animazione
-            if (Vector3.Magnitude(_characterController.velocity) > 0)
+            if (Math.Abs(_inputSpeed) > 0.1)
                 animator.SetBool("Walk", true);
-            if (Vector3.Magnitude(_characterController.velocity) == 0)
-                animator.SetBool("Walk",false);
+            if (Math.Abs(_inputSpeed) < 0.1)
+                animator.SetBool("Walk", false);
+            if (!animator.GetBool("Walk") || _inputSpeed < 0)
+                movingTime = 0;
+            else
+                movingTime = movingTime + 0.003f;
+            animator.SetFloat("Blend", movingTime);
 
             //gravity
 
@@ -145,6 +151,7 @@ public class Justin : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.X))
                     {
+                        animator.SetTrigger("Grab");
                         interactable.Interact(gameObject);
                         globalVariables.inventory.Add(interactable.gameObject.name, interactable.gameObject);
                         inventoryMenu.addButton(interactable.gameObject.name);
@@ -212,12 +219,13 @@ public class Justin : MonoBehaviour
 
 
 
-            //COMANDI-->
+        //COMANDI-->
 
             //jumping
             if (Input.GetKey(KeyCode.Space) && _isGrounded)
             {
                 _velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
+                animator.SetTrigger("Jump");
             }
 
             //gravity
@@ -353,6 +361,7 @@ public class Justin : MonoBehaviour
         yield return new WaitForSeconds(time);
         collider.enabled = true;
     }
+
 
 
 
