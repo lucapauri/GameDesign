@@ -8,11 +8,15 @@ public class InventoryMenu : MonoBehaviour
     public GameObject menu;
     public GameObject buttonPrefab;
     private List<GameObject> buttons;
+    private GlobalVariables globalVariables;
+    private int activeButton;
 
     private void Start()
     {
         menu = GameObject.FindGameObjectWithTag("InventoryMenu");
         buttons = new List<GameObject>();
+        globalVariables = FindObjectOfType<GlobalVariables>();
+        activeButton = 0;
     }
 
     // Update is called once per frame
@@ -22,16 +26,40 @@ public class InventoryMenu : MonoBehaviour
             SetPause();
         else
             Resume();
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Debug.Log(buttons[activeButton].GetComponentInChildren<UnityEngine.UI.Text>().text);
+            string oldKey = buttons[activeButton].GetComponentInChildren<UnityEngine.UI.Text>().text;
+            string newKey = globalVariables.agingSets[oldKey];
+            globalVariables.inventoryAging(oldKey);
+            setMenuFalse();
+            buttons[activeButton].GetComponentInChildren<UnityEngine.UI.Text>().text = newKey;
+        }
+
+        if (isActive() && Input.GetKeyDown(KeyCode.Escape))
+            setMenuFalse();
+
     }
 
     public void setMenuTrue()
     {
         isMenu = true;
+        globalVariables.justin.enabled = false;
+        foreach (simpleEnemy enemy in globalVariables.enemies)
+        {
+            enemy.GetComponent<simpleEnemy>().enabled = false;
+        }
     }
 
     public void setMenuFalse()
     {
         isMenu = false;
+        globalVariables.justin.enabled = true;
+        foreach (simpleEnemy enemy in globalVariables.enemies)
+        {
+            enemy.GetComponent<simpleEnemy>().enabled = true;
+        }
     }
 
     private void SetPause()
@@ -53,7 +81,7 @@ public class InventoryMenu : MonoBehaviour
     {
         GameObject go = Instantiate(buttonPrefab);
         go.transform.SetParent(menu.transform, false);
-        go.GetComponent<RectTransform>().Translate(new Vector3(0, 100, 0));
+        go.GetComponent<RectTransform>().Translate(new Vector3(0, 100, 0));   /**globalVariables.inventory.Keys.Count*/
         go.GetComponentInChildren<UnityEngine.UI.Text>().text = name;
         buttons.Add(go);
     }

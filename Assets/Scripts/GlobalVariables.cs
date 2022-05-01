@@ -15,7 +15,9 @@ public class GlobalVariables : MonoBehaviour
 
     public int enemyLife;
 
-    public Dictionary<string, GameObject> inventory= new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> inventory = new Dictionary<string, GameObject>();
+
+    public Dictionary<string, string> agingSets = new Dictionary<string, string>();
 
 
     // Start is called before the first frame update
@@ -24,7 +26,8 @@ public class GlobalVariables : MonoBehaviour
         enemyLife = 0;
         currentTimeline = 1;
         justinLife = 3;
-        
+        setsStart();
+
     }
 
     private void Update()
@@ -33,6 +36,20 @@ public class GlobalVariables : MonoBehaviour
         {
             justin = FindObjectOfType<Justin>();
         }
+
+    }
+
+    public void inventoryAging(string key)
+    {
+        GameObject go = inventory[key];
+        string name = agingSets[key];
+        inventory.Remove(key);
+        inventory.Add(name, go);
+    }
+
+    public void setsStart()
+    {
+        agingSets.Add("SphereInteractable", "OldSphere");
 
     }
 

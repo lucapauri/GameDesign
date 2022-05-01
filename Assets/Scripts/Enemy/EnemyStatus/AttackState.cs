@@ -83,7 +83,7 @@ public class AttackState : State
                     attacking = true;
                     break;
                 case simpleEnemy.Type.rangeEnemy:
-                    enemy.InvokeRepeating("attack", 6f, 6f);
+                    enemy.InvokeRepeating("attack", 1f, 3f);
                     ableToAttack = false;
                     attacking = true;
                     break;

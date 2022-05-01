@@ -11,6 +11,8 @@ public class Justin : MonoBehaviour
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _rotationSpeed = 3f;
     private CharacterController _characterController;
+    public Transform armarture;
+    public Transform chiattone;
     private Vector3 _inputVector;
     private float _inputSpeed;
     private Vector3 _targetDirection;
@@ -27,7 +29,6 @@ public class Justin : MonoBehaviour
 
     // world interactions variables
     public GlobalVariables globalVariables;
-    public Transform groundEmpty;
     private Camera[] activeCamera;
     public Bullet bulletPrefab;
     private float shootForce=30f;
@@ -39,19 +40,14 @@ public class Justin : MonoBehaviour
     [SerializeField] private LayerMask dashLayerMask;
     private float maxInteractCheckDistance = 5f;
     public Interactable interactable;
-    private bool _nearClimbing;
-    [SerializeField] private LayerMask ClimbLayerMask;
-    private bool climbing;
     private GameObject timeCapsule;
     private InventoryMenu inventoryMenu;
 
     //animation variables
     private Animator animator;
     private float movingTime;
-
-
-
-
+    private AnimationClip[] clips;
+    private float grabTime;
 
 
 
@@ -82,7 +78,6 @@ public class Justin : MonoBehaviour
         gunLoaded = true;
         _dash = false;
         _gravity = -9.81f;
-        climbing = false;
 
 
         activeCamera = FindObjectsOfType<Camera>();
@@ -97,12 +92,26 @@ public class Justin : MonoBehaviour
             enemy.target = this.gameObject;
         }
 
+        clips = animator.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            switch (clip.name)
+            {
+                case "grab":
+                    grabTime = clip.length;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
     }
 
 
     void Update()
     {
-       
+        
 
             //Ground Check
             _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
@@ -119,9 +128,8 @@ public class Justin : MonoBehaviour
 
             _targetDirection = _cameraT.TransformDirection(_inputVector).normalized;
             _targetDirection.y = 0f;
+            _characterController.Move(transform.forward * _inputSpeed * _speed * Time.deltaTime);
 
-            if (climbing == false)
-                _characterController.Move(transform.forward * _inputSpeed * _speed * Time.deltaTime);
 
             //animazione
             if (Math.Abs(_inputSpeed) > 0.1)
@@ -151,12 +159,8 @@ public class Justin : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.X))
                     {
-                        animator.SetTrigger("Grab");
-                        interactable.Interact(gameObject);
-                        globalVariables.inventory.Add(interactable.gameObject.name, interactable.gameObject);
-                        inventoryMenu.addButton(interactable.gameObject.name);
-                        Debug.Log("oggetto aggiunto all'inventario");
-                        Destroy(interactable.gameObject);
+                    animator.SetTrigger("Grab");
+                    StartCoroutine(grabEndingCoroutine(grabTime / 4));  
                     }
 
                 }
@@ -210,7 +214,22 @@ public class Justin : MonoBehaviour
         if (globalVariables.justinLife == 0)
         {
             transform.DetachChildren();
+            Destroy(armarture.gameObject);
+            Destroy(chiattone.gameObject);
             Destroy(gameObject);
+        }
+
+
+        //ANIMAZIONE-->
+
+        //camminata
+        if (Mathf.Abs(_inputSpeed)> 0.1 && _isGrounded)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
         }
 
 
@@ -221,11 +240,12 @@ public class Justin : MonoBehaviour
 
         //COMANDI-->
 
-            //jumping
-            if (Input.GetKey(KeyCode.Space) && _isGrounded)
+        //jumping
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
             {
                 _velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
                 animator.SetTrigger("Jump");
+                
             }
 
             //gravity
@@ -261,11 +281,8 @@ public class Justin : MonoBehaviour
             }
           
             //attivazione e chiusura menu inventario
-            if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 4 && Input.GetKey(KeyCode.I))
+            if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 4 && Input.GetKeyDown(KeyCode.X))
                 inventoryMenu.setMenuTrue();
-
-            if (inventoryMenu.isActive() && Input.GetKey(KeyCode.Escape))
-                inventoryMenu.setMenuFalse();
 
     }
 
@@ -275,13 +292,16 @@ public class Justin : MonoBehaviour
     {
         globalVariables.currentTimeline--;
         transform.DetachChildren();
-        groundEmpty.transform.parent = transform;
+        _groundCheck.transform.parent = transform;
+        armarture.transform.parent = transform;
+        chiattone.transform.parent = transform;
         Vector3 newPosition= new Vector3(transform.position.x, transform.position.y - 22f, transform.position.z - 7.31f);
         Quaternion newRotation = transform.rotation;
         Destroy(this.gameObject);
 
         Justin justin=Instantiate(this, newPosition, newRotation);
         justin.enabled = true;
+        justin.gameObject.GetComponent<Animator>().enabled = true;
 
         justin.gameObject.name = "Justin";
     }
@@ -291,7 +311,9 @@ public class Justin : MonoBehaviour
     {
         globalVariables.currentTimeline++;
         transform.DetachChildren();
-        groundEmpty.transform.parent = transform;
+        _groundCheck.transform.parent = transform;
+        armarture.transform.parent = transform;
+        chiattone.transform.parent = transform;
         Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + 22f, transform.position.z +7.31f);
         Quaternion newRotation = transform.rotation;
 
@@ -299,6 +321,7 @@ public class Justin : MonoBehaviour
 
         Justin justin = Instantiate(this, newPosition, newRotation);
         justin.enabled = true;
+        justin.gameObject.GetComponent<Animator>().enabled = true;
 
         justin.gameObject.name = "Justin";
     }
@@ -306,7 +329,7 @@ public class Justin : MonoBehaviour
     //funzione per sparare
     private void Shoot()
     {
-        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward*2f + transform.up *1f, Quaternion.identity);
+        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward*2.5f + transform.up *2f, Quaternion.identity);
         bullet.transform.up = transform.forward;
 
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
@@ -363,7 +386,17 @@ public class Justin : MonoBehaviour
     }
 
 
+    //couroutine per gestire grab
+    private IEnumerator grabEndingCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        interactable.Interact(gameObject);
+        globalVariables.inventory.Add(interactable.gameObject.name, interactable.gameObject);
+        inventoryMenu.addButton(interactable.gameObject.name);
+        Debug.Log("oggetto aggiunto all'inventario");
+        Destroy(interactable.gameObject);
 
+    }
 
 
 

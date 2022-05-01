@@ -5,19 +5,19 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 1474744063889944348
-    second: Armature|mixamo.com|Layer0
+    second: Walking
   - first:
       74: 6330412072174222829
-    second: Armature.001|mixamo.com|Layer0
+    second: Running
   - first:
       74: 5036426404283756759
-    second: Armature.001|mixamo.com|Layer0.001
+    second: Jump
   - first:
       74: -2901246426536501727
-    second: Armature.001|mixamo.com|Layer0.002
+    second: Death
   - first:
       74: -2854121758031957398
-    second: Armature.002|mixamo.com|Layer0
+    second: Idle
   - first:
       74: -7811437093079328347
     second: grab
@@ -50,7 +50,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|mixamo.com|Layer0
+      name: Walking
       takeName: Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
@@ -79,7 +79,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature.001|mixamo.com|Layer0
+      name: Running
       takeName: Armature.001|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
@@ -108,11 +108,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature.001|mixamo.com|Layer0.001
+      name: Jump
       takeName: Armature.001|mixamo.com|Layer0.001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 57
+      firstFrame: 10
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -137,7 +137,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature.001|mixamo.com|Layer0.002
+      name: Death
       takeName: Armature.001|mixamo.com|Layer0.002
       internalID: 0
       firstFrame: 0
@@ -166,7 +166,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature.002|mixamo.com|Layer0
+      name: Idle
       takeName: Armature.002|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
