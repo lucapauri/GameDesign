@@ -13,14 +13,14 @@ public class PatrolState : State
     public Sequence walkingSequence;
     private float pathDuration = 10f;
     private float targetVisibleDistance = 20f;
-   
+
 
 
 
     public PatrolState(string name, simpleEnemy _enemy) : base(name)
     {
         enemy = _enemy;
-        
+
     }
 
 
@@ -37,7 +37,7 @@ public class PatrolState : State
     public override void Tik()
     {
 
-        if(Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.justin.transform.position.x) < targetVisibleDistance && enemy.globalVariables.currentTimeline==enemy.currentTimeline)
+        if (Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.justin.transform.position.x) < targetVisibleDistance && enemy.globalVariables.currentTimeline == enemy.currentTimeline)
         {
             enemy.target = enemy.justin.gameObject;
             enemy.currentStatus = simpleEnemy.MachineStatus.Attack;
@@ -56,7 +56,7 @@ public class PatrolState : State
             }
         }
 
-        
+
     }
 
 
@@ -82,7 +82,7 @@ public class PatrolState : State
 
         }
 
-        
+
     }
 }
 

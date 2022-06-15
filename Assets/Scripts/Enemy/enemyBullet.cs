@@ -18,13 +18,13 @@ public class enemyBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         _target = shooter.target.transform;
         rb = GetComponent<Rigidbody>();
         float time = Mathf.Sqrt(3.78f / 4.9f);
-        shootForce = (_target.position.x - shooter.transform.position.x)/(0.5f * time* time);
-        shootForce -= 0.4f * shootForce;
-        rb.AddForce(transform.up * shootForce *2, ForceMode.Impulse);
+        shootForce = (_target.position.x - shooter.transform.position.x) / (0.5f * time * time);
+        shootForce -= 0.4f * (shootForce);
+        rb.AddForce(transform.up * Mathf.Abs(shootForce) * 2, ForceMode.Impulse);
         globalVariables = FindObjectOfType<GlobalVariables>();
         Debug.Log(time);
     }
@@ -33,7 +33,7 @@ public class enemyBullet : MonoBehaviour
     void OnCollisionEnter(Collision collision)
 
     {
-        
+
         switch (collision.gameObject.layer)
         {
             case 10: // justin
@@ -48,9 +48,10 @@ public class enemyBullet : MonoBehaviour
 
 
             case 11: //distruttibili
-                //codice per l'interazione del proiettile con oggetti distruttibili
+                     //codice per l'interazione del proiettile con oggetti distruttibili
                 break;
         }
+
 
 
 
@@ -58,5 +59,5 @@ public class enemyBullet : MonoBehaviour
 
     }
 
-   
+
 }

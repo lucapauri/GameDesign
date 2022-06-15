@@ -9,6 +9,8 @@ TagManager:
   - TimeCapsule
   - Armature
   - Chiattone
+  - PlaneDown
+  - PlaneUp
   layers:
   - Default
   - TransparentFX

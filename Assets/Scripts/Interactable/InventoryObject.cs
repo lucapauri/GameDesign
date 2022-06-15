@@ -16,7 +16,7 @@ public class InventoryObject : Interactable
 
     }
 
-    
+
 
     public override void Interact(GameObject justin)
     {

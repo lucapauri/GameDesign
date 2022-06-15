@@ -17,12 +17,12 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision collision)
 
     {
-       // codice per la collisione del proiettile con dei nemici
-        if(collision.gameObject.layer==7 || collision.gameObject.layer == 8)
+        // codice per la collisione del proiettile con dei nemici
+        if (collision.gameObject.layer == 7 || collision.gameObject.layer == 8)
         {
-           
+
             teleportEnemy(collision.gameObject, globalVariables.currentTimeline);
-            
+
         }
 
         //codice per la collisione del proiettile con proiettili nemici
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
         Vector3 downPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y - 22.61f, enemy.transform.position.z - 7.31f);
         Quaternion newRot = enemy.transform.rotation;
         Destroy(enemy);
-      
+
         if (timeline > 0)
         {
             GameObject go = Instantiate(enemy, downPos, newRot);
@@ -54,11 +54,11 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-           
-             GameObject go = Instantiate(enemy, upPos, newRot);
-             simpleEnemy script = go.GetComponent<simpleEnemy>();
-             script.enabled = true;
-             script.currentOrigin = simpleEnemy.Origin.TeleportedUp;
+
+            GameObject go = Instantiate(enemy, upPos, newRot);
+            simpleEnemy script = go.GetComponent<simpleEnemy>();
+            script.enabled = true;
+            script.currentOrigin = simpleEnemy.Origin.TeleportedUp;
         }
 
         //aggiungi un'interfaccia generica per poi istanziare quella anzichè il gameobject, in modo da abilitare gli script come fai quando sposti justin
@@ -79,7 +79,7 @@ public class Bullet : MonoBehaviour
             GameObject go = Instantiate(bullet, downPos, newRot);
             enemyBullet script = go.GetComponent<enemyBullet>();
             script.enabled = true;
-  
+
         }
         else
         {
@@ -87,7 +87,7 @@ public class Bullet : MonoBehaviour
             GameObject go = Instantiate(bullet, upPos, newRot);
             enemyBullet script = go.GetComponent<enemyBullet>();
             script.enabled = true;
-           
+
         }
     }
 }

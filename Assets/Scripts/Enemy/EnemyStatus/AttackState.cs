@@ -7,7 +7,7 @@ public class AttackState : State
 
     private simpleEnemy enemy;
 
-    private float rotationSpeed= 50f;
+    private float rotationSpeed = 50f;
     private float movSpeed = 3f;
     private float huntLimitDistance = 20f;
     private float attackDistance;
@@ -23,7 +23,7 @@ public class AttackState : State
     public AttackState(string name, simpleEnemy _enemy) : base(name)
     {
         enemy = _enemy;
-        
+
     }
 
 
@@ -40,8 +40,8 @@ public class AttackState : State
                 attackDistance = 25f;
                 break;
         }
-            
-        
+
+
     }
 
     public override void Exit()
@@ -51,7 +51,7 @@ public class AttackState : State
 
     public override void Tik()
     {
-      
+
         float distanceFromBase = Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.target.transform.position.x);
         float distance = Mathf.Abs(enemy.transform.position.x - enemy.target.transform.position.x);
 
@@ -72,35 +72,46 @@ public class AttackState : State
 
 
 
-        if (distance < attackDistance && ableToAttack == true)
+        if (distance < attackDistance)
         {
-            switch (enemy.enemyType)
-            {
-                case simpleEnemy.Type.meleeEnemy:
-                    Debug.Log("melee attack");
-                    enemy.InvokeRepeating("attack", 1f, 1f);
-                    ableToAttack = false;
-                    attacking = true;
-                    break;
-                case simpleEnemy.Type.rangeEnemy:
-                    enemy.InvokeRepeating("attack", 1f, 3f);
-                    ableToAttack = false;
-                    attacking = true;
-                    break;
+            Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
+            targetDirection.y = 0f;
+            targetDirection.z = 0f;
+            targetDirection.Normalize();
 
+            float step = rotationSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(enemy.transform.forward, targetDirection, step, 0.0f);
+            enemy.transform.rotation = Quaternion.LookRotation(newDir, enemy.transform.up);
+
+            if (ableToAttack == true)
+            {
+                switch (enemy.enemyType)
+                {
+                    case simpleEnemy.Type.meleeEnemy:
+                        enemy.InvokeRepeating("attack", 1f, 5f);
+                        ableToAttack = false;
+                        attacking = true;
+                        break;
+                    case simpleEnemy.Type.rangeEnemy:
+                        enemy.InvokeRepeating("attack", 1f, 5f);
+                        ableToAttack = false;
+                        attacking = true;
+                        break;
+
+                }
             }
         }
 
-            if (distanceFromBase > huntLimitDistance || checkTimeline)
+        if (distanceFromBase > huntLimitDistance || checkTimeline)
         {
             enemy.currentStatus = simpleEnemy.MachineStatus.Patrol;
         }
 
-        if (distanceFromBase <= huntLimitDistance && distance >= attackDistance-2f)
+        if (distanceFromBase <= huntLimitDistance && distance >= attackDistance - 2f)
         {
-            
 
-            
+
+
             Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
             targetDirection.y = 0f;
             targetDirection.z = 0f;
@@ -118,35 +129,35 @@ public class AttackState : State
 
 
 
-           /* switch ((distance))
-        {
-            case (< 1.0):
-                Debug.Log("attacco");
-                break;
-            case (> 8.0):
-                enemy.currentStatus = simpleEnemy.MachineStatus.Patrol;
-                break;
+        /* switch ((distance))
+     {
+         case (< 1.0):
+             Debug.Log("attacco");
+             break;
+         case (> 8.0):
+             enemy.currentStatus = simpleEnemy.MachineStatus.Patrol;
+             break;
 
-            default:
+         default:
 
-                Vector3 targetDirection = enemy.justin.transform.position - enemy.transform.position;
-                targetDirection.y = 0f;
-                targetDirection.z = 0f;
-                targetDirection.Normalize();
+             Vector3 targetDirection = enemy.justin.transform.position - enemy.transform.position;
+             targetDirection.y = 0f;
+             targetDirection.z = 0f;
+             targetDirection.Normalize();
 
-                float step = rotationSpeed * Time.deltaTime;
-                Vector3 newDir = Vector3.RotateTowards(enemy.transform.forward, targetDirection, step, 0.0f);
-                enemy.transform.rotation = Quaternion.LookRotation(newDir, enemy.transform.up);
+             float step = rotationSpeed * Time.deltaTime;
+             Vector3 newDir = Vector3.RotateTowards(enemy.transform.forward, targetDirection, step, 0.0f);
+             enemy.transform.rotation = Quaternion.LookRotation(newDir, enemy.transform.up);
 
-                Vector3 movVec = Vector3.forward * movSpeed * Time.deltaTime;
+             Vector3 movVec = Vector3.forward * movSpeed * Time.deltaTime;
 
-                enemy.transform.Translate(movVec);
-                break;
-        }*/
+             enemy.transform.Translate(movVec);
+             break;
+     }*/
 
-        
+
 
     }
-   
-   
+
+
 }

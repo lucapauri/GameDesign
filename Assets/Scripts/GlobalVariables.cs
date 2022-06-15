@@ -32,10 +32,6 @@ public class GlobalVariables : MonoBehaviour
 
     private void Update()
     {
-        if (justin == null)
-        {
-            justin = FindObjectOfType<Justin>();
-        }
 
     }
 
@@ -50,6 +46,7 @@ public class GlobalVariables : MonoBehaviour
     public void setsStart()
     {
         agingSets.Add("SphereInteractable", "OldSphere");
+        agingSets.Add("NewSphere", "OldNewSphere");
 
     }
 
