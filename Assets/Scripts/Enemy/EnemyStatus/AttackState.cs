@@ -149,6 +149,7 @@ public class AttackState : State
     // identico a attacco di quelli sopra ma non si può muovere
         else
         {
+            Debug.Log(enemy.globalVariables.currentTimeline == enemy.currentTimeline);
             if (distance < attackDistance && enemy.globalVariables.currentTimeline == enemy.currentTimeline)
             {
                 Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
@@ -179,7 +180,7 @@ public class AttackState : State
                 }
             }
 
-            if(distance > attackDistance+0.2f)
+            if(distance > attackDistance+0.2f || enemy.globalVariables.currentTimeline != enemy.currentTimeline)
             {
                 enemy.CancelInvoke("attack");
                 ableToAttack = true;

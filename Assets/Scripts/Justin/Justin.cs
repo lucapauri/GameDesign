@@ -88,10 +88,11 @@ public class Justin : MonoBehaviour
         _dash = false;
         _gravity = -9.81f;
 
-        transform.DetachChildren();
-        armarture.SetParent(transform);
-        chiattone.SetParent(transform);
-
+        if (transform.Find("fulmine_unity(Clone)") != null && transform.Find("valigetta_unity(Clone)") != null)
+        {
+            Destroy(transform.Find("fulmine_unity(Clone)").gameObject);
+            Destroy(transform.Find("valigetta_unity(Clone)").gameObject);
+        }
 
 
         foreach (simpleEnemy enemy in globalVariables.enemies)
@@ -124,6 +125,7 @@ public class Justin : MonoBehaviour
                     break;
             }
         }
+
 
     }
 
@@ -186,7 +188,6 @@ public class Justin : MonoBehaviour
             if (interactable)
             {
 
-
                 if (Input.GetKeyDown(KeyCode.X))
                 {
                     animator.SetTrigger("Grab");
@@ -245,6 +246,12 @@ public class Justin : MonoBehaviour
 
         }
 
+        //aprire l'inventario
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            inventoryMenu.setMenuTrue();
+        }
+
         //gravity
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
@@ -278,9 +285,12 @@ public class Justin : MonoBehaviour
             //useInventoryObject(string objectName);
         }
 
-        //attivazione e chiusura menu inventario
+        //attivazione e chiusura menu inventario davanti a capsula del tempo
         if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 4 && Input.GetKeyDown(KeyCode.X))
+        {
             inventoryMenu.setMenuTrue();
+            inventoryMenu.setBehaviour();
+        }
 
     }
 
@@ -384,7 +394,6 @@ public class Justin : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         collider.enabled = true;
-        Debug.Log("colliderEnabled");
     }
 
 
@@ -394,9 +403,7 @@ public class Justin : MonoBehaviour
         yield return new WaitForSeconds(time);
         interactable.Interact(gameObject);
         globalVariables.inventory.Add(interactable.gameObject.name, interactable.gameObject);
-        Debug.Log("interactable");
         inventoryMenu.addButton(interactable.gameObject.name);
-        Debug.Log("oggetto aggiunto all'inventario");
         Destroy(interactable.gameObject);
 
     }
@@ -412,16 +419,13 @@ public class Justin : MonoBehaviour
         chiattone.transform.parent = transform;*/
         Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + 1f, planeUp.position.z);
         Quaternion newRotation = transform.rotation;
-
         Destroy(this.gameObject);
-        Destroy(valigetta);
-        Destroy(fulmine);
-
         Justin justin = Instantiate(this, newPosition, newRotation);
         justin.enabled = true;
         justin.gameObject.GetComponent<Animator>().enabled = true;
 
         justin.gameObject.name = "Justin";
+
     }
 
     //coroutine per l'animazione di teletrasporto
@@ -434,8 +438,6 @@ public class Justin : MonoBehaviour
         Quaternion newRotation = transform.rotation;
 
         Destroy(this.gameObject);
-        Destroy(valigetta);
-        Destroy(fulmine);
 
         Justin justin = Instantiate(this, newPosition, newRotation);
         justin.enabled = true;

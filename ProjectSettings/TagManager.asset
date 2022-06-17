@@ -12,6 +12,7 @@ TagManager:
   - PlaneDown
   - PlaneUp
   - spear
+  - interactionPoints
   layers:
   - Default
   - TransparentFX

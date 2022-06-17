@@ -7,12 +7,16 @@ public class InventoryMenu : MonoBehaviour
     public static bool isMenu = false;
     public GameObject menu;
     public GameObject buttonPrefab;
+    public InteractionsFromInventory interactions;
     private List<GameObject> buttons = new List<GameObject>();
     private GlobalVariables globalVariables;
     private int activeButton;
+    public bool openTimeCapsule;
 
     private void Start()
     {
+        interactions = FindObjectOfType<InteractionsFromInventory>();
+        openTimeCapsule = false;
         menu = GameObject.FindGameObjectWithTag("InventoryMenu");
         buttons = new List<GameObject>();
         globalVariables = FindObjectOfType<GlobalVariables>();
@@ -45,11 +49,31 @@ public class InventoryMenu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            string oldKey = buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
-            string newKey = globalVariables.agingSets[oldKey];
-            globalVariables.inventoryAging(oldKey);
-            setMenuFalse();
-            buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = newKey;
+            //controllo se il menù è stato aperto per interagire con la capsula del tempo o per posizionare un oggetto
+            if (openTimeCapsule)
+            {
+                string oldKey = buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
+                string newKey = globalVariables.agingSets[oldKey];
+                globalVariables.inventoryAging(oldKey);
+                setMenuFalse();
+                buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = newKey;
+            }
+            else
+            {
+                Vector3 instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 3f;
+                Quaternion instRot = globalVariables.justin.transform.rotation;
+                string buttonText = buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
+                string name = "Meshes/"+buttonText;
+                GameObject goInstance = Instantiate(Resources.Load(name) as GameObject, instPos, instRot);
+                goInstance.name = buttonText;
+                Destroy(buttons[activeButton]);
+                buttons.Remove(buttons[activeButton]);
+                interactions.checkInteractions(goInstance, instPos );
+                globalVariables.inventory.Remove(buttonText);
+                setMenuFalse();
+
+            }
+            openTimeCapsule = false;
         }
 
         if (isActive() && Input.GetKeyDown(KeyCode.Escape))
@@ -99,6 +123,11 @@ public class InventoryMenu : MonoBehaviour
         return isMenu;
     }
 
+    public void setBehaviour()
+    {
+        openTimeCapsule = true;
+}
+
     public void addButton(string name)
     {
         GameObject go = Instantiate(buttonPrefab);
@@ -110,4 +139,6 @@ public class InventoryMenu : MonoBehaviour
         go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = name;
 
     }
+
+   
 }
