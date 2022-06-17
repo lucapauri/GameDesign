@@ -27,6 +27,15 @@ public class PatrolState : State
     public override void Enter()
     {
         searchPath();
+        if (enemy.GetComponent<Animator>())
+        {
+            enemy.enemyAnimator.SetBool("Walk", true);
+        }
+
+        if (enemy.special != simpleEnemy.Specials.none)
+        {
+            enemy.readyToPatrol = false;
+        }
     }
 
     public override void Exit()
@@ -36,8 +45,9 @@ public class PatrolState : State
 
     public override void Tik()
     {
-
-        if (Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.justin.transform.position.x) < targetVisibleDistance && enemy.globalVariables.currentTimeline == enemy.currentTimeline)
+        float distanceFromJustin = Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.justin.transform.position.x);
+        bool TimelineCheck = enemy.globalVariables.currentTimeline == enemy.currentTimeline;
+        if (distanceFromJustin < targetVisibleDistance && TimelineCheck && enemy.special==simpleEnemy.Specials.none)
         {
             enemy.target = enemy.justin.gameObject;
             enemy.currentStatus = simpleEnemy.MachineStatus.Attack;
@@ -48,11 +58,11 @@ public class PatrolState : State
         {
             bool intrusion = intruder.originalTimeline != enemy.originalTimeline;
             bool sameTimeline = intruder.currentTimeline == enemy.currentTimeline;
-            if (Mathf.Abs(enemy.wayRoot.transform.position.x - intruder.transform.position.x) < targetVisibleDistance && intrusion && sameTimeline)
+            float distanceFromIntruder = Mathf.Abs(enemy.wayRoot.transform.position.x - intruder.transform.position.x);
+            if (distanceFromIntruder < targetVisibleDistance && intrusion && sameTimeline)
             {
                 enemy.target = intruder.gameObject;
                 enemy.currentStatus = simpleEnemy.MachineStatus.Attack;
-                Debug.Log("intruder found ");
             }
         }
 

@@ -8,6 +8,9 @@ public class GlobalVariables : MonoBehaviour
 
     public int currentTimeline;
 
+    public float upPlaneHeight;
+    public float downPlaneHeight;
+
     public List<simpleEnemy> enemies = new List<simpleEnemy>();
 
 
@@ -26,7 +29,10 @@ public class GlobalVariables : MonoBehaviour
         enemyLife = 0;
         currentTimeline = 1;
         justinLife = 3;
+        upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
+        downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
+
 
     }
 

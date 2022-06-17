@@ -22,8 +22,7 @@ public class Justin : MonoBehaviour
 
     //jump variables
     [SerializeField] private float _gravity;
-    [SerializeField] private Transform _groundCheck;
-    [SerializeField] private float _groundDistance = 0.4f;
+     private float _groundDistance = 1f;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private float _jumpHeight = 3f;
     private bool _isGrounded;
@@ -31,7 +30,6 @@ public class Justin : MonoBehaviour
 
     // world interactions variables
     public GlobalVariables globalVariables;
-    private Camera[] activeCamera;
     public Bullet bulletPrefab;
     private float shootForce = 30f;
     private float shootReloadTime = 10f;
@@ -44,13 +42,16 @@ public class Justin : MonoBehaviour
     public Interactable interactable;
     private GameObject timeCapsule;
     private InventoryMenu inventoryMenu;
+    public GameObject valigettaPrefab;
+    public GameObject fulminePrefab;
 
     //animation variables
     private Animator animator;
     private float movingTime;
     private AnimationClip[] clips;
     private float grabTime;
-
+    private float throwTime;
+    private float fireTime;
 
 
 
@@ -87,12 +88,19 @@ public class Justin : MonoBehaviour
         _dash = false;
         _gravity = -9.81f;
 
+        transform.DetachChildren();
+        armarture.SetParent(transform);
+        chiattone.SetParent(transform);
+
 
 
         foreach (simpleEnemy enemy in globalVariables.enemies)
         {
             enemy.justin = this;
-            enemy.target = this.gameObject;
+            if (enemy.special == simpleEnemy.Specials.none)
+            {
+                enemy.target = this.gameObject;
+            }
         }
 
         clips = animator.runtimeAnimatorController.animationClips;
@@ -100,8 +108,16 @@ public class Justin : MonoBehaviour
         {
             switch (clip.name)
             {
-                case "grab":
+                case "Armature|grab":
                     grabTime = clip.length;
+                    break;
+
+                case "Armature|throw":
+                    throwTime = clip.length;
+                    break;
+
+                case "Armature|sparo":
+                    fireTime = clip.length;
                     break;
 
                 default:
@@ -117,9 +133,9 @@ public class Justin : MonoBehaviour
 
 
         //Ground Check
-        _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
+        _isGrounded = Physics.CheckSphere(transform.position, _groundDistance, _groundMask);
 
-
+   
         if (_isGrounded && _velocity.y < 0f)
         {
             _velocity.y = -2f;
@@ -189,40 +205,7 @@ public class Justin : MonoBehaviour
 
         }
 
-        /*//raycasting per il climbing
-        RaycastHit hitClimb;
-        Ray rayClimb = new Ray(transform.position, -transform.right);
-        if (Physics.Raycast(rayClimb, out hitClimb, 10f, ClimbLayerMask) && Input.GetKeyDown(KeyCode.X))
-        {
-            _gravity = 0f;
-            climbing = true;
-        }
-
-
-        //climbing
-        if (climbing == true)
-        {
-
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                _characterController.Move(transform.up * _speed * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                _characterController.Move(-transform.up * _speed * Time.deltaTime);
-
-                if (_isGrounded)
-                {
-                    climbing = false;
-                    _gravity = -9.81f;
-                }
-            }
-
-
-        }*/
-
-
+      
         //dying
 
         if (globalVariables.justinLife == 0)
@@ -267,18 +250,19 @@ public class Justin : MonoBehaviour
         _characterController.Move(_velocity * Time.deltaTime);
 
         //spostarsi sulla timeline sottostante
-        if (Input.GetKeyDown(KeyCode.M) && _isGrounded && globalVariables.currentTimeline > 0)
+        if (Input.GetKeyDown(KeyCode.M)  && globalVariables.currentTimeline > 0)
         {
             timeTravelDown();
         }
         //spostarsi sulla timeline sovrastante
-        if (Input.GetKeyDown(KeyCode.N) && _isGrounded && globalVariables.currentTimeline < 1)
+        if (Input.GetKeyDown(KeyCode.N)  && globalVariables.currentTimeline < 1)
         {
             timeTravelUp();
         }
         //comando di sparo
         if (Input.GetKeyDown(KeyCode.S) && gunLoaded == true)
         {
+            animator.SetTrigger("Fire");
             Shoot();
         }
 
@@ -304,52 +288,41 @@ public class Justin : MonoBehaviour
     //passo al time sequence inferiore
     private void timeTravelDown()
     {
-        globalVariables.currentTimeline--;
-        transform.DetachChildren();
-        _groundCheck.transform.parent = transform;
-        armarture.transform.parent = transform;
-        chiattone.transform.parent = transform;
-        Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + 1f, planeDown.position.z);
-        Quaternion newRotation = transform.rotation;
-        Destroy(this.gameObject);
+        GameObject valigetta = Instantiate(valigettaPrefab, transform.position, transform.rotation);
+        valigetta.transform.localScale = transform.localScale;
 
-        Justin justin = Instantiate(this, newPosition, newRotation);
-        justin.enabled = true;
-        justin.gameObject.GetComponent<Animator>().enabled = true;
+        GameObject fulmine = Instantiate(fulminePrefab, transform.position, transform.rotation);
+        fulmine.transform.localScale = transform.localScale;
 
-        justin.gameObject.name = "Justin";
+        valigetta.transform.SetParent(transform);
+        fulmine.transform.SetParent(transform);
+
+
+        animator.SetTrigger("Throw");
+        StartCoroutine(teleportDownCoroutine(throwTime/4, valigetta, fulmine));
+
     }
 
     //passo al time sequence superiore
     private void timeTravelUp()
     {
-        globalVariables.currentTimeline++;
-        transform.DetachChildren();
-        _groundCheck.transform.parent = transform;
-        armarture.transform.parent = transform;
-        chiattone.transform.parent = transform;
-        Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + 1f, planeUp.position.z);
-        Quaternion newRotation = transform.rotation;
+        GameObject valigetta = Instantiate(valigettaPrefab, transform.position, transform.rotation);
+        valigetta.transform.localScale = transform.localScale;
 
-        Destroy(this.gameObject);
+        GameObject fulmine = Instantiate(fulminePrefab, transform.position, transform.rotation);
+        fulmine.transform.localScale = transform.localScale;
 
-        Justin justin = Instantiate(this, newPosition, newRotation);
-        justin.enabled = true;
-        justin.gameObject.GetComponent<Animator>().enabled = true;
+        valigetta.transform.SetParent(transform);
+        fulmine.transform.SetParent(transform);
 
-        justin.gameObject.name = "Justin";
+        animator.SetTrigger("Throw");
+        StartCoroutine(teleportUpCoroutine(throwTime/4, valigetta, fulmine));
     }
 
     //funzione per sparare
     private void Shoot()
     {
-        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2.5f + transform.up * 2f, Quaternion.identity);
-        bullet.transform.up = transform.forward;
-
-        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
-        bulletRigidbody.AddForce(transform.forward * shootForce, ForceMode.Impulse);
-
-        gunLoaded = false;
+        StartCoroutine(shootCoroutine(fireTime/2));
         StartCoroutine(timeToShootCoroutine(shootReloadTime));
 
     }
@@ -384,6 +357,20 @@ public class Justin : MonoBehaviour
         gunLoaded = true;
     }
 
+    private IEnumerator shootCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2.5f + transform.up * 2f, Quaternion.identity);
+        bullet.transform.up = transform.forward;
+
+        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        bulletRigidbody.AddForce(transform.forward * shootForce, ForceMode.Impulse);
+
+        gunLoaded = false;
+    }
+
+
+
     //couroutine per resettare la velocità dopo il dash
     private IEnumerator dashEndingCoroutine(float time)
     {
@@ -413,6 +400,50 @@ public class Justin : MonoBehaviour
         Destroy(interactable.gameObject);
 
     }
+
+    //coroutine per l'animazione di teletrasporto
+    private IEnumerator teleportUpCoroutine(float time, GameObject valigetta, GameObject fulmine)
+    {
+        yield return new WaitForSeconds(time);
+        globalVariables.currentTimeline++;
+        /*transform.DetachChildren();
+        _groundCheck.transform.parent = transform;
+        armarture.transform.parent = transform;
+        chiattone.transform.parent = transform;*/
+        Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + 1f, planeUp.position.z);
+        Quaternion newRotation = transform.rotation;
+
+        Destroy(this.gameObject);
+        Destroy(valigetta);
+        Destroy(fulmine);
+
+        Justin justin = Instantiate(this, newPosition, newRotation);
+        justin.enabled = true;
+        justin.gameObject.GetComponent<Animator>().enabled = true;
+
+        justin.gameObject.name = "Justin";
+    }
+
+    //coroutine per l'animazione di teletrasporto
+    private IEnumerator teleportDownCoroutine(float time, GameObject valigetta, GameObject fulmine)
+    {
+        yield return new WaitForSeconds(time);
+        globalVariables.currentTimeline--;
+
+        Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + 1f, planeUp.position.z);
+        Quaternion newRotation = transform.rotation;
+
+        Destroy(this.gameObject);
+        Destroy(valigetta);
+        Destroy(fulmine);
+
+        Justin justin = Instantiate(this, newPosition, newRotation);
+        justin.enabled = true;
+        justin.gameObject.GetComponent<Animator>().enabled = true;
+
+        justin.gameObject.name = "Justin";
+    }
+
 
 
 

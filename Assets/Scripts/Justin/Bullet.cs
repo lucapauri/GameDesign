@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public GlobalVariables globalVariables;
+   private GlobalVariables globalVariables;
 
 
     // Start is called before the first frame update

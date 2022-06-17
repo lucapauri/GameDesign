@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class UpCamera : MonoBehaviour
 {
     private float _inputSpeed;
     private float _speed = 5f;
+
+    private float verticalShift;
 
     private CharacterController _characterController;
     private GlobalVariables globalVariables;
@@ -26,7 +28,17 @@ public class Camera : MonoBehaviour
         // _inputSpeed = Input.GetAxis("Horizontal");
         //_characterController.Move(transform.right * _inputSpeed * _speed * Time.deltaTime);
 
-        transform.position = new Vector3(globalVariables.justin.transform.position.x, globalVariables.justin.transform.position.y, transform.position.z);
+        if (globalVariables.currentTimeline == 1)
+        {
+            verticalShift = globalVariables.justin.transform.position.y - globalVariables.upPlaneHeight;
+        }
+        if (globalVariables.currentTimeline == 0)
+        {
+            verticalShift = globalVariables.justin.transform.position.y - globalVariables.downPlaneHeight;
+        }
+
+
+        transform.position = new Vector3(globalVariables.justin.transform.position.x, globalVariables.upPlaneHeight + verticalShift, transform.position.z);
 
     }
 }
