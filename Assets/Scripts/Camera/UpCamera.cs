@@ -8,6 +8,7 @@ public class UpCamera : MonoBehaviour
     private float _speed = 5f;
 
     private float verticalShift;
+    private float offset = 3f; //trovare un modo furbo per definire l'offset
 
     private CharacterController _characterController;
     private GlobalVariables globalVariables;
@@ -38,7 +39,7 @@ public class UpCamera : MonoBehaviour
         }
 
 
-        transform.position = new Vector3(globalVariables.justin.transform.position.x, globalVariables.upPlaneHeight + verticalShift, transform.position.z);
+        transform.position = new Vector3(globalVariables.justin.transform.position.x, globalVariables.upPlaneHeight + verticalShift + offset, transform.position.z);
 
     }
 }

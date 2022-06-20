@@ -22,7 +22,7 @@ public class Justin : MonoBehaviour
 
     //jump variables
     [SerializeField] private float _gravity;
-     private float _groundDistance = 1f;
+    public float _groundDistance;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private float _jumpHeight = 3f;
     private bool _isGrounded;

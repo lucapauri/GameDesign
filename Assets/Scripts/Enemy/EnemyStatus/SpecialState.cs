@@ -46,8 +46,9 @@ public class SpecialState : State
                 if (distance<8f && Input.GetKeyDown(KeyCode.X))
                 {
                     enemy.currentStatus = simpleEnemy.MachineStatus.Patrol;
-                    GameObject spear = GameObject.FindGameObjectWithTag("spear");
-                    enemy.specialInteraction(spear);
+                    GameObject[] spear = GameObject.FindGameObjectsWithTag("spear");
+                    enemy.specialInteraction(spear[0]);
+                    enemy.specialInteraction(spear[1]);
                     
                 }
 
