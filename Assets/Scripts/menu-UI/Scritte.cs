@@ -6,6 +6,7 @@ public class Scritte : MonoBehaviour
 {
     private GameObject panel;
     private bool isActive;
+    private GameObject activeGo;
 
     // Start is called before the first frame update
     void Start()
@@ -18,17 +19,21 @@ public class Scritte : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isActive == true && Input.GetKeyDown(KeyCode.X))
+        if (isActive == true && Input.GetKeyDown(KeyCode.X))
+        {
             isActive = false;
+            Destroy(activeGo);
+        }
         if (isActive == false)
             setNotActive();
     }
 
-    public void setActive(string text)
+    public void setActive(string text, GameObject gameObject)
     {
         isActive = true;
         panel.SetActive(true);
         panel.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = text;
+        activeGo = gameObject;
     }
 
     public void setNotActive()
