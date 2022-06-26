@@ -38,7 +38,7 @@ public class AttackState : State
                 attackDistance = 6f;
                 break;
             case simpleEnemy.Type.rangeEnemy:
-                attackDistance = 25f;
+                attackDistance = 10f;
                 break;
         }
 
@@ -57,8 +57,6 @@ public class AttackState : State
         {
             enemy.target = enemy.globalVariables.gameObject;
         }
-
-        float distanceFromBase = Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.target.transform.position.x); //distanza dal punto di patroling
         float distance = Mathf.Abs(enemy.transform.position.x - enemy.target.transform.position.x); // distanza dal target
 
         //check per impedire che il nemico cerchi di attaccare il target se si trova su un altra timeline
@@ -80,8 +78,9 @@ public class AttackState : State
         //controllo che non sia un nemico che sta fermo
     if (enemy.standing == false)
     {
+            float distanceFromBase = Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.target.transform.position.x); //distanza dal punto di patroling
 
-        if (distance < attackDistance)
+            if (distance < attackDistance)
         {
              //il nemico ruota in modo da puntare il target
 
@@ -149,7 +148,7 @@ public class AttackState : State
     // identico a attacco di quelli sopra ma non si può muovere
         else
         {
-            Debug.Log(enemy.globalVariables.currentTimeline == enemy.currentTimeline);
+          
             if (distance < attackDistance && enemy.globalVariables.currentTimeline == enemy.currentTimeline)
             {
                 Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;

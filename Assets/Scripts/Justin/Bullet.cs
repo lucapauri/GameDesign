@@ -39,8 +39,8 @@ public class Bullet : MonoBehaviour
     public void teleportEnemy(GameObject enemy, int timeline)
     {
         globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
-        Vector3 upPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 22.61f, enemy.transform.position.z + 7.31f);
-        Vector3 downPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y - 22.61f, enemy.transform.position.z - 7.31f);
+        Vector3 upPos = new Vector3(enemy.transform.position.x, globalVariables.upPlaneHeight, enemy.transform.position.z);
+        Vector3 downPos = new Vector3(enemy.transform.position.x, globalVariables.downPlaneHeight, enemy.transform.position.z);
         Quaternion newRot = enemy.transform.rotation;
         Destroy(enemy);
 
@@ -48,7 +48,9 @@ public class Bullet : MonoBehaviour
         {
             GameObject go = Instantiate(enemy, downPos, newRot);
             simpleEnemy script = go.GetComponent<simpleEnemy>();
+            Animator enemyAnimator = go.GetComponent<Animator>();
             script.enabled = true;
+            enemyAnimator.enabled = true;
             script.currentOrigin = simpleEnemy.Origin.TeleportedDown;
 
         }
@@ -57,7 +59,9 @@ public class Bullet : MonoBehaviour
 
             GameObject go = Instantiate(enemy, upPos, newRot);
             simpleEnemy script = go.GetComponent<simpleEnemy>();
+            Animator enemyAnimator = go.GetComponent<Animator>();
             script.enabled = true;
+            enemyAnimator.enabled = true;
             script.currentOrigin = simpleEnemy.Origin.TeleportedUp;
         }
 

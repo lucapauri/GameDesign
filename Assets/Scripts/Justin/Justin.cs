@@ -370,7 +370,7 @@ public class Justin : MonoBehaviour
     private IEnumerator shootCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2.5f + transform.up * 2f, Quaternion.identity);
+        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2.5f + transform.up * 1f, Quaternion.identity);
         bullet.transform.up = transform.forward;
 
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();

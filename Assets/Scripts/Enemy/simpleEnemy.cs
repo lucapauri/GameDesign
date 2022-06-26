@@ -32,6 +32,7 @@ public class simpleEnemy : MonoBehaviour
     public bool readyToPatrol;
     private AnimationClip[] clips;
     private float TrexAttackTime;
+    private float DeathTime;
 
 
     public enum MachineStatus //stati della macchina agli stati finiti
@@ -108,7 +109,12 @@ public class simpleEnemy : MonoBehaviour
                         TrexAttackTime = clip.length;
                         break;
 
+                    case "Death":
+                        DeathTime = clip.length;
+                        break;
+
                     default:
+                        DeathTime = 0;
                         break;
                 }
             }
@@ -165,7 +171,8 @@ public class simpleEnemy : MonoBehaviour
         if (enemyLife == 0)
         {
             globalVariables.enemies.Remove(this);
-            Destroy(gameObject);
+            enemyAnimator.SetTrigger("Death");
+            StartCoroutine(DeathCoroutine(DeathTime));
         }
 
 
@@ -174,7 +181,6 @@ public class simpleEnemy : MonoBehaviour
     //funzione di attacco, unica per tutti i tipi di nemici
     public void attack()
     {
-        Debug.Log("attack");
        
         switch (enemyType)
         {
@@ -277,9 +283,16 @@ public class simpleEnemy : MonoBehaviour
     //coroutine che aspetta che l'animiazione di attacco finisca prima di far tornare in patrol il nemico
     public IEnumerator enemyKilledCoroutine(float timeToEndAnim)
     {
-        Debug.Log("enemyKilledCoroutine");
+     
         yield return new WaitForSeconds(timeToEndAnim);
         readyToPatrol = true;
+    }
+
+    public IEnumerator DeathCoroutine(float timeToEndAnim)
+    {
+
+        yield return new WaitForSeconds(timeToEndAnim);
+        Destroy(this.gameObject);
     }
 
 
