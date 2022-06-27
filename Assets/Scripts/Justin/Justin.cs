@@ -211,9 +211,7 @@ public class Justin : MonoBehaviour
 
         if (globalVariables.justinLife == 0)
         {
-            transform.DetachChildren();
-            Destroy(armarture.gameObject);
-            Destroy(chiattone.gameObject);
+            
             Destroy(gameObject);
         }
 
@@ -309,6 +307,8 @@ public class Justin : MonoBehaviour
 
 
         animator.SetTrigger("Throw");
+
+        _gravity = -4f;
         StartCoroutine(teleportDownCoroutine(throwTime/4, valigetta, fulmine));
 
     }
@@ -326,6 +326,8 @@ public class Justin : MonoBehaviour
         fulmine.transform.SetParent(transform);
 
         animator.SetTrigger("Throw");
+
+        _gravity = -4f;
         StartCoroutine(teleportUpCoroutine(throwTime/4, valigetta, fulmine));
     }
 
@@ -413,11 +415,10 @@ public class Justin : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         globalVariables.currentTimeline++;
-        /*transform.DetachChildren();
-        _groundCheck.transform.parent = transform;
-        armarture.transform.parent = transform;
-        chiattone.transform.parent = transform;*/
-        Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + 1f, planeUp.position.z);
+        _gravity = -9.81f;
+
+        float groundDistance = transform.position.y - planeDown.position.y;
+        Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + groundDistance, planeUp.position.z);
         Quaternion newRotation = transform.rotation;
         Destroy(this.gameObject);
         Justin justin = Instantiate(this, newPosition, newRotation);
@@ -433,8 +434,9 @@ public class Justin : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         globalVariables.currentTimeline--;
-
-        Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + 1f, planeUp.position.z);
+        _gravity = -9.81f;
+        float groundDistance = transform.position.y - planeUp.position.y;
+        Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + groundDistance, planeUp.position.z);
         Quaternion newRotation = transform.rotation;
 
         Destroy(this.gameObject);

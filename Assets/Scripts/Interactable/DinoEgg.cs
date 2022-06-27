@@ -31,7 +31,8 @@ public class DinoEgg : MonoBehaviour
 
     private void generateDino()
     {
-        GameObject ptero=Instantiate(dino, this.transform.position, Quaternion.identity);
+        Quaternion instRot = Quaternion.LookRotation(Vector3.right, Vector3.up);
+        GameObject ptero=Instantiate(dino, this.transform.position, instRot);
         BabyPtero script=ptero.GetComponent<BabyPtero>();
         script.enabled = true;
 

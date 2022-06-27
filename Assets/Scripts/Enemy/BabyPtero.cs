@@ -100,7 +100,7 @@ public class BabyPtero : MonoBehaviour
             }
             walkingSequence = DOTween.Sequence();
 
-            walkingSequence.Append(transform.DOPath(pathPositions, 8, PathType.CatmullRom, PathMode.Sidescroller2D, resolution: 10).SetEase(Ease.Linear)
+            walkingSequence.Append(transform.DOPath(pathPositions, 8, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear).SetLookAt(0.01f)
                 .SetId("walking").OnComplete(
                 () => searchPath()
 

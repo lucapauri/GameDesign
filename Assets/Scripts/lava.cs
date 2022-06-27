@@ -13,15 +13,16 @@ public class lava : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == 10)
         {
             globalVariables.justinLife = 0;
+            Debug.Log("die Justin!!");
         }
         else if (collision.gameObject.layer != 6)
         {
-            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 
