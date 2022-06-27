@@ -34,7 +34,7 @@ public class Justin : MonoBehaviour
     private float shootForce = 30f;
     private float shootReloadTime = 10f;
     private bool gunLoaded;
-    private float dashTime = 0.5f;
+    private float dashTime = 0.2f;
     public bool _dash;
     private float maxDashCheckDistance = 15f;
     [SerializeField] private LayerMask dashLayerMask;

@@ -15,6 +15,7 @@ TagManager:
   - interactionPoints
   - ScritteCanvas
   - ScrittePanel
+  - PteroWayroot
   layers:
   - Default
   - TransparentFX

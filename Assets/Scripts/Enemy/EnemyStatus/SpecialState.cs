@@ -53,6 +53,13 @@ public class SpecialState : State
                 }
 
                 break;
+
+            case simpleEnemy.Specials.babyPtero:
+                enemy.justin = enemy.globalVariables.justin;
+                enemy.wayRoot = GameObject.FindGameObjectWithTag("PteroWayroot").transform;
+                enemy.currentStatus = simpleEnemy.MachineStatus.Patrol;
+                break;
+
           
         }
 

@@ -38,7 +38,7 @@ public class AttackState : State
                 attackDistance = 6f;
                 break;
             case simpleEnemy.Type.rangeEnemy:
-                attackDistance = 10f;
+                attackDistance = 20f;
                 break;
         }
 
@@ -148,6 +148,7 @@ public class AttackState : State
     // identico a attacco di quelli sopra ma non si può muovere
         else
         {
+            attackDistance = 20f;
           
             if (distance < attackDistance && enemy.globalVariables.currentTimeline == enemy.currentTimeline)
             {

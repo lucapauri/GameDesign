@@ -5,10 +5,10 @@ using UnityEngine;
 public class InteractionsFromInventory : MonoBehaviour
 { 
 
-    public Dictionary<string, Vector3> interactionMap = new Dictionary<string, Vector3>();
+    public Dictionary<string, float> interactionMap = new Dictionary<string, float>();
     GameObject[] interactionPoints;
 
-    private float rightDistance = 5f;
+    private float rightDistance = 15f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class InteractionsFromInventory : MonoBehaviour
 
         foreach (GameObject child in interactionPoints)
         {
-            interactionMap.Add(child.name, child.transform.position);
+            interactionMap.Add(child.name, child.transform.position.x);
         }
         
     }
@@ -27,8 +27,8 @@ public class InteractionsFromInventory : MonoBehaviour
         switch (go.name)
         {
             case "BabyDino ":
-                Vector3 rightPos = interactionMap["BabyDinoPoint"];
-                if (Vector3.Distance(rightPos, instPosition) < rightDistance)
+                float rightPos = interactionMap["BabyDinoPoint"];
+                if (Mathf.Abs(rightPos - instPosition.x) < rightDistance)
                 {
                     Debug.Log("checkInteractions");
                     go.GetComponent<DinoEgg>().enabled = true;

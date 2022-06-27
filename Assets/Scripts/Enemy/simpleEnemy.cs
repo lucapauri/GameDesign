@@ -33,6 +33,7 @@ public class simpleEnemy : MonoBehaviour
     private AnimationClip[] clips;
     private float TrexAttackTime;
     private float DeathTime;
+    private bool dead;
 
 
     public enum MachineStatus //stati della macchina agli stati finiti
@@ -58,7 +59,8 @@ public class simpleEnemy : MonoBehaviour
     public enum Specials //enum per indicare i  nemici speciali
     {
         none,
-        trexFriend
+        trexFriend,
+        babyPtero
     }
 
     //specie del nemico
@@ -95,6 +97,8 @@ public class simpleEnemy : MonoBehaviour
                 break;
 
         }
+
+        dead = false;
 
         //cerco la durata delle clip di attacco, mi servirà per far matchare l'istante in cui il nemico colpisce con quello in cui il target perde vita
         if (GetComponent<Animator>())
@@ -168,10 +172,12 @@ public class simpleEnemy : MonoBehaviour
        
             finiteStateMachine.Tik();
 
-        if (enemyLife == 0)
+        if (enemyLife == 0 && dead==false)
         {
+            dead = true;
             globalVariables.enemies.Remove(this);
             enemyAnimator.SetTrigger("Death");
+            Debug.Log(DeathTime);
             StartCoroutine(DeathCoroutine(DeathTime));
         }
 
@@ -267,7 +273,7 @@ public class simpleEnemy : MonoBehaviour
                         break;
 
                     default:
-
+                        StartCoroutine(enemyKilledCoroutine(0));
                         break;
                 }
             }

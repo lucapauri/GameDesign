@@ -61,14 +61,14 @@ public class InventoryMenu : MonoBehaviour
             else
             {
                 Vector3 instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 3f;
-                Quaternion instRot = globalVariables.justin.transform.rotation;
+                Quaternion instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
                 string buttonText = buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
                 string name = "Meshes/"+buttonText;
-                GameObject goInstance = Instantiate(Resources.Load(name) as GameObject, instPos, instRot);
+                GameObject goInstance = Instantiate(Resources.Load(name) as GameObject, instPos, Quaternion.identity);
                 goInstance.name = buttonText;
                 Destroy(buttons[activeButton]);
                 buttons.Remove(buttons[activeButton]);
-                interactions.checkInteractions(goInstance, instPos );
+                interactions.checkInteractions(goInstance, instPos);
                 globalVariables.inventory.Remove(buttonText);
                 setMenuFalse();
 
