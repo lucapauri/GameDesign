@@ -18,7 +18,7 @@ public class TotemEmpty : MonoBehaviour
     void Update()
     {
         if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 1)
-            scritte.setActive("Premi X per piantare il baobab", gameObject);
+            scritte.setActive("Premi I per piantare il baobab", gameObject);
         if (scritte.active() && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 1)
             scritte.setNotActive();
     }

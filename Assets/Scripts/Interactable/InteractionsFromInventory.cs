@@ -8,7 +8,8 @@ public class InteractionsFromInventory : MonoBehaviour
     public Dictionary<string, float> interactionMap = new Dictionary<string, float>();
     GameObject[] interactionPoints;
 
-    private float rightDistance = 15f;
+    private float rightDistanceDino = 15f;
+    private float rightDistanceBanana = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class InteractionsFromInventory : MonoBehaviour
         foreach (GameObject child in interactionPoints)
         {
             interactionMap.Add(child.name, child.transform.position.x);
+            Debug.Log(interactionMap.Count);
         }
         
     }
@@ -27,11 +29,19 @@ public class InteractionsFromInventory : MonoBehaviour
         switch (go.name)
         {
             case "BabyDino ":
-                float rightPos = interactionMap["BabyDinoPoint"];
-                if (Mathf.Abs(rightPos - instPosition.x) < rightDistance)
+                float rightPos1 = interactionMap["BabyDinoPoint"];
+                if (Mathf.Abs(rightPos1 - instPosition.x) < rightDistanceDino)
                 {
                     Debug.Log("checkInteractions");
                     go.GetComponent<DinoEgg>().enabled = true;
+                }
+                break;
+            case "Banana ":
+                float rightPos2 = interactionMap["BananaPoint"];
+                if (Mathf.Abs(rightPos2 - instPosition.x) < rightDistanceBanana)
+                {
+                    Debug.Log("checkInteractions");
+                    go.GetComponent<BananaPlant>().enabled = true;
                 }
                 break;
         }

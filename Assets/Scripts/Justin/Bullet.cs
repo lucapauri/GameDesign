@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
         }
 
         //codice per la collisione del proiettile con proiettili nemici
-        if (collision.gameObject.GetComponent<enemyBullet>())
+        if (collision.gameObject.GetComponent<enemyBullet>() || collision.gameObject.GetComponent<Teleportable>())
         {
             teleportBullet(collision.gameObject, globalVariables.currentTimeline);
         }
@@ -71,8 +71,9 @@ public class Bullet : MonoBehaviour
     //funzione per il teletrasporto dei proiettili
     public void teleportBullet(GameObject bullet, int timeline)
     {
-        Vector3 upPos = new Vector3(bullet.transform.position.x, bullet.transform.position.y + 24.11f, bullet.transform.position.z + 7.31f);
-        Vector3 downPos = new Vector3(bullet.transform.position.x, bullet.transform.position.y - 21.11f, bullet.transform.position.z - 7.31f);
+        //aggiungere codice per far si che gli oggetti vengano teletrasportati all'altezza a cui vengono colpiti
+        Vector3 upPos = new Vector3(bullet.transform.position.x, globalVariables.upPlaneHeight + 4f, bullet.transform.position.z);
+        Vector3 downPos = new Vector3(bullet.transform.position.x, globalVariables.downPlaneHeight + 4f, bullet.transform.position.z);
         Quaternion newRot = bullet.transform.rotation;
         Destroy(bullet);
 
@@ -81,16 +82,33 @@ public class Bullet : MonoBehaviour
         {
 
             GameObject go = Instantiate(bullet, downPos, newRot);
-            enemyBullet script = go.GetComponent<enemyBullet>();
-            script.enabled = true;
+            if (go.GetComponent<enemyBullet>())
+            {
+                enemyBullet script = go.GetComponent<enemyBullet>();
+                script.enabled = true;
+            }
+            else
+            {
+                Teleportable script = go.GetComponent<Teleportable>();
+                script.enabled = true;
+            }
+           
 
         }
         else
         {
 
             GameObject go = Instantiate(bullet, upPos, newRot);
-            enemyBullet script = go.GetComponent<enemyBullet>();
-            script.enabled = true;
+            if (go.GetComponent<enemyBullet>())
+            {
+                enemyBullet script = go.GetComponent<enemyBullet>();
+                script.enabled = true;
+            }
+            else
+            {
+                Teleportable script = go.GetComponent<Teleportable>();
+                script.enabled = true;
+            }
 
         }
     }

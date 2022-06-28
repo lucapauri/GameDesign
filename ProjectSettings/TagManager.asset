@@ -16,6 +16,8 @@ TagManager:
   - ScritteCanvas
   - ScrittePanel
   - PteroWayroot
+  - BananaInteractions
+  - Door
   layers:
   - Default
   - TransparentFX
