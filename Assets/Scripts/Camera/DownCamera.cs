@@ -8,10 +8,15 @@ public class DownCamera : MonoBehaviour
     private float _speed = 5f;
 
     private float verticalShift;
-    private float offset = 3f; //trovare un modo furbo per definire l'offset
+    private float horizOffset = 3f;
+    private float vertOffset = 3f;
+    private float offsetSmoothing = 3f;
 
     private CharacterController _characterController;
     private GlobalVariables globalVariables;
+
+    private Vector3 futurePos;
+    private Transform justin;
 
 
     // Start is called before the first frame update
@@ -26,8 +31,6 @@ public class DownCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // _inputSpeed = Input.GetAxis("Horizontal");
-        //_characterController.Move(transform.right * _inputSpeed * _speed * Time.deltaTime);
 
         if (globalVariables.currentTimeline == 1)
         {
@@ -38,8 +41,19 @@ public class DownCamera : MonoBehaviour
             verticalShift = globalVariables.justin.transform.position.y - globalVariables.downPlaneHeight;
         }
 
+        justin = globalVariables.justin.transform;
 
-        transform.position = new Vector3(globalVariables.justin.transform.position.x, globalVariables.downPlaneHeight + verticalShift + offset, transform.position.z);
+        if (justin.transform.forward.x > 0f)
+        {
+            futurePos = new Vector3(justin.position.x + horizOffset, globalVariables.downPlaneHeight + verticalShift + vertOffset, transform.position.z);
+        }
+
+        else
+        {
+            futurePos = new Vector3(justin.position.x - horizOffset, globalVariables.downPlaneHeight + verticalShift + vertOffset, transform.position.z);
+        }
+
+        transform.position = Vector3.Lerp(transform.position, futurePos, offsetSmoothing * Time.deltaTime);
 
     }
 }

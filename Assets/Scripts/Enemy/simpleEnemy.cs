@@ -34,13 +34,19 @@ public class simpleEnemy : MonoBehaviour
     private float TrexAttackTime;
     private float DeathTime;
     private bool dead;
+    public float huntLimitDistance;
+
+    //groundCheck
+    private float _groundDistance = 1f;
+    [SerializeField] private LayerMask _enemyGroundMask;
+    public bool _isGrounded;
 
 
     public enum MachineStatus //stati della macchina agli stati finiti
     {
         Patrol,
         Attack,
-        Special
+        Falling
     }
 
     public enum Origin //enum per dire se il nemico è stato teletrasportato e dove
@@ -59,14 +65,8 @@ public class simpleEnemy : MonoBehaviour
     public enum Specials //enum per indicare i  nemici speciali
     {
         none,
-        trexFriend,
-        babyPtero
-    }
-
-    //specie del nemico
-    public enum spieces
-    {
-
+        trex,
+        robot
     }
 
     public MachineStatus currentStatus;
@@ -134,50 +134,63 @@ public class simpleEnemy : MonoBehaviour
         //STATES
         State patrolState = new PatrolState("patrol", this);
         State attackState = new AttackState("attack", this);
-        State specialState = new SpecialState("special", this);
+        State fallingState = new FallingState("falling", this);
 
 
         //TRANSITIONS
         finiteStateMachine.AddTransition(patrolState, attackState, () => currentStatus == MachineStatus.Attack);
         finiteStateMachine.AddTransition(attackState, patrolState, () => currentStatus == MachineStatus.Patrol);
-        finiteStateMachine.AddTransition(specialState, patrolState, () => currentStatus == MachineStatus.Patrol);
+        finiteStateMachine.AddTransition(patrolState, fallingState, () => currentStatus == MachineStatus.Falling);
+        finiteStateMachine.AddTransition(attackState, fallingState, () => currentStatus == MachineStatus.Falling);
+        finiteStateMachine.AddTransition(fallingState, patrolState, () => currentStatus == MachineStatus.Patrol);
+        finiteStateMachine.AddTransition(fallingState, attackState, () => currentStatus == MachineStatus.Attack);
+
 
         //scelgo lo stato iniziale
-        if (special == Specials.none && standing==false)
+        if (standing)
         {
-            finiteStateMachine.SetState(patrolState);
-        }
-        else
-        {
-            if (standing == false)
-            {
-                finiteStateMachine.SetState(specialState);
-                currentStatus = MachineStatus.Special;
-            }
-            else
-            {
-                finiteStateMachine.SetState(attackState);
-                currentStatus = MachineStatus.Attack;
-            }
+            finiteStateMachine.SetState(attackState);
+            currentStatus = MachineStatus.Attack;
         }
 
+        else
+        {
+            finiteStateMachine.SetState(patrolState);
+            currentStatus = MachineStatus.Patrol;
+        }
+
+        huntLimitDistance = Mathf.Abs(wayRoot.transform.position.x - wayRoot.GetChild(0).transform.position.x);
+
+
         globalVariables.enemies.Add(this);
-        target = globalVariables.gameObject;
+        target = justin.gameObject;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-            finiteStateMachine.Tik();
+        RaycastHit groundInfo;
+        Ray groundRay = new Ray(transform.position, -transform.up);
+        _isGrounded = !Physics.Raycast(groundRay, out groundInfo, _groundDistance, _enemyGroundMask);
+
+        if (_isGrounded)
+        {
+            currentStatus = MachineStatus.Falling;
+        }
+
+        finiteStateMachine.Tik();
+
+
 
         if (enemyLife == 0 && dead==false)
         {
             dead = true;
             globalVariables.enemies.Remove(this);
-            enemyAnimator.SetTrigger("Death");
-            Debug.Log(DeathTime);
+            if (GetComponent<Animator>())
+            {
+                enemyAnimator.SetTrigger("Death");
+            }
             StartCoroutine(DeathCoroutine(DeathTime));
         }
 
@@ -187,28 +200,33 @@ public class simpleEnemy : MonoBehaviour
     //funzione di attacco, unica per tutti i tipi di nemici
     public void attack()
     {
-       
+
         switch (enemyType)
         {
             //definisco il comportamento per i nemici di tipo melee
             case simpleEnemy.Type.meleeEnemy:
 
-                //attivo animazione di attacco 
-                enemyAnimator.SetTrigger("Attack");
+                //attivo animazione di attacco
+                if (GetComponent<Animator>())
+                {
+                    enemyAnimator.SetTrigger("Attack");
+                }
                 //controllo se il target è un intruso oppure justin
                 if(target.GetComponent<simpleEnemy>()!=null)
                 {
-                    //controllo se il nemico è speciale, se lo è cerco di far si che la vita venga tolta al target nell'istante in cui l'animazione di attacco effettivamento colpisce il bersaglio
-                    switch (special)
-                    {
-                        case Specials.trexFriend:
-                            StartCoroutine(hitTargetCoroutine(TrexAttackTime / 3));
-                        break;
+                   
+                        //controllo se il nemico è speciale, se lo è cerco di far si che la vita venga tolta al target nell'istante in cui l'animazione di attacco effettivamento colpisce il bersaglio
+                        switch (special)
+                        {
+                            case Specials.trex:
+                                StartCoroutine(hitTargetCoroutine(TrexAttackTime / 3));
+                                break;
 
-                        default:
-                            StartCoroutine(hitTargetCoroutine(0.5f));
-                            break;
-                    }
+                            default:
+                                StartCoroutine(hitTargetCoroutine(0.5f));
+                                break;
+                        }
+                   
 
                 }
                 else
@@ -216,11 +234,12 @@ public class simpleEnemy : MonoBehaviour
                     //come sopra ma per justin
                     switch (special)
                     {
-                        case Specials.trexFriend:
+                        case Specials.trex:
                             StartCoroutine(hitTargetCoroutine(TrexAttackTime / 3));
                             break;
 
                         default:
+                            Debug.Log("robot attacking justin");
                             StartCoroutine(hitTargetCoroutine(0.5f));
                             break;
                     }
@@ -240,27 +259,17 @@ public class simpleEnemy : MonoBehaviour
        
     }
 
-    //funzione uica per far fare interazioni speciali ai  nemici speciali
-    public void specialInteraction(GameObject obj)
-    {
-        //cerco il tipo di nemico speciale
-        switch (special)
-        {
-            case simpleEnemy.Specials.trexFriend:
-                Destroy(obj);
-                break;
-           
-        }
-
-
-    }
+    
 
 
     //coroutine che aspetta un pò prima di togliere la vita al target colpito, il tempo timeToHIt indica il tempo che l'animazione impega a far partire il colpo
     public IEnumerator hitTargetCoroutine(float timeToHit)
     {
         yield return new WaitForSeconds(timeToHit);
-        if (target.GetComponent<simpleEnemy>())
+        // se il nemico è all' altezza giusta infliggo danno, se no il colpo parte ma non fa danno andando a vuoto (tipo se justin sta saltando)
+        float verticalDistance = Mathf.Abs(target.transform.position.y - transform.position.y);
+
+        if (target.GetComponent<simpleEnemy>() && verticalDistance < 1f)
         {
             target.GetComponent<simpleEnemy>().enemyLife -= 1;
             //se il nemico è stato ucciso do il tempo al nemico di finire l'animazione di attacco per poi farlo tornare in patrol
@@ -268,7 +277,7 @@ public class simpleEnemy : MonoBehaviour
             {
                 switch (special)
                 {
-                    case Specials.trexFriend:
+                    case Specials.trex:
                         StartCoroutine(enemyKilledCoroutine(TrexAttackTime * 2/3 ));
                         break;
 
@@ -278,7 +287,7 @@ public class simpleEnemy : MonoBehaviour
                 }
             }
         }
-        else if (target.GetComponent<Justin>())
+        else if (target.GetComponent<Justin>() && verticalDistance < 1f)
         {
             globalVariables.justinLife -= 1;
            

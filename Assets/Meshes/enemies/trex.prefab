@@ -2575,6 +2575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6212127396074031167}
   - component: {fileID: 60169814224327237}
+  - component: {fileID: 1413807978911923624}
   m_Layer: 0
   m_Name: trex
   m_TagString: Untagged
@@ -2617,6 +2618,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &1413807978911923624
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6736884045562991237}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0901623, y: 4.735411, z: 4.4921803}
+  m_Center: {x: 0.14102983, y: 1.8677056, z: 0.060678244}
 --- !u!1 &6760187241243238884
 GameObject:
   m_ObjectHideFlags: 0

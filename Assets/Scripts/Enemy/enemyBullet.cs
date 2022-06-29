@@ -26,7 +26,6 @@ public class enemyBullet : MonoBehaviour
         shootForce -= 0.4f * (shootForce);
         rb.AddForce(transform.up * Mathf.Abs(shootForce) * 2, ForceMode.Impulse);
         globalVariables = FindObjectOfType<GlobalVariables>();
-        Debug.Log(time);
 
         //todo aggiungere calcoli per muovere proiettile anche in y
     }

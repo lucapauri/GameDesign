@@ -24,15 +24,17 @@ public class Justin : MonoBehaviour
     [SerializeField] private float _gravity;
     public float _groundDistance;
     [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private LayerMask _jumpMask;
     [SerializeField] private float _jumpHeight = 3f;
     private bool _isGrounded;
+    private bool highJump;
 
 
     // world interactions variables
     public GlobalVariables globalVariables;
     public Bullet bulletPrefab;
     private float shootForce = 30f;
-    private float shootReloadTime = 10f;
+    private float shootReloadTime = 5f;
     private bool gunLoaded;
     private float dashTime = 0.2f;
     public bool _dash;
@@ -135,31 +137,25 @@ public class Justin : MonoBehaviour
 
 
         //Ground Check
-        _isGrounded = Physics.CheckSphere(transform.position, _groundDistance, _groundMask);
+        //_isGrounded = Physics.CheckSphere(transform.position, _groundDistance, _groundMask);
 
-   
-        if (_isGrounded && _velocity.y < 0f)
+        RaycastHit groundInfo;
+        Ray groundRay = new Ray(transform.position, -transform.up);
+        _isGrounded = Physics.Raycast(groundRay, out groundInfo, _groundDistance, _groundMask);
+
+        RaycastHit jumpInfo;
+        Ray jumpRay = new Ray(transform.position, -transform.up);
+        highJump = Physics.Raycast(jumpRay, out jumpInfo, _groundDistance, _jumpMask);
+
+
+
+
+
+
+            if (_isGrounded && _velocity.y < 0f)
         {
             _velocity.y = -2f;
         }
-
-
-        _inputSpeed = Input.GetAxis("Horizontal");
-        _inputVector = new Vector3(-1 * _inputSpeed, 0, 0);
-
-
-
-        _targetDirection = _cameraT.TransformDirection(_inputVector).normalized;
-        _targetDirection.y = 0f;
-        _characterController.Move(transform.forward * Mathf.Abs(_inputSpeed) * _speed * Time.deltaTime);
-
-
-        float step = rotationSpeed * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, _inputVector, step, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDir, transform.up);
-
-
-
 
 
         //animazione
@@ -173,10 +169,10 @@ public class Justin : MonoBehaviour
             movingTime = movingTime + 0.003f;
         animator.SetFloat("Blend", movingTime);
 
-        //gravity
+        _inputSpeed = Input.GetAxis("Horizontal");
+        _inputVector = new Vector3(-1 * _inputSpeed, 0, 0);
 
-        _velocity.y += _gravity * Time.deltaTime;
-        _characterController.Move(_velocity * Time.deltaTime);
+
 
 
         //raycast per gli interactable
@@ -198,7 +194,17 @@ public class Justin : MonoBehaviour
         }
 
         //raycasting per togliere i collider ai nemici in dash
-        if (Physics.Raycast(ray, out hitInfo, maxDashCheckDistance, dashLayerMask) && _dash == true)
+        if (Physics.Raycast(ray, out hitInfo, maxDashCheckDistance, dashLayerMask) && !_dash && _inputSpeed > 0f)
+        {
+
+            _inputSpeed = 0;
+
+        }
+
+
+
+        //raycasting per togliere i collider ai nemici in dash
+        if (Physics.Raycast(ray, out hitInfo, maxDashCheckDistance, dashLayerMask) && _dash)
         {
 
             hitInfo.collider.enabled = false;
@@ -206,7 +212,18 @@ public class Justin : MonoBehaviour
 
         }
 
-      
+
+        _targetDirection = _cameraT.TransformDirection(_inputVector).normalized;
+        _targetDirection.y = 0f;
+        _characterController.Move(transform.forward * Mathf.Abs(_inputSpeed) * _speed * Time.deltaTime);
+
+
+        float step = rotationSpeed * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, _inputVector, step, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newDir, transform.up);
+
+
+
         //dying
 
         if (globalVariables.justinLife == 0)
@@ -237,9 +254,15 @@ public class Justin : MonoBehaviour
         //COMANDI-->
 
         //jumping
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded && !highJump)
         {
             _velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
+            animator.SetTrigger("Jump");
+
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && highJump)
+        {
+            _velocity.y = Mathf.Sqrt(_jumpHeight * -4 * _gravity);
             animator.SetTrigger("Jump");
 
         }
@@ -251,6 +274,8 @@ public class Justin : MonoBehaviour
         }
 
         //gravity
+        _velocity.y += _gravity * Time.deltaTime;
+        _characterController.Move(_velocity * Time.deltaTime);
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
 
@@ -371,6 +396,7 @@ public class Justin : MonoBehaviour
 
     private IEnumerator shootCoroutine(float time)
     {
+        gunLoaded = false;
         yield return new WaitForSeconds(time);
         Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2.5f + transform.up * 1f, Quaternion.identity);
         bullet.transform.up = transform.forward;
@@ -378,7 +404,6 @@ public class Justin : MonoBehaviour
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
         bulletRigidbody.AddForce(transform.forward * shootForce, ForceMode.Impulse);
 
-        gunLoaded = false;
     }
 
 

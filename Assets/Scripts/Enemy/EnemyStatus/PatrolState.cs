@@ -12,7 +12,7 @@ public class PatrolState : State
     //variabili per il controllo del patroling
     public Sequence walkingSequence;
     private float pathDuration = 10f;
-    private float targetVisibleDistance = 20f;
+    private float targetVisibleDistance = 15f;
 
 
 
@@ -36,6 +36,11 @@ public class PatrolState : State
         {
             enemy.readyToPatrol = false;
         }
+
+        if (enemy.special == simpleEnemy.Specials.robot)
+        {
+            targetVisibleDistance = 4f;
+        }
     }
 
     public override void Exit()
@@ -45,9 +50,9 @@ public class PatrolState : State
 
     public override void Tik()
     {
-        float distanceFromJustin = Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.justin.transform.position.x);
+        float distanceFromJustin = Mathf.Abs(enemy.transform.position.x - enemy.justin.transform.position.x);
         bool TimelineCheck = enemy.globalVariables.currentTimeline == enemy.currentTimeline;
-        if (distanceFromJustin < targetVisibleDistance && TimelineCheck && enemy.special==simpleEnemy.Specials.none)
+        if (distanceFromJustin < targetVisibleDistance && TimelineCheck )
         {
             enemy.target = enemy.justin.gameObject;
             enemy.currentStatus = simpleEnemy.MachineStatus.Attack;

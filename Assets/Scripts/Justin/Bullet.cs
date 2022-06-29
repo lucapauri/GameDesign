@@ -38,9 +38,10 @@ public class Bullet : MonoBehaviour
     //funzione per il teletrasporto dei nemici
     public void teleportEnemy(GameObject enemy, int timeline)
     {
+        float bias = globalVariables.upPlaneHeight - globalVariables.downPlaneHeight;
         globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
-        Vector3 upPos = new Vector3(enemy.transform.position.x, globalVariables.upPlaneHeight, enemy.transform.position.z);
-        Vector3 downPos = new Vector3(enemy.transform.position.x, globalVariables.downPlaneHeight, enemy.transform.position.z);
+        Vector3 upPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y + bias, enemy.transform.position.z);
+        Vector3 downPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y - bias, enemy.transform.position.z);
         Quaternion newRot = enemy.transform.rotation;
         Destroy(enemy);
 
