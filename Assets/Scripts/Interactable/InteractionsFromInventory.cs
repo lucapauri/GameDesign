@@ -19,7 +19,6 @@ public class InteractionsFromInventory : MonoBehaviour
         foreach (GameObject child in interactionPoints)
         {
             interactionMap.Add(child.name, child.transform.position.x);
-            Debug.Log(interactionMap.Count);
         }
         
     }
@@ -32,7 +31,6 @@ public class InteractionsFromInventory : MonoBehaviour
                 float rightPos1 = interactionMap["BabyDinoPoint"];
                 if (Mathf.Abs(rightPos1 - instPosition.x) < rightDistanceDino)
                 {
-                    Debug.Log("checkInteractions");
                     go.GetComponent<DinoEgg>().enabled = true;
                 }
                 break;
@@ -40,7 +38,6 @@ public class InteractionsFromInventory : MonoBehaviour
                 float rightPos2 = interactionMap["BananaPoint"];
                 if (Mathf.Abs(rightPos2 - instPosition.x) < rightDistanceBanana)
                 {
-                    Debug.Log("checkInteractions");
                     go.GetComponent<BananaPlant>().enabled = true;
                 }
                 break;

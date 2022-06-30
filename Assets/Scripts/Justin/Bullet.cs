@@ -51,7 +51,10 @@ public class Bullet : MonoBehaviour
             simpleEnemy script = go.GetComponent<simpleEnemy>();
             Animator enemyAnimator = go.GetComponent<Animator>();
             script.enabled = true;
-            enemyAnimator.enabled = true;
+            if (enemyAnimator)
+            {
+                enemyAnimator.enabled = true;
+            }
             script.currentOrigin = simpleEnemy.Origin.TeleportedDown;
 
         }
@@ -62,7 +65,10 @@ public class Bullet : MonoBehaviour
             simpleEnemy script = go.GetComponent<simpleEnemy>();
             Animator enemyAnimator = go.GetComponent<Animator>();
             script.enabled = true;
-            enemyAnimator.enabled = true;
+            if (enemyAnimator)
+            {
+                enemyAnimator.enabled = true;
+            }
             script.currentOrigin = simpleEnemy.Origin.TeleportedUp;
         }
 

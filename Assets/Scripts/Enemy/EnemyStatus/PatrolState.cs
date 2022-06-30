@@ -12,7 +12,7 @@ public class PatrolState : State
     //variabili per il controllo del patroling
     public Sequence walkingSequence;
     private float pathDuration = 10f;
-    private float targetVisibleDistance = 15f;
+    private float targetVisibleDistance = 12f;
 
 
 
@@ -32,11 +32,7 @@ public class PatrolState : State
             enemy.enemyAnimator.SetBool("Walk", true);
         }
 
-        if (enemy.special != simpleEnemy.Specials.none)
-        {
-            enemy.readyToPatrol = false;
-        }
-
+     
         if (enemy.special == simpleEnemy.Specials.robot)
         {
             targetVisibleDistance = 4f;
@@ -52,7 +48,7 @@ public class PatrolState : State
     {
         float distanceFromJustin = Mathf.Abs(enemy.transform.position.x - enemy.justin.transform.position.x);
         bool TimelineCheck = enemy.globalVariables.currentTimeline == enemy.currentTimeline;
-        if (distanceFromJustin < targetVisibleDistance && TimelineCheck )
+        if (distanceFromJustin < targetVisibleDistance && TimelineCheck)
         {
             enemy.target = enemy.justin.gameObject;
             enemy.currentStatus = simpleEnemy.MachineStatus.Attack;
@@ -63,7 +59,7 @@ public class PatrolState : State
         {
             bool intrusion = intruder.originalTimeline != enemy.originalTimeline;
             bool sameTimeline = intruder.currentTimeline == enemy.currentTimeline;
-            float distanceFromIntruder = Mathf.Abs(enemy.wayRoot.transform.position.x - intruder.transform.position.x);
+            float distanceFromIntruder = Mathf.Abs(enemy.transform.position.x - intruder.transform.position.x);
             if (distanceFromIntruder < targetVisibleDistance && intrusion && sameTimeline)
             {
                 enemy.target = intruder.gameObject;

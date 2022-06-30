@@ -12,10 +12,17 @@ public class Trigger : MonoBehaviour
     private float horizontalTriggerDistance = 2f;
     private float horizontalDestroyDistance = 4f;
 
+    private bool wrongFall;
+    private bool rightFall;
+    private simpleEnemy target;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        target = null;
+        wrongFall= false;
+        rightFall = false;
         globalVariables = FindObjectOfType<GlobalVariables>();
         Door = GameObject.FindGameObjectWithTag("Door");
     }
@@ -23,29 +30,61 @@ public class Trigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (simpleEnemy enemy in globalVariables.enemies)
+        if (wrongFall)
         {
-            float horizontalDistance = Mathf.Abs(enemy.transform.position.x - transform.position.x);
-            float verticalDistance = Mathf.Abs(enemy.transform.position.y - transform.position.y);
-            bool triggerPosition = horizontalDistance <= horizontalTriggerDistance && verticalDistance <= verticalTriggerDistance;
-            bool destroyPosition = horizontalDistance > horizontalTriggerDistance && horizontalDistance <= horizontalDestroyDistance && verticalDistance <= verticalTriggerDistance;
+            respawn(target);
+            wrongFall = false;
 
-            if (destroyPosition && enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot)
+        }
+        else if (rightFall)
+        {
+            noRespawn(target);
+            rightFall = false;
+        }
+        else 
+        {
+            foreach (simpleEnemy enemy in globalVariables.enemies)
             {
-                Transform wayroot = enemy.GetComponent<simpleEnemy>().wayRoot;
+                float horizontalDistance = Mathf.Abs(enemy.transform.position.x - transform.position.x);
+                float verticalDistance = Mathf.Abs(enemy.transform.position.y - transform.position.y);
+                bool triggerPosition = horizontalDistance <= horizontalTriggerDistance && verticalDistance <= verticalTriggerDistance;
+                bool destroyPosition = horizontalDistance > horizontalTriggerDistance && horizontalDistance <= horizontalDestroyDistance && verticalDistance <= verticalTriggerDistance;
 
-                GameObject respawnRobot = Instantiate(enemy.gameObject, wayroot.position, Quaternion.identity);
-                respawnRobot.GetComponent<simpleEnemy>().wayRoot = wayroot;
+                if (destroyPosition && enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot)
+                {
+                    wrongFall = true;
+                    target = enemy;
+                }
+                else if (triggerPosition && enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot)
+                {
+                    rightFall = true;
+                    target = enemy;
 
-                globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
-                globalVariables.enemies.Add(respawnRobot.GetComponent<simpleEnemy>());
-                Destroy(enemy);
-            }
-            else if (triggerPosition && enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot)
-            {
-                Destroy(Door);
+                }
             }
         }
         
+    }
+
+   private void respawn(simpleEnemy enemy)
+    {
+        Transform wayroot = enemy.GetComponent<simpleEnemy>().wayRoot;
+
+        GameObject respawnRobot = Instantiate(enemy.gameObject, wayroot.position, Quaternion.identity);
+        respawnRobot.GetComponent<simpleEnemy>().wayRoot = wayroot;
+        respawnRobot.GetComponent<simpleEnemy>().currentOrigin = simpleEnemy.Origin.Original;
+
+        globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
+        globalVariables.enemies.Add(respawnRobot.GetComponent<simpleEnemy>());
+        Destroy(enemy.gameObject);
+        target = null;
+    }
+
+    private void noRespawn(simpleEnemy enemy)
+    {
+        globalVariables.enemies.Remove(enemy);
+        Destroy(enemy.gameObject);
+        Destroy(Door);
+        target = null;
     }
 }

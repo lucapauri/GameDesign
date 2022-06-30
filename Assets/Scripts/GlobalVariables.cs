@@ -7,6 +7,7 @@ public class GlobalVariables : MonoBehaviour
     public Justin justin;
 
     public int currentTimeline;
+    public int crystalsNumber;
 
     public float upPlaneHeight;
     public float downPlaneHeight;
@@ -26,6 +27,7 @@ public class GlobalVariables : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        crystalsNumber = 0;
         enemyLife = 0;
         currentTimeline = 1;
         justinLife = 10;

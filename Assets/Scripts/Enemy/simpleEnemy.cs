@@ -200,6 +200,7 @@ public class simpleEnemy : MonoBehaviour
     //funzione di attacco, unica per tutti i tipi di nemici
     public void attack()
     {
+        readyToPatrol = false;
 
         switch (enemyType)
         {
@@ -239,7 +240,6 @@ public class simpleEnemy : MonoBehaviour
                             break;
 
                         default:
-                            Debug.Log("robot attacking justin");
                             StartCoroutine(hitTargetCoroutine(0.5f));
                             break;
                     }
@@ -272,31 +272,30 @@ public class simpleEnemy : MonoBehaviour
         if (target.GetComponent<simpleEnemy>() && verticalDistance < 1f)
         {
             target.GetComponent<simpleEnemy>().enemyLife -= 1;
-            //se il nemico è stato ucciso do il tempo al nemico di finire l'animazione di attacco per poi farlo tornare in patrol
-            if (target.GetComponent<simpleEnemy>().enemyLife == 0)
-            {
-                switch (special)
-                {
-                    case Specials.trex:
-                        StartCoroutine(enemyKilledCoroutine(TrexAttackTime * 2/3 ));
-                        break;
-
-                    default:
-                        StartCoroutine(enemyKilledCoroutine(0));
-                        break;
-                }
-            }
+            
         }
-        else if (target.GetComponent<Justin>() && verticalDistance < 1f)
+        else if (target.GetComponent<Justin>() && target.GetComponent<Justin>()._isGrounded)
         {
             globalVariables.justinLife -= 1;
            
+        }
+
+        //do il tempo al nemico di finire l'animazione di attacco prima di tornare eventualmente in patrol
+        switch (special)
+        {
+            case Specials.trex:
+                StartCoroutine(waitPatrolCoroutine(TrexAttackTime * 2 / 3));
+                break;
+
+            default:
+                StartCoroutine(waitPatrolCoroutine(0));
+                break;
         }
     }
 
 
     //coroutine che aspetta che l'animiazione di attacco finisca prima di far tornare in patrol il nemico
-    public IEnumerator enemyKilledCoroutine(float timeToEndAnim)
+    public IEnumerator waitPatrolCoroutine(float timeToEndAnim)
     {
      
         yield return new WaitForSeconds(timeToEndAnim);

@@ -14,21 +14,28 @@ public class enemyBullet : MonoBehaviour
 
     Rigidbody rb;
 
+    private float bulletStartPosY;
+    private float decreaseImpulse = 0.55f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
+        bulletStartPosY = transform.position.y - shooter.transform.position.y;
         _target = shooter.target.transform;
         rb = GetComponent<Rigidbody>();
-        float time = Mathf.Sqrt(3.78f / 4.9f);
+        float time = Mathf.Sqrt( bulletStartPosY/ 4.9f);
         shootForce = (_target.position.x - shooter.transform.position.x) / (0.5f * time * time);
-        shootForce -= 0.4f * (shootForce);
+        shootForce -= decreaseImpulse * (shootForce);
         rb.AddForce(transform.up * Mathf.Abs(shootForce) * 2, ForceMode.Impulse);
+
+
         globalVariables = FindObjectOfType<GlobalVariables>();
 
         //todo aggiungere calcoli per muovere proiettile anche in y
     }
+
 
 
     void OnCollisionEnter(Collision collision)

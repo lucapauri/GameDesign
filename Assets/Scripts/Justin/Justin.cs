@@ -26,7 +26,7 @@ public class Justin : MonoBehaviour
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _jumpMask;
     [SerializeField] private float _jumpHeight = 3f;
-    private bool _isGrounded;
+    public bool _isGrounded;
     private bool highJump;
 
 
@@ -359,7 +359,7 @@ public class Justin : MonoBehaviour
     //funzione per sparare
     private void Shoot()
     {
-        StartCoroutine(shootCoroutine(fireTime/2));
+        StartCoroutine(shootCoroutine(fireTime/4));
         StartCoroutine(timeToShootCoroutine(shootReloadTime));
 
     }
@@ -372,15 +372,6 @@ public class Justin : MonoBehaviour
         StartCoroutine(dashEndingCoroutine(dashTime));
 
     }
-
-    //funzione per usare un oggetto in inventario
-    private void useInventoryObject(string objectName)
-    {
-
-    }
-
-
-
 
 
 

@@ -20,7 +20,6 @@ public class InventoryObject : Interactable
 
     public override void Interact(GameObject justin)
     {
-        // implementa se justin deve fare quacosa con l'oggetto.
-        Debug.Log("interact");
+        
     }
 }

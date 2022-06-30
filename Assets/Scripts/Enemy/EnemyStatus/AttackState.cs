@@ -10,7 +10,7 @@ public class AttackState : State
     private float rotationSpeed = 50f;
     private float movSpeed = 3f;
     private float attackDistance; //distanza al di sotto della quale posso attaccare il target
-    private float targetVisibleDistance = 16f;
+    private float targetVisibleDistance = 14f;
 
 
 
@@ -35,7 +35,7 @@ public class AttackState : State
         switch (enemy.enemyType)
         {
             case simpleEnemy.Type.meleeEnemy:
-                attackDistance = 6f;
+                attackDistance = 4.5f;
                 break;
             case simpleEnemy.Type.rangeEnemy:
                 attackDistance = 20f;
@@ -60,10 +60,12 @@ public class AttackState : State
 
     public override void Tik()
     {
-        if (enemy.target == null)
+        if (enemy.target == null )
         {
-            enemy.target = enemy.justin.gameObject;
+            enemy.target = enemy.globalVariables.gameObject;
         }
+
+      
         float distance = Mathf.Abs(enemy.transform.position.x - enemy.target.transform.position.x); // distanza dal target
 
         //check per impedire che il nemico cerchi di attaccare il target se si trova su un altra timeline
@@ -85,7 +87,6 @@ public class AttackState : State
         //controllo che non sia un nemico che sta fermo
     if (enemy.standing == false)
     {
-            float distanceFromBase = Mathf.Abs(enemy.wayRoot.transform.position.x - enemy.transform.position.x); //distanza dal punto di patroling
             float verticalDistance = Mathf.Abs(enemy.target.transform.position.y - enemy.transform.position.y);
             if (distance < attackDistance)
         {
@@ -109,13 +110,13 @@ public class AttackState : State
                     case simpleEnemy.Type.meleeEnemy:
                             if (verticalDistance < 1f)
                             {
-                                enemy.InvokeRepeating("attack", 1f, 5f);
+                                enemy.InvokeRepeating("attack", 0f, 5f);
                                 ableToAttack = false;
                                 attacking = true;
                             }
                         break;
                     case simpleEnemy.Type.rangeEnemy:
-                        enemy.InvokeRepeating("attack", 1f, 5f);
+                        enemy.InvokeRepeating("attack", 2f, 5f);
                         ableToAttack = false;
                         attacking = true;
                         break;
@@ -125,21 +126,19 @@ public class AttackState : State
         }
 
             // se il target si allontana dal nemico lui torna in patrol
-            bool patrolLimit = distanceFromBase > enemy.huntLimitDistance -0.2f;
             bool targetTooFar = distance > targetVisibleDistance;
+            
+           
 
-            Debug.Log("patrolLimit: " + patrolLimit);
-            Debug.Log("targetTooFar: " + targetTooFar);
-
-        if ((patrolLimit || targetTooFar || checkTimeline) && enemy.readyToPatrol)
+        if (( targetTooFar || checkTimeline) && enemy.readyToPatrol)
         {
+               
             enemy.currentStatus = simpleEnemy.MachineStatus.Patrol;
         }
 
         //se il target si sta allontanando il nemico lo insegue per un pò
-        if (distanceFromBase <= enemy.huntLimitDistance - 0.1f && distance >= attackDistance - 0.1f)
+        if ( distance >= attackDistance - 0.1f && distance < attackDistance * 3)
         {
-
 
 
             Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
