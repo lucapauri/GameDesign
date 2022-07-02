@@ -362,7 +362,7 @@ MonoBehaviour:
   standing: 0
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -949,7 +949,7 @@ MonoBehaviour:
   standing: 1
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -1653,7 +1653,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1f98815f0c84e479e99785b9320ed695, type: 2}
     - target: {fileID: 3613334951482155719, guid: 44ae215115fd646f3a25e4f19bbf9743, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3613334951482155719, guid: 44ae215115fd646f3a25e4f19bbf9743, type: 3}
       propertyPath: m_LocalScale.x
@@ -2211,7 +2211,7 @@ MonoBehaviour:
   standing: 1
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -3089,7 +3089,7 @@ MonoBehaviour:
   standing: 0
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -3443,6 +3443,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5403356873918541209, guid: 9a875c5f7d35f4195bc791c79f02fc77, type: 3}
     - target: {fileID: 8371972944640148741, guid: cdf5f11bd799740028d5ae69556865d0, type: 3}
+      propertyPath: pistolaPrefab
+      value: 
+      objectReference: {fileID: 1023073003879350777, guid: c4a5bf2b6a54340c5a7868a7d91631e4, type: 3}
+    - target: {fileID: 8371972944640148741, guid: cdf5f11bd799740028d5ae69556865d0, type: 3}
       propertyPath: _groundDistance
       value: 1
       objectReference: {fileID: 0}
@@ -3702,7 +3706,7 @@ MonoBehaviour:
   standing: 0
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -5730,7 +5734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2210278318874135990, guid: 7179a0aec1ba8487383eb99c2335de1e, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2210278318874135990, guid: 7179a0aec1ba8487383eb99c2335de1e, type: 3}
       propertyPath: m_LocalScale.x
@@ -6451,7 +6455,7 @@ MonoBehaviour:
   standing: 1
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -6501,7 +6505,7 @@ MonoBehaviour:
   standing: 0
   currentTimeline: 0
   originalTimeline: 0
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -6543,7 +6547,7 @@ MonoBehaviour:
   standing: 0
   currentTimeline: 0
   originalTimeline: 0
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
@@ -6681,7 +6685,7 @@ MonoBehaviour:
   standing: 1
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
+  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0

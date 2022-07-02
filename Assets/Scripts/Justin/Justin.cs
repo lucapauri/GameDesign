@@ -46,6 +46,8 @@ public class Justin : MonoBehaviour
     private InventoryMenu inventoryMenu;
     public GameObject valigettaPrefab;
     public GameObject fulminePrefab;
+    public GameObject pistolaPrefab;
+
 
     //animation variables
     private Animator animator;
@@ -359,7 +361,12 @@ public class Justin : MonoBehaviour
     //funzione per sparare
     private void Shoot()
     {
+        GameObject pistola = Instantiate(pistolaPrefab, transform.position, transform.rotation);
+        pistola.transform.localScale = transform.localScale;
+        pistola.transform.SetParent(this.transform);
+
         StartCoroutine(shootCoroutine(fireTime/4));
+        StartCoroutine(destroyGunCoroutine(fireTime));
         StartCoroutine(timeToShootCoroutine(shootReloadTime));
 
     }
@@ -383,6 +390,13 @@ public class Justin : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         gunLoaded = true;
+    }
+
+    private IEnumerator destroyGunCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(transform.Find("pistola_unity(Clone)").gameObject);
+
     }
 
     private IEnumerator shootCoroutine(float time)

@@ -12,6 +12,8 @@ public class enemyBullet : MonoBehaviour
 
     public Transform _target;
 
+    public GameObject explosion;
+
     Rigidbody rb;
 
     private float bulletStartPosY;
@@ -60,8 +62,10 @@ public class enemyBullet : MonoBehaviour
                 break;
         }
 
+        Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y +1f, transform.position.z);
 
 
+        Instantiate(explosion, explosionPoint, Quaternion.identity);
 
         Destroy(gameObject);
 
