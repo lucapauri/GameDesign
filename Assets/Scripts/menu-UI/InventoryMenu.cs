@@ -47,7 +47,7 @@ public class InventoryMenu : MonoBehaviour
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && menu.activeInHierarchy)
         {
             //controllo se il menù è stato aperto per interagire con la capsula del tempo o per posizionare un oggetto
             if (openTimeCapsule)
@@ -78,12 +78,6 @@ public class InventoryMenu : MonoBehaviour
 
         if (isActive() && Input.GetKeyDown(KeyCode.Escape))
             setMenuFalse();
-
-
-        /*if (Input.GetKeyDown("return"))
-        {
-            buttons[buttonCounter].buttonAnimator.SetBool("Clicked", true);
-        }*/
 
     }
 
