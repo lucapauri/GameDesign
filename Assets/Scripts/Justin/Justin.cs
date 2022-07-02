@@ -367,7 +367,7 @@ public class Justin : MonoBehaviour
     //funzione per il dash
     private void Dash()
     {
-        _speed = 50f;
+        _speed = 30f;
         _dash = true;
         StartCoroutine(dashEndingCoroutine(dashTime));
 

@@ -12,7 +12,7 @@ public class Cristallo : MonoBehaviour
         globalVariables = FindObjectOfType<GlobalVariables>();
     }
 
-    private void OnTrigger(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log("cristallo");
         if (other.gameObject.layer == 10)
