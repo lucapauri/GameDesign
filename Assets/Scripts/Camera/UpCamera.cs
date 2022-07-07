@@ -9,7 +9,7 @@ public class UpCamera : MonoBehaviour
 
     private float verticalShift;
     private float horizOffset = 3f;
-    private float vertOffset = 3f;
+    public float vertOffset;
     private float offsetSmoothing = 3f;
 
     private CharacterController _characterController;

@@ -48,28 +48,54 @@ public class Bullet : MonoBehaviour
         if (timeline > 0)
         {
             GameObject go = Instantiate(enemy, downPos, newRot);
-            simpleEnemy script = go.GetComponent<simpleEnemy>();
+
+            if (go.GetComponent<simpleEnemy>())
+            {
+                simpleEnemy script = go.GetComponent<simpleEnemy>();
+                script.enabled = true;
+                script.currentOrigin = simpleEnemy.Origin.TeleportedDown;
+            }
+            else if (go.GetComponent<NemicoCity>())
+            {
+
+                NemicoCity script = go.GetComponent<NemicoCity>();
+                script.enabled = true;
+                script.currentOrigin = NemicoCity.Origin.TeleportedDown;
+            }
+
             Animator enemyAnimator = go.GetComponent<Animator>();
-            script.enabled = true;
             if (enemyAnimator)
             {
                 enemyAnimator.enabled = true;
             }
-            script.currentOrigin = simpleEnemy.Origin.TeleportedDown;
 
         }
         else
         {
 
             GameObject go = Instantiate(enemy, upPos, newRot);
-            simpleEnemy script = go.GetComponent<simpleEnemy>();
+            if (go.GetComponent<simpleEnemy>())
+            {
+                simpleEnemy script = go.GetComponent<simpleEnemy>();
+                script.enabled = true;
+                script.currentOrigin = simpleEnemy.Origin.TeleportedUp;
+            }
+            else if (go.GetComponent<NemicoCity>())
+            {
+
+                NemicoCity script = go.GetComponent<NemicoCity>();
+                script.enabled = true;
+                script.currentOrigin = NemicoCity.Origin.TeleportedUp;
+            }
+
+
             Animator enemyAnimator = go.GetComponent<Animator>();
-            script.enabled = true;
+           
             if (enemyAnimator)
             {
                 enemyAnimator.enabled = true;
             }
-            script.currentOrigin = simpleEnemy.Origin.TeleportedUp;
+            
         }
 
         //aggiungi un'interfaccia generica per poi istanziare quella anzichè il gameobject, in modo da abilitare gli script come fai quando sposti justin
