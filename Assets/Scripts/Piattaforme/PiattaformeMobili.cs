@@ -10,40 +10,53 @@ public class PiattaformeMobili : MonoBehaviour
     public Sequence walkingSequence;
     private float pathDuration = 12f;
 
+    public float movSpeed;
+    private bool started;
+
     // Start is called before the first frame update
     void Start()
     {
-        searchPath();
+        //searchPath();
+
+        movSpeed = 0.8f;
+        started = false;
+
+        float startTime = Random.Range(0.01f, 3f);
+        StartCoroutine(startingCoroutine(startTime));
         
     }
 
     // Update is called once per frame
     void Update()
     {
+       
+        if (started)
+        {
+            Vector3 movVec = Vector3.up * movSpeed * Time.deltaTime;
+            transform.Translate(movVec);
+        }
+
+    }
+
+
+    public IEnumerator movSpeedCoroutine()
+    {
+        yield return new WaitForSeconds(4f);
+        movSpeed = movSpeed * -1;
+        StartCoroutine(movSpeedCoroutine());
+    }
+
+
+    public IEnumerator startingCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        started = true;
+        StartCoroutine(movSpeedCoroutine());
         
     }
 
-    private void searchPath()
-    {
-        if ( platformWay!= null && platformWay.childCount > 0)
-        {
-            Vector3[] pathPositions = new Vector3[platformWay.childCount];
-            for (int i = 0; i < platformWay.childCount; i++)
-            {
-                pathPositions[i] = platformWay.GetChild(i).position;
-                pathPositions[i].z = transform.position.z;
-                pathPositions[i].x = transform.position.x;
-            }
-            walkingSequence = DOTween.Sequence();
-
-            walkingSequence.Append(transform.DOPath(pathPositions, pathDuration, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear)
-                .SetId("walking").OnComplete(
-                () => searchPath()
-
-                ));
-
-        }
 
 
-    }
+
+
 }

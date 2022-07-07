@@ -26,6 +26,10 @@ public class NemicoCity : MonoBehaviour
     public Transform wayrootList;
     public Transform wayRoot;
 
+    public Transform platformList;
+    public Transform platform;
+
+
 
     //prefab dei proiettili
     public BulletNemicoCity bulletPrefab;
@@ -39,7 +43,7 @@ public class NemicoCity : MonoBehaviour
     public float huntLimitDistance;
 
     //groundCheck
-    private float _groundDistance = 1f;
+    private float _groundDistance = 0.2f;
     [SerializeField] private LayerMask _enemyGroundMask;
     public bool _isGrounded;
 
@@ -92,7 +96,22 @@ public class NemicoCity : MonoBehaviour
 
         }
 
-    
+        platform = platformList.GetChild(0);
+        for (int i = 0; i < platformList.childCount; i++)
+        {
+            Transform plat = platformList.GetChild(i);
+            float newDistance = Vector3.Distance(this.transform.position, plat.position);
+            float oldDistance = Vector3.Distance(this.transform.position, platform.position);
+
+            if (newDistance <= oldDistance)
+            {
+                platform = plat;
+            }
+
+
+        }
+
+
 
         // voglio che il mio nemico sappia se si trova nella sua timeline oppure no
         switch (currentOrigin)

@@ -100,7 +100,7 @@ public class AttackStateCity : State
 
 
 
-            if ((targetTooFar || checkTimeline) && enemy.readyToPatrol)
+            if ((targetTooFar || checkTimeline))
             {
 
                 enemy.currentStatus = NemicoCity.MachineStatus.Patrol;
