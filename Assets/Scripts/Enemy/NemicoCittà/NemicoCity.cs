@@ -23,9 +23,6 @@ public class NemicoCity : MonoBehaviour
     public int currentTimeline;
     public int originalTimeline;
 
-    public Transform wayrootList;
-    public Transform wayRoot;
-
     public Transform platformList;
     public Transform platform;
 
@@ -43,7 +40,7 @@ public class NemicoCity : MonoBehaviour
     public float huntLimitDistance;
 
     //groundCheck
-    private float _groundDistance = 0.2f;
+    private float _groundDistance = 0.3f;
     [SerializeField] private LayerMask _enemyGroundMask;
     public bool _isGrounded;
 
@@ -80,22 +77,7 @@ public class NemicoCity : MonoBehaviour
         justin = globalVariables.justin;
 
 
-        //cerco la wayroot giusta
-        wayRoot = wayrootList.GetChild(0);
-        for (int i = 0; i < wayrootList.childCount; i++)
-        {
-            Transform way = wayrootList.GetChild(i);
-            float newDistance = Vector3.Distance(this.transform.position, way.position);
-            float oldDistance = Vector3.Distance(this.transform.position, wayRoot.position);
-
-            if (newDistance <= oldDistance)
-            {
-               wayRoot = way;
-            }
-            
-
-        }
-
+       
         platform = platformList.GetChild(0);
         for (int i = 0; i < platformList.childCount; i++)
         {
@@ -186,7 +168,7 @@ public class NemicoCity : MonoBehaviour
             currentStatus = MachineStatus.Patrol;
         }
 
-        huntLimitDistance = Mathf.Abs(wayRoot.transform.position.x - wayRoot.GetChild(0).transform.position.x);
+        huntLimitDistance = platform.GetComponent<Collider>().bounds.extents.x - 0.2f;
 
         target = justin.gameObject;
 

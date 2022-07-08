@@ -94,33 +94,6 @@ public class PatrolStateCity : State
 
 
     }
-
-
-    //funzione che crea il percorso
-    private void searchPath()
-    {
-        if (enemy.wayRoot != null && enemy.wayRoot.childCount > 0)
-        {
-            Vector3[] pathPositions = new Vector3[enemy.wayRoot.childCount];
-            for (int i = 0; i < enemy.wayRoot.childCount; i++)
-            {
-                pathPositions[i] = enemy.wayRoot.GetChild(i).position;
-                pathPositions[i].z = enemy.transform.position.z;
-                pathPositions[i].y = enemy.transform.position.y;
-            }
-            walkingSequence = DOTween.Sequence();
-
-            walkingSequence.Append(enemy.transform.DOPath(pathPositions, pathDuration, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear)
-                .SetLookAt(0.01f).SetId("walking").OnComplete(
-                () => searchPath()
-
-                ));
-
-        }
-
-
-    }
-
    
 
 

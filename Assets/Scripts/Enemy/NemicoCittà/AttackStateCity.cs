@@ -17,7 +17,9 @@ public class AttackStateCity : State
     private bool ableToAttack;
     private bool attacking;
     private bool checkTimeline;
+    private bool movingPlatform;
 
+    private Vector3 movVec;
 
     public AttackStateCity(string name, NemicoCity _enemy) : base(name)
     {
@@ -30,6 +32,17 @@ public class AttackStateCity : State
     {
         ableToAttack = true;
         attacking = false;
+
+        movVec = Vector3.zero;
+
+        if (enemy.platform.GetComponent<PiattaformeMobili>())
+        {
+            movingPlatform = true;
+        }
+        else
+        {
+            movingPlatform = false;
+        }
         
 
     }
@@ -42,6 +55,17 @@ public class AttackStateCity : State
 
     public override void Tik()
     {
+        if (movingPlatform)
+        {
+            movVec = enemy.platform.GetComponent<PiattaformeMobili>().movSpeed * Vector3.up * Time.deltaTime;
+            enemy.transform.Translate(movVec);
+        }
+
+
+
+
+
+
         if (enemy.target == null)
         {
             enemy.target = enemy.globalVariables.gameObject;
