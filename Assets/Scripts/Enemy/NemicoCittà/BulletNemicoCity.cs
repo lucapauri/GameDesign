@@ -56,7 +56,7 @@ public class BulletNemicoCity : MonoBehaviour
 
 
             case 11: //distruttibili
-                     //codice per l'interazione del proiettile con oggetti distruttibili
+                Destroy(collision.gameObject);
                 break;
         }
 

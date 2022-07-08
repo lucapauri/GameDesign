@@ -25,6 +25,7 @@ public class NemicoCity : MonoBehaviour
 
     public Transform platformList;
     public Transform platform;
+    public Vector3 oldPlatform;
 
 
 
@@ -204,7 +205,7 @@ public class NemicoCity : MonoBehaviour
             {
                 enemyAnimator.SetTrigger("Death");
             }
-            StartCoroutine(DeathCoroutine(DeathTime));
+            StartCoroutine(DeathCoroutineAndRespawn(DeathTime));
         }
 
 
@@ -220,11 +221,29 @@ public class NemicoCity : MonoBehaviour
        
   }
 
-    public IEnumerator DeathCoroutine(float timeToEndAnim)
+    public IEnumerator DeathCoroutineAndRespawn(float timeToEndAnim)
     {
 
         yield return new WaitForSeconds(timeToEndAnim);
+        GameObject go = Instantiate(this.gameObject, oldPlatform + Vector3.up * 1f, transform.rotation);
+        NemicoCity script = go.GetComponent<NemicoCity>();
+        script.enabled = true;
+        switch (currentOrigin)
+        {
+            case Origin.Original:
+                script.currentOrigin = Origin.Original;
+                break;
+            case Origin.TeleportedDown:
+                script.currentOrigin = Origin.TeleportedUp;
+                break;
+            case Origin.TeleportedUp:
+                script.currentOrigin = Origin.TeleportedDown;
+                break;
+
+        }
         Destroy(this.gameObject);
+        
+
     }
 
 

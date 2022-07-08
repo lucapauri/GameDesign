@@ -8,6 +8,8 @@ public class lava : MonoBehaviour
     private float verticalDestroyDistance = 2.2f;
     private float HorizontalDestroyDistance;
     private Collider collider;
+    private Vector3 nemicoCityPos;
+    private NemicoCity nemicoCity;
 
 
     // Start is called before the first frame update
@@ -17,21 +19,8 @@ public class lava : MonoBehaviour
         collider = GetComponent<Collider>();
 
         HorizontalDestroyDistance = collider.bounds.extents.x;
-        
+
     }
-
-    /*void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer == 10)
-        {
-            globalVariables.justinLife = 0;
-
-        }
-        else if (collision.gameObject.layer != 6)
-        {
-            Destroy(collision.gameObject);
-        }
-    }*/
 
     // Update is called once per frame
     void Update()
@@ -63,6 +52,23 @@ public class lava : MonoBehaviour
         if (destroyJustinPositionV && destroyJustinPositionH)
         {
             Destroy(globalVariables.justin.gameObject);
+        }
+
+        nemicoCity = FindObjectOfType<NemicoCity>();
+        if (nemicoCity)
+        {
+            nemicoCityPos = nemicoCity.transform.position;
+        }
+
+        float verticalCityDistance = Mathf.Abs(nemicoCityPos.y - transform.position.y);
+        float horizontalCityDistance = Mathf.Abs(nemicoCityPos.x - transform.position.x);
+
+        bool destroyCityPositionV = verticalCityDistance < verticalDestroyDistance;
+        bool destroyCityPositionH = horizontalCityDistance < HorizontalDestroyDistance;
+
+        if (destroyCityPositionV && destroyCityPositionH && nemicoCity!= null)
+        {
+            nemicoCity.enemyLife = 0;
         }
 
 

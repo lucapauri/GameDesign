@@ -43,6 +43,12 @@ public class Bullet : MonoBehaviour
         Vector3 upPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y + bias, enemy.transform.position.z);
         Vector3 downPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y - bias, enemy.transform.position.z);
         Quaternion newRot = enemy.transform.rotation;
+        Vector3 oldPlat = Vector3.zero;
+        if (enemy.GetComponent<NemicoCity>())
+        {
+            oldPlat = enemy.GetComponent<NemicoCity>().platform.position;
+        }
+
         Destroy(enemy);
 
         if (timeline > 0)
@@ -61,6 +67,7 @@ public class Bullet : MonoBehaviour
                 NemicoCity script = go.GetComponent<NemicoCity>();
                 script.enabled = true;
                 script.currentOrigin = NemicoCity.Origin.TeleportedDown;
+                script.oldPlatform = oldPlat;
             }
 
             Animator enemyAnimator = go.GetComponent<Animator>();
@@ -86,6 +93,7 @@ public class Bullet : MonoBehaviour
                 NemicoCity script = go.GetComponent<NemicoCity>();
                 script.enabled = true;
                 script.currentOrigin = NemicoCity.Origin.TeleportedUp;
+                script.oldPlatform = oldPlat;
             }
 
 

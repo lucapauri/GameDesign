@@ -30,7 +30,7 @@ public class GlobalVariables : MonoBehaviour
         crystalsNumber = 0;
         enemyLife = 0;
         currentTimeline = 1;
-        justinLife = 10;
+        justinLife = 20;
         upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();

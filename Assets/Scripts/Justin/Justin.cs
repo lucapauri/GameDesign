@@ -25,9 +25,11 @@ public class Justin : MonoBehaviour
     public float _groundDistance;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _jumpMask;
+    [SerializeField] private LayerMask _platMask;
     [SerializeField] private float _jumpHeight = 3f;
     public bool _isGrounded;
     private bool highJump;
+    private bool onMovingPlat;
 
 
     // world interactions variables
@@ -149,14 +151,17 @@ public class Justin : MonoBehaviour
         Ray jumpRay = new Ray(transform.position, -transform.up);
         highJump = Physics.Raycast(jumpRay, out jumpInfo, _groundDistance, _jumpMask);
 
+        RaycastHit platInfo;
+        Ray platRay = new Ray(transform.position, -transform.up);
+        onMovingPlat = Physics.Raycast(platRay, out platInfo, _groundDistance, _platMask);
 
-
-
-
-
-            if (_isGrounded && _velocity.y < 0f)
+        if (onMovingPlat)
         {
-            _velocity.y = -2f;
+            _characterController.Move(transform.up * platInfo.collider.gameObject.GetComponent<PiattaformeMobili>().movSpeed * Time.deltaTime);
+            _velocity.y += - _gravity * Time.deltaTime;
+            _characterController.Move(_velocity * Time.deltaTime);
+            _velocity.y += - _gravity * Time.deltaTime;
+            _characterController.Move(_velocity * Time.deltaTime);
         }
 
 
@@ -276,10 +281,12 @@ public class Justin : MonoBehaviour
         }
 
         //gravity
+       
+        _velocity.y +=  _gravity * Time.deltaTime;
+        _characterController.Move( _velocity * Time.deltaTime);
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
-        _velocity.y += _gravity * Time.deltaTime;
-        _characterController.Move(_velocity * Time.deltaTime);
+
 
         //spostarsi sulla timeline sottostante
         if (Input.GetKeyDown(KeyCode.M)  && globalVariables.currentTimeline > 0)
