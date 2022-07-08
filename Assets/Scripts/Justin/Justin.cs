@@ -473,7 +473,7 @@ public class Justin : MonoBehaviour
         globalVariables.currentTimeline--;
         _gravity = -9.81f;
         float groundDistance = transform.position.y - planeUp.position.y;
-        Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + groundDistance, planeUp.position.z);
+        Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + groundDistance, planeDown.position.z);
         Quaternion newRotation = transform.rotation;
 
         Destroy(this.gameObject);

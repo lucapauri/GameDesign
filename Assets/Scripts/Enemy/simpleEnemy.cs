@@ -15,6 +15,7 @@ public class simpleEnemy : MonoBehaviour
 
     //Componenti del nemico
     public Animator enemyAnimator;
+    public CharacterController controller;
     public bool standing;
 
 
@@ -40,6 +41,7 @@ public class simpleEnemy : MonoBehaviour
     private float _groundDistance = 1f;
     [SerializeField] private LayerMask _enemyGroundMask;
     public bool _isGrounded;
+    private float _gravity = -9.81f;
 
 
     public enum MachineStatus //stati della macchina agli stati finiti
@@ -100,6 +102,11 @@ public class simpleEnemy : MonoBehaviour
 
         dead = false;
 
+        if (GetComponent<CharacterController>())
+        {
+            controller = GetComponent<CharacterController>();
+        }
+        
         //cerco la durata delle clip di attacco, mi servirà per far matchare l'istante in cui il nemico colpisce con quello in cui il target perde vita
         if (GetComponent<Animator>())
         {
@@ -170,13 +177,18 @@ public class simpleEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit groundInfo;
+        /*RaycastHit groundInfo;
         Ray groundRay = new Ray(transform.position, -transform.up);
         _isGrounded = !Physics.Raycast(groundRay, out groundInfo, _groundDistance, _enemyGroundMask);
 
         if (_isGrounded)
         {
             currentStatus = MachineStatus.Falling;
+        }*/
+
+        if (GetComponent<CharacterController>())
+        {
+            controller.Move(transform.up * Time.deltaTime * _gravity);
         }
 
         finiteStateMachine.Tik();
@@ -200,12 +212,13 @@ public class simpleEnemy : MonoBehaviour
     //funzione di attacco, unica per tutti i tipi di nemici
     public void attack()
     {
-        readyToPatrol = false;
 
         switch (enemyType)
         {
             //definisco il comportamento per i nemici di tipo melee
             case simpleEnemy.Type.meleeEnemy:
+
+                readyToPatrol = false;
 
                 //attivo animazione di attacco
                 if (GetComponent<Animator>())

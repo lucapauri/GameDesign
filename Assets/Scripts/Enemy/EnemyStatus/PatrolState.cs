@@ -14,7 +14,11 @@ public class PatrolState : State
     private float pathDuration = 10f;
     private float targetVisibleDistance = 12f;
 
-
+    private Vector3 targetPos;
+    private Transform target;
+    private float rotationSpeed = 50f;
+    private float movSpeed = 2f;
+    private float _gravity = -9.81f;
 
 
     public PatrolState(string name, simpleEnemy _enemy) : base(name)
@@ -26,7 +30,7 @@ public class PatrolState : State
 
     public override void Enter()
     {
-        searchPath();
+        target = enemy.wayRoot.GetChild(0);
         if (enemy.GetComponent<Animator>())
         {
             enemy.enemyAnimator.SetBool("Walk", true);
@@ -67,32 +71,39 @@ public class PatrolState : State
             }
         }
 
+        patrol();
 
     }
 
-
-    //funzione che crea il percorso
-    private void searchPath()
+    private void patrol()
     {
-        if (enemy.wayRoot != null && enemy.wayRoot.childCount > 0)
+        targetPos = new Vector3(target.position.x, enemy.transform.position.y, target.position.z);
+
+        Vector3 targetDirection = targetPos - enemy.transform.position;
+        targetDirection.y = 0f;
+        targetDirection.Normalize();
+
+        float step = rotationSpeed * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(enemy.transform.forward, targetDirection, step, 0.0f);
+        enemy.transform.rotation = Quaternion.LookRotation(newDir, enemy.transform.up);
+
+        if (Vector3.Distance(enemy.wayRoot.GetChild(0).position, enemy.transform.position) <= 1f)
         {
-            Vector3[] pathPositions = new Vector3[enemy.wayRoot.childCount];
-            for (int i = 0; i < enemy.wayRoot.childCount; i++)
-            {
-                pathPositions[i] = enemy.wayRoot.GetChild(i).position;
-                pathPositions[i].z = enemy.transform.position.z;
-                pathPositions[i].y = enemy.transform.position.y;
-            }
-            walkingSequence = DOTween.Sequence();
 
-            walkingSequence.Append(enemy.transform.DOPath(pathPositions, pathDuration, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear)
-                .SetLookAt(0.01f).SetId("walking").OnComplete(
-                () => searchPath()
-
-                ));
-
+            target = enemy.wayRoot.GetChild(1);
         }
 
+        else if (Vector3.Distance(enemy.wayRoot.GetChild(1).position, enemy.transform.position) <= 1f)
+        {
+            target = enemy.wayRoot.GetChild(0);
+        }
+
+        enemy.controller.Move(targetDirection * Time.deltaTime * movSpeed);
+
+        if (enemy._isGrounded)
+        {
+            enemy.controller.Move(enemy.transform.up * Time.deltaTime * _gravity);
+        }
 
     }
 }

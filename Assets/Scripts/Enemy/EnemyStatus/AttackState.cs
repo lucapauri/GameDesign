@@ -28,6 +28,7 @@ public class AttackState : State
 
     public override void Enter()
     {
+        Debug.Log("attack");
         ableToAttack = true;
         attacking = false;
 

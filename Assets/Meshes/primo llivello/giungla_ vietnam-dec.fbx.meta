@@ -3,7 +3,12 @@ guid: ff8b0f1d6d71149928a2863d04986da6
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tree_construction_lambert2
+    second: {fileID: 2100000, guid: 29b87e6401cc3f74b806ed815d20242f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
