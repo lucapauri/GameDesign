@@ -40,7 +40,7 @@ public class GlobalVariables : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
 
     public void inventoryAging(string key)

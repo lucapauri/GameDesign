@@ -26,15 +26,18 @@ public class ValigettaEmpty : MonoBehaviour
         {
             scritte.setActive("Premi X per prendere la valigetta", valigetta);
             isActive = true;
-            Debug.Log("si");
         }
         if (scritte.active() && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15)
         {
             scritte.setNotActive();
             isActive = false;
-            Debug.Log("no");
         }
         if (isActive && Input.GetKeyDown(KeyCode.X))
             isTaken = true;
+    }
+
+    public bool taken()
+    {
+        return isTaken;
     }
 }

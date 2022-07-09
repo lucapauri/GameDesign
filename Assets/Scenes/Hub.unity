@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aefd5b9f84314d14999d4f7ce421a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertOffset: 7
+  vertOffset: 0
 --- !u!1 &875591892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,7 +1525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1584355112
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1584,13 +1584,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584355111}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -351.3, y: 118.9, z: -64.7}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 20, y: 117, z: 445.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1584355115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811b2c8f6f59542f682f03983e48862a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertOffset: 3
+  vertOffset: 0
 --- !u!1 &1584953780 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1411871340948532285, guid: 2b80ae51d702c6b47a82ff341db64100, type: 3}
@@ -1997,6 +1997,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11d93786c27400f4ea136076c5795dc9, type: 3}
+--- !u!1 &2058097002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058097004}
+  - component: {fileID: 2058097003}
+  m_Layer: 0
+  m_Name: ValigettaRitorno
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2058097003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058097002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6ca3e11f5dc984881523fb37dba544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valigetta: {fileID: 904412820}
+--- !u!4 &2058097004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058097002}
+  m_LocalRotation: {x: -0, y: -0.76910675, z: -0, w: 0.6391204}
+  m_LocalPosition: {x: 17.01918, y: 391, z: 90.00817}
+  m_LocalScale: {x: 1.7042034, y: 1.7042034, z: 1.7042034}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: -100.547, z: 0}
 --- !u!1001 &5214796450666496409
 PrefabInstance:
   m_ObjectHideFlags: 0
