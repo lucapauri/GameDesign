@@ -8,7 +8,7 @@ public class Justin : MonoBehaviour
 
     //moving variables
     [SerializeField] private Transform _cameraT;
-    private float _speed = 5f;
+    [SerializeField] private float _speed = 5f;
     private Transform planeDown;
     private Transform planeUp;
     private CharacterController _characterController;
@@ -266,7 +266,7 @@ public class Justin : MonoBehaviour
             _velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
             animator.SetTrigger("Jump");
 
-        }
+        } 
         if (Input.GetKeyDown(KeyCode.Space) && highJump)
         {
             _velocity.y = Mathf.Sqrt(_jumpHeight * -4 * _gravity);
