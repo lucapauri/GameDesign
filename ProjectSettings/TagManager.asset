@@ -18,6 +18,7 @@ TagManager:
   - PteroWayroot
   - BananaInteractions
   - Door
+  - SecondCamera
   layers:
   - Default
   - TransparentFX

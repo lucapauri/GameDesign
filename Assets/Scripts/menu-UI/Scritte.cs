@@ -45,4 +45,5 @@ public class Scritte : MonoBehaviour
     {
         return isActive;
     }
+
 }
