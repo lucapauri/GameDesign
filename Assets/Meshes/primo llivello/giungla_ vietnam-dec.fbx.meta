@@ -7,8 +7,83 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material #25
+    second: {fileID: 2100000, guid: c1f33079d151a944b90d5b438e43fbc3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #288
+    second: {fileID: 2100000, guid: 68388a76046669a4cbc3c15cdb3e9b2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #31
+    second: {fileID: 2100000, guid: c77842eba72fd0847860cfc4dead3774, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #311
+    second: {fileID: 2100000, guid: 68388a76046669a4cbc3c15cdb3e9b2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #32
+    second: {fileID: 2100000, guid: 68388a76046669a4cbc3c15cdb3e9b2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #33
+    second: {fileID: 2100000, guid: 68388a76046669a4cbc3c15cdb3e9b2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #34
+    second: {fileID: 2100000, guid: 9335597efd7f3414895609a3b29c1d83, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #35
+    second: {fileID: 2100000, guid: 68388a76046669a4cbc3c15cdb3e9b2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #36
+    second: {fileID: 2100000, guid: 8b59a38cf8eaef747a65371b051e92f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #37
+    second: {fileID: 2100000, guid: bb78360ddcf740f4ab9b8b3ba8830498, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #38
+    second: {fileID: 2100000, guid: 76040ebdd6a022f4cacb7f3df88f14db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #41
+    second: {fileID: 2100000, guid: 4a41dc52d6eee5345b9c72e4e689ccad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #44
+    second: {fileID: 2100000, guid: 0acc7bb1dc7108249bd922b662b02cc5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: foglie
+    second: {fileID: 2100000, guid: c9bb3621e8789c64789b83d441be59e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: tree_construction_lambert2
     second: {fileID: 2100000, guid: 29b87e6401cc3f74b806ed815d20242f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tronco
+    second: {fileID: 2100000, guid: 3949ed0456950714384ce8c8889e5130, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
