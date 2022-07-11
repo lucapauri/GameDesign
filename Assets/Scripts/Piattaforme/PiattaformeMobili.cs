@@ -5,8 +5,6 @@ using DG.Tweening;
 
 public class PiattaformeMobili : MonoBehaviour
 {
-    public Transform platformWay;
-
     public Sequence walkingSequence;
     private float pathDuration = 12f;
 
@@ -17,8 +15,6 @@ public class PiattaformeMobili : MonoBehaviour
     void Start()
     {
         //searchPath();
-
-        movSpeed = 0.8f;
         started = false;
 
         float startTime = Random.Range(0.01f, 3f);

@@ -26,7 +26,7 @@ public class Justin : MonoBehaviour
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _jumpMask;
     [SerializeField] private LayerMask _platMask;
-    [SerializeField] private float _jumpHeight = 3f;
+    [SerializeField] private float _jumpHeight = 1f;
     public bool _isGrounded;
     private bool highJump;
     private bool onMovingPlat;
@@ -40,7 +40,7 @@ public class Justin : MonoBehaviour
     private bool gunLoaded;
     private float dashTime = 0.2f;
     public bool _dash;
-    private float maxDashCheckDistance = 15f;
+    private float maxDashCheckDistance = 3f;
     [SerializeField] private LayerMask dashLayerMask;
     private float maxInteractCheckDistance = 5f;
     public Interactable interactable;
@@ -203,7 +203,7 @@ public class Justin : MonoBehaviour
         //raycasting per togliere i collider ai nemici in dash
         if (Physics.Raycast(ray, out hitInfo, maxDashCheckDistance, dashLayerMask) && !_dash && _inputSpeed > 0f)
         {
-
+            Debug.Log("movementBlocked");
             _inputSpeed = 0;
 
         }
@@ -263,13 +263,13 @@ public class Justin : MonoBehaviour
         //jumping
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded && !highJump)
         {
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
+            _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
             animator.SetTrigger("Jump");
 
         } 
         if (Input.GetKeyDown(KeyCode.Space) && highJump)
         {
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -4 * _gravity);
+            _velocity.y = Mathf.Sqrt(_jumpHeight * -4f * _gravity);
             animator.SetTrigger("Jump");
 
         }

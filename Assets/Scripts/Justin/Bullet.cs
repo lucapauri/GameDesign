@@ -112,17 +112,18 @@ public class Bullet : MonoBehaviour
     //funzione per il teletrasporto dei proiettili
     public void teleportBullet(GameObject bullet, int timeline)
     {
-        //aggiungere codice per far si che gli oggetti vengano teletrasportati all'altezza a cui vengono colpiti
-        Vector3 upPos = new Vector3(bullet.transform.position.x, globalVariables.upPlaneHeight + 4f, bullet.transform.position.z);
-        Vector3 downPos = new Vector3(bullet.transform.position.x, globalVariables.downPlaneHeight + 4f, bullet.transform.position.z);
         Quaternion newRot = bullet.transform.rotation;
         Destroy(bullet);
 
 
         if (timeline > 0)
         {
+            float verticalShift = bullet.transform.position.y - globalVariables.upPlaneHeight;
+            Vector3 downPos = new Vector3(bullet.transform.position.x, globalVariables.downPlaneHeight + verticalShift, bullet.transform.position.z);
+
 
             GameObject go = Instantiate(bullet, downPos, newRot);
+            go.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Teleported;
             if (go.GetComponent<enemyBullet>())
             {
                 enemyBullet script = go.GetComponent<enemyBullet>();
@@ -138,8 +139,11 @@ public class Bullet : MonoBehaviour
         }
         else
         {
+            float verticalShift = bullet.transform.position.y - globalVariables.downPlaneHeight;
+            Vector3 upPos = new Vector3(bullet.transform.position.x, globalVariables.upPlaneHeight + verticalShift, bullet.transform.position.z);
 
             GameObject go = Instantiate(bullet, upPos, newRot);
+            go.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Teleported;
             if (go.GetComponent<enemyBullet>())
             {
                 enemyBullet script = go.GetComponent<enemyBullet>();

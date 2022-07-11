@@ -50,6 +50,7 @@ public class PatrolState : State
 
     public override void Tik()
     {
+
         float distanceFromJustin = Mathf.Abs(enemy.transform.position.x - enemy.justin.transform.position.x);
         bool TimelineCheck = enemy.globalVariables.currentTimeline == enemy.currentTimeline;
         if (distanceFromJustin < targetVisibleDistance && TimelineCheck)
@@ -72,13 +73,12 @@ public class PatrolState : State
         }
 
         patrol();
-
+        
     }
 
     private void patrol()
     {
         targetPos = new Vector3(target.position.x, enemy.transform.position.y, target.position.z);
-
         Vector3 targetDirection = targetPos - enemy.transform.position;
         targetDirection.y = 0f;
         targetDirection.Normalize();
@@ -87,14 +87,18 @@ public class PatrolState : State
         Vector3 newDir = Vector3.RotateTowards(enemy.transform.forward, targetDirection, step, 0.0f);
         enemy.transform.rotation = Quaternion.LookRotation(newDir, enemy.transform.up);
 
-        if (Vector3.Distance(enemy.wayRoot.GetChild(0).position, enemy.transform.position) <= 1f)
-        {
+        float firstPointDistance = Mathf.Abs(enemy.wayRoot.GetChild(0).position.x - enemy.transform.position.x);
+        float secondPointDistance = Mathf.Abs(enemy.wayRoot.GetChild(1).position.x - enemy.transform.position.x);
 
+        if (firstPointDistance <= 1f)
+        {
+           
             target = enemy.wayRoot.GetChild(1);
         }
 
-        else if (Vector3.Distance(enemy.wayRoot.GetChild(1).position, enemy.transform.position) <= 1f)
+        else if (secondPointDistance <= 1f)
         {
+
             target = enemy.wayRoot.GetChild(0);
         }
 
