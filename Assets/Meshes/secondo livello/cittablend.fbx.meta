@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Cmn_Emission
+    second: {fileID: 2100000, guid: a3aef19580ba050479fac8c0b1231772, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Cmn_MainColor_Detail
-    second: {fileID: 2100000, guid: 6a33138ba59ac4c44b29aeb3c1e9b97d, type: 2}
+    second: {fileID: 2100000, guid: a3aef19580ba050479fac8c0b1231772, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
