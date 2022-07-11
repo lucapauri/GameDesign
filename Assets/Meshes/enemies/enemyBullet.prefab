@@ -99,8 +99,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.2151937, y: 10.195204, z: 6.021987}
-  m_Center: {x: -0.00000011920904, y: 1.981711, z: -0.00000011920926}
+  m_Size: {x: 14.463116, y: 10.195204, z: 8.947189}
+  m_Center: {x: 0.5861256, y: 1.981711, z: -0.35960466}
 --- !u!114 &8191508527267070937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +117,7 @@ MonoBehaviour:
   shooter: {fileID: 0}
   _target: {fileID: 0}
   explosion: {fileID: 2179657337937765569, guid: f394c1ffefdbb4c12be5d15333375907, type: 3}
+  currentOrigin: 0
 --- !u!54 &-8817798747406667015
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,8 +129,8 @@ Rigidbody:
   m_Mass: 2
   m_Drag: 2
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

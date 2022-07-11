@@ -16,9 +16,21 @@ public class enemyBullet : MonoBehaviour
 
     Rigidbody rb;
 
-    private float bulletStartPosY;
-    private float decreaseImpulse = 0.55f;
+    private Vector3 toJustin;
+    private Vector3 targetDirection;
 
+    private float bulletStartPosY;
+    private float decreaseImpulse = 0.9f;
+    private float movSpeedForward;
+    private float movSpeedDown;
+
+    public enum Origin
+    {
+        Original,
+        Teleported
+    }
+
+    public Origin currentOrigin;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +39,28 @@ public class enemyBullet : MonoBehaviour
         bulletStartPosY = transform.position.y - shooter.transform.position.y;
         _target = shooter.target.transform;
         rb = GetComponent<Rigidbody>();
-        float time = Mathf.Sqrt( bulletStartPosY/ 4.9f);
-        shootForce = (_target.position.x - shooter.transform.position.x) / (0.5f * time * time);
-        shootForce -= decreaseImpulse * (shootForce);
-        rb.AddForce(transform.up * Mathf.Abs(shootForce) * 2, ForceMode.Impulse);
-
-
+        movSpeedForward = 4f;
+        movSpeedDown = 0.1f;
         globalVariables = FindObjectOfType<GlobalVariables>();
+        StartCoroutine(lifetimeOutCoroutine());
 
-        //todo aggiungere calcoli per muovere proiettile anche in y
+        toJustin = globalVariables.justin.transform.position + globalVariables.justin.transform.up * 1.5f - transform.position;
+
+        if (currentOrigin == Origin.Original)
+        {
+            targetDirection = toJustin.normalized;
+        }
+        else
+        {
+            targetDirection = transform.up;
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 newDir = targetDirection * movSpeedForward - transform.right * movSpeedDown;
+        rb.MovePosition(transform.position + newDir * Time.deltaTime);
     }
 
 
@@ -49,6 +74,7 @@ public class enemyBullet : MonoBehaviour
             case 10: // justin
 
                 globalVariables.justinLife -= 1;
+
                 break;
 
 
@@ -58,13 +84,24 @@ public class enemyBullet : MonoBehaviour
 
 
             case 11: //distruttibili
-                     //codice per l'interazione del proiettile con oggetti distruttibili
+                Destroy(collision.gameObject);
                 break;
         }
 
         Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y +1f, transform.position.z);
 
 
+        Instantiate(explosion, explosionPoint, Quaternion.identity);
+
+        Destroy(gameObject);
+
+    }
+
+    private IEnumerator lifetimeOutCoroutine()
+    {
+        yield return new WaitForSeconds(10f);
+
+        Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         Instantiate(explosion, explosionPoint, Quaternion.identity);
 
         Destroy(gameObject);

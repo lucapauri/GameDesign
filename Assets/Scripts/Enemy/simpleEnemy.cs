@@ -170,7 +170,7 @@ public class simpleEnemy : MonoBehaviour
 
 
         globalVariables.enemies.Add(this);
-        target = justin.gameObject;
+        StartCoroutine(firstTargetCoroutine());
 
     }
 
@@ -263,7 +263,8 @@ public class simpleEnemy : MonoBehaviour
                 //definisco comportamento per nemici range
             case simpleEnemy.Type.rangeEnemy:
 
-                enemyBullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 3f + transform.up * 2f, Quaternion.identity);
+                enemyBullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2f + transform.up * 1.5f, Quaternion.identity);
+                bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
                 bullet.shooter = this;
                 bullet.transform.up = transform.forward;
                 break;
@@ -320,6 +321,13 @@ public class simpleEnemy : MonoBehaviour
 
         yield return new WaitForSeconds(timeToEndAnim);
         Destroy(this.gameObject);
+    }
+
+    public IEnumerator firstTargetCoroutine()
+    {
+
+        yield return new WaitForSeconds(0.1f);
+        target = justin.gameObject;
     }
 
 
