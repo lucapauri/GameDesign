@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4470991274912038183}
   - component: {fileID: 6486049157223480038}
+  - component: {fileID: 7664800843634557242}
   m_Layer: 0
   m_Name: lava
   m_TagString: Untagged
@@ -45,6 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411c23c8a6ad70f408e1617f84479a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7664800843634557242
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839308017219725213}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.06472, y: 0.41635844, z: 2.8473108}
+  m_Center: {x: 0.21777344, y: -0.29182252, z: 0.2512486}
 --- !u!1 &5059673387892988155
 GameObject:
   m_ObjectHideFlags: 0
