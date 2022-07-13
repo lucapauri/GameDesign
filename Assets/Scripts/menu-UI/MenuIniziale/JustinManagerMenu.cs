@@ -13,6 +13,7 @@ public class JustinManagerMenu : MonoBehaviour
     public GameObject valigettaPrefab;
     public GameObject fulminePrefab;
     public GameObject pistolaPrefab;
+    public GameObject logoPanel;
 
 
     private float movingTime;
@@ -70,10 +71,12 @@ public class JustinManagerMenu : MonoBehaviour
             }
             walkingSequence = DOTween.Sequence();
 
-            walkingSequence.Append(transform.DOPath(pathPositions, 4, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear).SetLookAt(0.01f)
+            walkingSequence.Append(transform.DOPath(pathPositions, 3, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear).SetLookAt(0.01f)
                 .SetId("walking").OnComplete(
-                () => {
+                () =>
+                {
                     anim.SetBool("Walk", false);
+                    logoPanel.GetComponent<Animator>().SetTrigger("ScaleUp");
                 }
 
                 ));

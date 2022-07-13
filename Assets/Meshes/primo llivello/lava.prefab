@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 1424107096240727333}
   - component: {fileID: 1874945146262290985}
   - component: {fileID: 1497416942395795995}
+  - component: {fileID: 8669202934658113639}
   m_Layer: 0
   m_Name: lava_sotto
   m_TagString: Untagged
@@ -118,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: bea8232c2c2344bc2a1b2ada7e7bb9b1, type: 3}
+  - {fileID: 2100000, guid: 634890342b7f84fc0ac91b4a75025f27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,6 +141,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &8669202934658113639
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5059673387892988155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26b1b8571850043bdbf954f0f1fccf49, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6870780024481551085
 GameObject:
   m_ObjectHideFlags: 0

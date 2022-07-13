@@ -10,6 +10,8 @@ public class lava : MonoBehaviour
     private Collider collider;
     private Vector3 nemicoCityPos;
     private NemicoCity nemicoCity;
+    public List<simpleEnemy> enemyList = new List<simpleEnemy>();
+
 
 
     // Start is called before the first frame update
@@ -20,26 +22,33 @@ public class lava : MonoBehaviour
 
         HorizontalDestroyDistance = collider.bounds.extents.x;
 
+        foreach (simpleEnemy enemy in globalVariables.enemies)
+        {
+            enemyList = globalVariables.enemies;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (simpleEnemy enemy in globalVariables.enemies)
+        foreach (simpleEnemy enemy in enemyList)
         {
-            float verticalEnemyDistance = Mathf.Abs(enemy.transform.position.y - transform.position.y);
-            float horizontalEnemyDistance = Mathf.Abs(enemy.transform.position.x - transform.position.x);
+                if (enemy != null)
+                {
+                    float verticalEnemyDistance = Mathf.Abs(enemy.transform.position.y - transform.position.y);
+                    float horizontalEnemyDistance = Mathf.Abs(enemy.transform.position.x - transform.position.x);
 
 
-            bool destroyPositionVertical = verticalEnemyDistance < verticalDestroyDistance;
-            bool destroyPositionHorizontal = horizontalEnemyDistance < HorizontalDestroyDistance;
+                    bool destroyPositionVertical = verticalEnemyDistance < verticalDestroyDistance;
+                    bool destroyPositionHorizontal = horizontalEnemyDistance < HorizontalDestroyDistance;
 
-            if (destroyPositionVertical && destroyPositionHorizontal)
-            {
-                globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
-              
-                Destroy(enemy.gameObject);
-            }
+                    if (destroyPositionVertical && destroyPositionHorizontal)
+                    {
+                        globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
+
+                        Destroy(enemy.gameObject);
+                    }
+                }
 
         }
 

@@ -184,7 +184,7 @@ public class Justin : MonoBehaviour
 
         //raycast per gli interactable
         RaycastHit hitInfo;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position + transform.up * 1.5f, transform.forward);
         if (Physics.Raycast(ray, out hitInfo, maxInteractCheckDistance))
         {
             interactable = hitInfo.transform.GetComponent<InventoryObject>();

@@ -49,6 +49,11 @@ public class AttackState : State
                 break;
         }
 
+        if (!enemy.onPlatform)
+        {
+            enemy.huntLimitDistance = attackDistance * 3;
+        }
+
 
     }
 
@@ -116,7 +121,7 @@ public class AttackState : State
                             }
                         break;
                     case simpleEnemy.Type.rangeEnemy:
-                        enemy.InvokeRepeating("attack", 2f, 5f);
+                        enemy.InvokeRepeating("attack", 2f, 4f);
                         ableToAttack = false;
                         attacking = true;
                         break;
@@ -137,7 +142,7 @@ public class AttackState : State
         }
 
         //se il target si sta allontanando il nemico lo insegue per un pò
-        if ( distance >= attackDistance - 0.1f && distance < attackDistance * 3)
+        if ( distance >= attackDistance - 0.1f && distance < enemy.huntLimitDistance)
         {
 
 

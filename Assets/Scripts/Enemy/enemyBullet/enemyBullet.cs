@@ -16,7 +16,7 @@ public class enemyBullet : MonoBehaviour
 
     Rigidbody rb;
 
-    private Vector3 toJustin;
+    private Vector3 toTarget;
     private Vector3 targetDirection;
 
     private float bulletStartPosY;
@@ -44,11 +44,11 @@ public class enemyBullet : MonoBehaviour
         globalVariables = FindObjectOfType<GlobalVariables>();
         StartCoroutine(lifetimeOutCoroutine());
 
-        toJustin = globalVariables.justin.transform.position + globalVariables.justin.transform.up * 1.5f - transform.position;
+        toTarget = _target.transform.position + globalVariables.justin.transform.up * 1.5f - transform.position;
 
         if (currentOrigin == Origin.Original)
         {
-            targetDirection = toJustin.normalized;
+            targetDirection = toTarget.normalized;
         }
         else
         {

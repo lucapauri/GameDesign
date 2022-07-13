@@ -36,6 +36,7 @@ public class simpleEnemy : MonoBehaviour
     private float DeathTime;
     private bool dead;
     public float huntLimitDistance;
+    public bool onPlatform;
 
     //groundCheck
     private float _groundDistance = 1f;
@@ -132,8 +133,16 @@ public class simpleEnemy : MonoBehaviour
         }
       
 
+        if (special == Specials.trex)
+        {
+            enemyLife = 1000;
+        }
+        else
+        {
+            enemyLife = 1;
+        }
 
-        enemyLife = 1;
+
         readyToPatrol = true;
 
         finiteStateMachine = new FiniteStateMachine<simpleEnemy>(this);
