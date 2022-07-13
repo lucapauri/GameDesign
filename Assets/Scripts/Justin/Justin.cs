@@ -49,6 +49,8 @@ public class Justin : MonoBehaviour
     public GameObject valigettaPrefab;
     public GameObject fulminePrefab;
     public GameObject pistolaPrefab;
+    public bool gunTaken;
+    public bool suitTaken;
 
 
     //animation variables
@@ -299,7 +301,7 @@ public class Justin : MonoBehaviour
             timeTravelUp();
         }
         //comando di sparo
-        if (Input.GetKeyDown(KeyCode.S) && gunLoaded == true)
+        if (Input.GetKeyDown(KeyCode.S) && gunLoaded == true && gunTaken)
         {
             animator.SetTrigger("Fire");
             Shoot();

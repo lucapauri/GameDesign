@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cristallo : MonoBehaviour
+public class Pistola : MonoBehaviour
 {
-    private GlobalVariables globalVariables;
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        globalVariables = FindObjectOfType<GlobalVariables>();
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 10)
         {
-            globalVariables.crystalsNumber++;
+            other.gameObject.GetComponent<Justin>().gunTaken = true;
             Destroy(gameObject);
         }
     }
 
+ 
 
 }

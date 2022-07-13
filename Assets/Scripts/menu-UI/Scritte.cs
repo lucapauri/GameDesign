@@ -5,7 +5,7 @@ using UnityEngine;
 public class Scritte : MonoBehaviour
 {
     private GameObject panel;
-    private bool isActive;
+    public bool isActive;
     private GameObject activeGo;
 
     // Start is called before the first frame update
@@ -14,6 +14,7 @@ public class Scritte : MonoBehaviour
         //inizializzo
         panel = GameObject.FindGameObjectWithTag("ScrittePanel");
         isActive = false;
+        panel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,10 +23,9 @@ public class Scritte : MonoBehaviour
         if (isActive == true && Input.GetKeyDown(KeyCode.X))
         {
             isActive = false;
+            setNotActive();
             Destroy(activeGo);
         }
-        if (isActive == false)
-            setNotActive();
     }
 
     public void setActive(string text, GameObject gameObject)

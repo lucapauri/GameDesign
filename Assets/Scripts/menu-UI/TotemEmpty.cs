@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class TotemEmpty : MonoBehaviour
 {
-    private GameObject justin;
     private Scritte scritte;
+    public string text;
+    private GlobalVariables globalVariables;
 
     // Start is called before the first frame update
     void Start()
     {
-        justin = GameObject.FindGameObjectWithTag("Player");
+        globalVariables = FindObjectOfType<GlobalVariables>();
         scritte = FindObjectOfType<Scritte>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 1)
-            scritte.setActive("Premi I per piantare il baobab", gameObject);
-        if (scritte.active() && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 1)
+        float distance = Vector3.Distance(gameObject.transform.position, globalVariables.justin.transform.position);
+        
+        if (globalVariables.justin != null && distance < 2)
+            scritte.setActive(text, gameObject);
+        if (scritte.isActive && distance > 3 && distance < 5)
             scritte.setNotActive();
     }
 }
