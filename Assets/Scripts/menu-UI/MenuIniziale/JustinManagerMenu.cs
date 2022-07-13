@@ -14,6 +14,7 @@ public class JustinManagerMenu : MonoBehaviour
     public GameObject fulminePrefab;
     public GameObject pistolaPrefab;
     public GameObject logoPanel;
+    public Animator camera;
 
 
     private float movingTime;
@@ -26,9 +27,11 @@ public class JustinManagerMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        searchPath();
         anim = GetComponent<Animator>();
         anim.SetBool("Walk", true);
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        logoPanel = GameObject.FindGameObjectWithTag("ScritteCanvas");
+        wayroot = GameObject.FindGameObjectWithTag("Respawn").transform;
 
         clips = anim.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in clips)
@@ -48,7 +51,7 @@ public class JustinManagerMenu : MonoBehaviour
                     break;
             }
         }
-
+        searchPath();
 
     }
 
@@ -85,7 +88,7 @@ public class JustinManagerMenu : MonoBehaviour
     }
 
     public void throwInst()
-        {
+    {
         GameObject valigetta = Instantiate(valigettaPrefab, transform.position, transform.rotation);
         valigetta.transform.localScale = transform.localScale;
 
@@ -95,13 +98,14 @@ public class JustinManagerMenu : MonoBehaviour
         valigetta.transform.SetParent(transform);
         fulmine.transform.SetParent(transform);
 
-        StartCoroutine(throwEndCoroutine(throwTime/4));
-     
-        }
+        StartCoroutine(throwEndCoroutine(throwTime / 4));
+
+    }
 
     private IEnumerator throwEndCoroutine(float timeToEndAnim)
     {
         yield return new WaitForSeconds(timeToEndAnim);
+        camera.SetFloat("Animate", 1);
         if (transform.Find("fulmine_unity(Clone)") != null && transform.Find("valigetta_unity(Clone)") != null)
         {
             Destroy(transform.Find("fulmine_unity(Clone)").gameObject);
@@ -116,7 +120,7 @@ public class JustinManagerMenu : MonoBehaviour
         pistola.transform.localScale = transform.localScale;
         pistola.transform.SetParent(transform);
 
-        StartCoroutine(fireEndCoroutine(fireTime/2));
+        StartCoroutine(fireEndCoroutine(fireTime / 2));
 
     }
 
@@ -124,6 +128,11 @@ public class JustinManagerMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToEndAnim);
         Destroy(transform.Find("pistola_unity(Clone)").gameObject);
+    }
+
+    public void cameraChangePos()
+    {
+
     }
 
 }

@@ -250,10 +250,9 @@ public class SliderMenu : MonoBehaviour {
 				ScrollObject.GetComponent<ScrollRect> ().horizontal = true;
 				HorizontalScrollbar.gameObject.SetActive (true);
 			} else {
-				HorizontalScrollbar.gameObject.SetActive (false);
+				
 			}
 			ScrollObject.GetComponent<ScrollRect> ().vertical 				= false;
-			VerticalScrollbar.gameObject.SetActive (false);
 			//##########################################################################End Change Scroll Type
 
 			//########################################################################Begin Change Slides Size
