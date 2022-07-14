@@ -242,21 +242,12 @@ public class SliderMenu : MonoBehaviour {
 			//########################################################################Begin Change Scroll Type
 			//Horizontal Scroll Enable And Vertical Scroll Disable
 
-			//Automatically Define Horizontal Scrollbar By "HorizontalScrollbar" Value.
-			ScrollObject.GetComponent<ScrollRect> ().horizontalScrollbar 	= HorizontalScrollbar;
 
-
-			if (ShowHorizontalScrollbar == true) {
-				ScrollObject.GetComponent<ScrollRect> ().horizontal = true;
-				HorizontalScrollbar.gameObject.SetActive (true);
-			} else {
-				
-			}
 			ScrollObject.GetComponent<ScrollRect> ().vertical 				= false;
 			//##########################################################################End Change Scroll Type
 
 			//########################################################################Begin Change Slides Size
-			SlidesContent.GetComponent<RectTransform> ().sizeDelta = new Vector2 (
+			SlidesContent.GetComponent<RectTransform>().sizeDelta = new Vector2 (
 				(Slides.Count + SlidesInView - 1) * (SlideSize.x + SlideMargin.y + SlideMargin.w),
 				(SlideSize.y + SlideMargin.x + SlideMargin.z)
 			);
@@ -271,18 +262,19 @@ public class SliderMenu : MonoBehaviour {
 						if (j == i) {
 							//------------------------------------------------------------------------Begin Position Animation
 							if (ActivePositionAnimation) {
-								Slides [j].GetComponent<RectTransform> ().localPosition = new Vector3 (
+								Slides[j].GetComponent<RectTransform>().localPosition = new Vector3(
 									//X
-									((SlidesInView - 1) / 2) * (SlideSize.x + SlideMargin.w + SlideMargin.y) + (j + 1) * SlideMargin.w + (j) * (SlideMargin.y) + (2 * j + 1) * SlideSize.x / 2, 
+									((SlidesInView - 1) / 2) * (SlideSize.x + SlideMargin.w + SlideMargin.y) + (j + 1) * SlideMargin.w + (j) * (SlideMargin.y) + (2 * j + 1) * SlideSize.x / 2,
 									//Y
-									Mathf.Lerp (
-									Slides [j].GetComponent<RectTransform> ().localPosition.y,																				//Current Position.y
-									SliderMenuCanvas.GetComponent<RectTransform> ().sizeDelta.y / 2 + ActiveOffset, 														//Target Position.y
-									ActiveOffsetTransition																													//Transition Position.y
+									Mathf.Lerp(
+									Slides[j].GetComponent<RectTransform>().localPosition.y,                                                                                //Current Position.y
+									SliderMenuCanvas.GetComponent<RectTransform>().sizeDelta.y / 2 + ActiveOffset,                                                      //Target Position.y
+									ActiveOffsetTransition                                                                                                                  //Transition Position.y
 									),
 									//Z
 									10
-								);
+								) ;
+								Debug.Log(((SlidesInView - 1) / 2) * (SlideSize.x + SlideMargin.w + SlideMargin.y) + (j + 1) * SlideMargin.w + (j) * (SlideMargin.y) + (2 * j + 1) * SlideSize.x / 2);
 							} else {					
 								Slides [j].GetComponent<RectTransform> ().localPosition = new Vector3 (
 									//X
@@ -827,6 +819,15 @@ public class SliderMenu : MonoBehaviour {
 			//####################################################################End Previous And Next Button
 		}
 		//======================================End Vertical Slider Menu======================================
+
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+			PreviousButton();
+        }
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+			NextButton();
+        }
 
 	}
 
