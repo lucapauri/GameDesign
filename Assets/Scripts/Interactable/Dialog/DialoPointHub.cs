@@ -3,54 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using DialogueEditor;
 
-public class ValigettaEmpty : MonoBehaviour
+public class DialoPointHub : MonoBehaviour
 {
     public NPCConversation conversation;
     public DialogCamera dialogCamera;
+
     private GlobalVariables globalVariables;
+
+
+    private float rightDistance = 7f;
     private bool cameraOn;
     private Vector3 startPos;
-    private GameObject justin;
-    private Scritte scritte;
-    private bool isActive;
-    private bool isTaken;
-    public GameObject valigetta;
-    private GameObject camera1;
-    private GameObject camera2;
+    private bool isFirst;
+    public Camera secondCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        justin = GameObject.FindGameObjectWithTag("Player");
-        scritte = FindObjectOfType<Scritte>();
-        isActive = false;
-        isTaken = false;
-        camera1 = GameObject.FindGameObjectWithTag("MainCamera");
-        camera2 = GameObject.FindGameObjectWithTag("SecondCamera");
+        isFirst = true;
         startPos = dialogCamera.transform.position;
         cameraOn = false;
         globalVariables = FindObjectOfType<GlobalVariables>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 15 && !isTaken)
+        float distance = Mathf.Abs(globalVariables.justin.transform.position.x - transform.position.x);
+        bool dialogPos = distance < rightDistance && globalVariables.justin._isGrounded;
+
+        if (dialogPos && isFirst && !cameraOn)
         {
-            scritte.setActive("Premi X per prendere la valigetta", valigetta);
-            isActive = true;
-        }
-        if (scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
-        {
-            scritte.setNotActive();
-            isActive = false;
-        }
-        //parte dialogo e prendo valigetta
-        if (isActive && Input.GetKeyDown(KeyCode.X) && !cameraOn)
-        {
-            isTaken = true;
             dialogSequence();
             cameraOn = true;
+            isFirst = false;
         }
 
         if (cameraOn && Input.GetKeyDown(KeyCode.Return))
@@ -59,11 +46,7 @@ public class ValigettaEmpty : MonoBehaviour
             endDialog();
             cameraOn = false;
         }
-    }
 
-    public bool taken()
-    {
-        return isTaken;
     }
 
     private void endDialog()
@@ -79,11 +62,9 @@ public class ValigettaEmpty : MonoBehaviour
         dialogCamera.GetComponent<Camera>().enabled = false;
 
         dialogCamera.transform.position = startPos;
-
-        //sdoppio camera
-        camera1.GetComponent<Camera>().rect = new Rect(0, 0.5f, 1, 1);
-        camera2.GetComponent<Camera>().rect = new Rect(0, -0.5f, 1, 1);
-
+        GameObject canvas = GameObject.FindGameObjectWithTag("Dialog");
+        Canvas can = canvas.GetComponent<Canvas>();
+        can.worldCamera = secondCamera;
     }
 
     private void dialogSequence()

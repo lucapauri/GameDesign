@@ -19,6 +19,7 @@ TagManager:
   - BananaInteractions
   - Door
   - SecondCamera
+  - Dialog
   layers:
   - Default
   - TransparentFX
