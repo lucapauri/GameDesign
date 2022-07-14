@@ -51,6 +51,7 @@ public class Justin : MonoBehaviour
     public GameObject pistolaPrefab;
     public bool gunTaken;
     public bool suitTaken;
+    public bool valigettaTaken;
 
 
     //animation variables
@@ -65,7 +66,6 @@ public class Justin : MonoBehaviour
 
     void Start()
     {
-
         //trovo gli script necessari
         globalVariables = FindObjectOfType<GlobalVariables>();
         globalVariables.justin = this;
@@ -192,7 +192,6 @@ public class Justin : MonoBehaviour
             interactable = hitInfo.transform.GetComponent<InventoryObject>();
             if (interactable)
             {
-
                 if (Input.GetKeyDown(KeyCode.X))
                 {
                     animator.SetTrigger("Grab");
@@ -291,12 +290,12 @@ public class Justin : MonoBehaviour
 
 
         //spostarsi sulla timeline sottostante
-        if (Input.GetKeyDown(KeyCode.M)  && globalVariables.currentTimeline > 0)
+        if (Input.GetKeyDown(KeyCode.M) && valigettaTaken  && globalVariables.currentTimeline > 0)
         {
             timeTravelDown();
         }
         //spostarsi sulla timeline sovrastante
-        if (Input.GetKeyDown(KeyCode.N)  && globalVariables.currentTimeline < 1)
+        if (Input.GetKeyDown(KeyCode.N) && valigettaTaken && globalVariables.currentTimeline < 1)
         {
             timeTravelUp();
         }

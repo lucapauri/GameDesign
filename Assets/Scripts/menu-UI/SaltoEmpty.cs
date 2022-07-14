@@ -19,12 +19,12 @@ public class SaltoEmpty : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 15 && !isActive)
+        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 10)
         {
-            scritte.setActive("Premi la barra per saltare", new GameObject());
+            scritte.setActive("Premi la barra per saltare", null);
             isActive = true;
         }
-        if (scritte.active() && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15)
+        if (isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 10)
         {
             scritte.setNotActive();
             isActive = false;

@@ -10,18 +10,19 @@ public class ValigettaEmpty : MonoBehaviour
     private GlobalVariables globalVariables;
     private bool cameraOn;
     private Vector3 startPos;
-    private GameObject justin;
+    public Justin justin;
     private Scritte scritte;
     private bool isActive;
     private bool isTaken;
     public GameObject valigetta;
     private GameObject camera1;
     private GameObject camera2;
+    private bool finished;
 
     // Start is called before the first frame update
     void Start()
     {
-        justin = GameObject.FindGameObjectWithTag("Player");
+        finished = false;
         scritte = FindObjectOfType<Scritte>();
         isActive = false;
         isTaken = false;
@@ -49,6 +50,7 @@ public class ValigettaEmpty : MonoBehaviour
         if (isActive && Input.GetKeyDown(KeyCode.X) && !cameraOn)
         {
             isTaken = true;
+            justin.valigettaTaken = true;
             dialogSequence();
             cameraOn = true;
         }
@@ -58,7 +60,21 @@ public class ValigettaEmpty : MonoBehaviour
             ConversationManager.Instance.PressSelectedOption();
             endDialog();
             cameraOn = false;
+            finished = true;
         }
+
+        if(isTaken && finished)
+        {
+            scritte.setActive("Premi M per spostarti nella timeline sottostante", null);
+        }
+
+        if (isTaken && finished && Input.GetKeyDown(KeyCode.M))
+        {
+            scritte.setNotActive();
+            finished = false;
+            Destroy(gameObject);
+        }
+
     }
 
     public bool taken()
