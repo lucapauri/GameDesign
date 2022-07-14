@@ -15,20 +15,27 @@ public class JustinManagerMenu : MonoBehaviour
     public GameObject pistolaPrefab;
     public GameObject logoPanel;
     public Animator camera;
+    private Vector3 startPos;
+    private Quaternion startRot;
+    private Vector3 startScale;
+    private AnimationClip idle;
 
 
-    private float movingTime;
+    private float movingTime = 3f; 
     private AnimationClip[] clips;
     private float throwTime;
     private float fireTime;
+    private bool readyToAnim;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        startScale = transform.localScale;
+        startPos = transform.position;
+        startRot = transform.rotation;
         anim = GetComponent<Animator>();
-        anim.SetBool("Walk", true);
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
         logoPanel = GameObject.FindGameObjectWithTag("ScritteCanvas");
         wayroot = GameObject.FindGameObjectWithTag("Respawn").transform;
@@ -46,12 +53,16 @@ public class JustinManagerMenu : MonoBehaviour
                 case "Armature|sparo":
                     fireTime = clip.length;
                     break;
+                case "Armature|Idle":
+                    idle = clip;
+                    break;
 
                 default:
                     break;
             }
         }
         searchPath();
+        readyToAnim = false;
 
     }
 
@@ -66,6 +77,8 @@ public class JustinManagerMenu : MonoBehaviour
 
         if (wayroot != null && wayroot.childCount > 0)
         {
+            anim.SetBool("Walk", true);
+            readyToAnim = false;
             Vector3[] pathPositions = new Vector3[wayroot.childCount];
             for (int i = 0; i < wayroot.childCount; i++)
             {
@@ -74,12 +87,13 @@ public class JustinManagerMenu : MonoBehaviour
             }
             walkingSequence = DOTween.Sequence();
 
-            walkingSequence.Append(transform.DOPath(pathPositions, 3, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear).SetLookAt(0.01f)
+            walkingSequence.Append(transform.DOPath(pathPositions, movingTime, PathType.CatmullRom, PathMode.Full3D, resolution: 10).SetEase(Ease.Linear).SetLookAt(0.01f)
                 .SetId("walking").OnComplete(
                 () =>
                 {
                     anim.SetBool("Walk", false);
                     logoPanel.GetComponent<Animator>().SetTrigger("ScaleUp");
+                    readyToAnim = true;
                 }
 
                 ));
@@ -89,16 +103,20 @@ public class JustinManagerMenu : MonoBehaviour
 
     public void throwInst()
     {
-        GameObject valigetta = Instantiate(valigettaPrefab, transform.position, transform.rotation);
-        valigetta.transform.localScale = transform.localScale;
+        if (readyToAnim)
+        {
+            GameObject valigetta = Instantiate(valigettaPrefab, transform.position, transform.rotation);
+            valigetta.transform.localScale = transform.localScale;
 
-        GameObject fulmine = Instantiate(fulminePrefab, transform.position, transform.rotation);
-        fulmine.transform.localScale = transform.localScale;
+            GameObject fulmine = Instantiate(fulminePrefab, transform.position, transform.rotation);
+            fulmine.transform.localScale = transform.localScale;
 
-        valigetta.transform.SetParent(transform);
-        fulmine.transform.SetParent(transform);
+            valigetta.transform.SetParent(transform);
+            fulmine.transform.SetParent(transform);
 
-        StartCoroutine(throwEndCoroutine(throwTime / 4));
+            StartCoroutine(throwEndCoroutine(throwTime / 4));
+
+        }
 
     }
 
@@ -110,17 +128,22 @@ public class JustinManagerMenu : MonoBehaviour
         {
             Destroy(transform.Find("fulmine_unity(Clone)").gameObject);
             Destroy(transform.Find("valigetta_unity(Clone)").gameObject);
-            Destroy(gameObject);
+            gameObject.transform.localScale = Vector3.zero;
+            gameObject.transform.position = startPos;
+            gameObject.transform.rotation = startRot;
         }
     }
 
     public void fireInst()
     {
-        GameObject pistola = Instantiate(pistolaPrefab, transform.position, transform.rotation);
-        pistola.transform.localScale = transform.localScale;
-        pistola.transform.SetParent(transform);
+        if (readyToAnim)
+        {
+            GameObject pistola = Instantiate(pistolaPrefab, transform.position, transform.rotation);
+            pistola.transform.localScale = transform.localScale;
+            pistola.transform.SetParent(transform);
 
-        StartCoroutine(fireEndCoroutine(fireTime / 2));
+            StartCoroutine(fireEndCoroutine(fireTime / 2));
+        }
 
     }
 
@@ -130,9 +153,18 @@ public class JustinManagerMenu : MonoBehaviour
         Destroy(transform.Find("pistola_unity(Clone)").gameObject);
     }
 
-    public void cameraChangePos()
+    public void backToMenu()
     {
 
+        StartCoroutine(backCoroutine());
     }
+
+    private IEnumerator backCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        gameObject.transform.localScale = startScale;
+        searchPath();
+    }
+
 
 }
