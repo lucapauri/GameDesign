@@ -11,6 +11,7 @@ public class ChiaveEmpty : MonoBehaviour
     private bool isActive;
     private bool isTaken;
     //per dialogo
+    public Camera dialogcamera;
     public NPCConversation conversation;
     public DialogCamera dialogCamera;
     private GlobalVariables globalVariables;
@@ -95,6 +96,8 @@ public class ChiaveEmpty : MonoBehaviour
         FindObjectOfType<UpCamera>().gameObject.GetComponent<Camera>().enabled = false;
         FindObjectOfType<DownCamera>().gameObject.GetComponent<Camera>().enabled = false;
 
+        Camera c = dialogCamera.GetComponent<Camera>();
+        c.rect = new Rect(0,0,1,1);
         dialogCamera.moveCamera();
         
         StartCoroutine(conversationCoroutine(dialogCamera.moveTime));

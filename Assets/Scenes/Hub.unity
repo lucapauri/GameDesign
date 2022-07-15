@@ -1925,6 +1925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154cfbadd6b5895478315c65f4dfbd57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogcamera: {fileID: 1403428078}
   conversation: {fileID: 597479090}
   dialogCamera: {fileID: 1403428080}
   fourthCamera: {fileID: 0}
@@ -2986,7 +2987,7 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 1
     width: 1
     height: 1
   near clip plane: 0.3
