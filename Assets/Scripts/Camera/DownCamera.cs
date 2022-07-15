@@ -8,9 +8,9 @@ public class DownCamera : MonoBehaviour
     private float _speed = 5f;
 
     private float verticalShift;
-    private float horizOffset = 3f;
+    private float horizOffset = 0f;
     public float vertOffset;
-    private float offsetSmoothing = 3f;
+    private float offsetSmoothing = 1f;
 
     private CharacterController _characterController;
     private GlobalVariables globalVariables;

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Giungla.unity
+    guid: 9661ac9d4a54c544e81f4f3f21c8db12
   m_configObjects: {}

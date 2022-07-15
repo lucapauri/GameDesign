@@ -50,8 +50,8 @@ public class Justin : MonoBehaviour
     public GameObject fulminePrefab;
     public GameObject pistolaPrefab;
     public bool gunTaken;
-    public bool suitTaken;
     public bool valigettaTaken;
+    private bool timeTravel;
 
 
     //animation variables
@@ -133,6 +133,8 @@ public class Justin : MonoBehaviour
                     break;
             }
         }
+
+        timeTravel = false;
 
 
     }
@@ -291,14 +293,16 @@ public class Justin : MonoBehaviour
 
 
         //spostarsi sulla timeline sottostante
-        if (Input.GetKeyDown(KeyCode.M) && valigettaTaken  && globalVariables.currentTimeline > 0)
+        if (Input.GetKeyDown(KeyCode.M) && valigettaTaken  && globalVariables.currentTimeline > 0 && !timeTravel)
         {
             timeTravelDown();
+            timeTravel = true;
         }
         //spostarsi sulla timeline sovrastante
-        if (Input.GetKeyDown(KeyCode.N) && valigettaTaken && globalVariables.currentTimeline < 1)
+        if (Input.GetKeyDown(KeyCode.N) && valigettaTaken && globalVariables.currentTimeline < 1 && !timeTravel)
         {
             timeTravelUp();
+            timeTravel = true;
         }
         //comando di sparo
         if (Input.GetKeyDown(KeyCode.S) && gunLoaded == true && gunTaken)
