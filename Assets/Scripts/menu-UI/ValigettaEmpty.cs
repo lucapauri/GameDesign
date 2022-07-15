@@ -18,6 +18,7 @@ public class ValigettaEmpty : MonoBehaviour
     private GameObject camera1;
     private GameObject camera2;
     private bool finished;
+    public Camera thirdCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,6 @@ public class ValigettaEmpty : MonoBehaviour
             isTaken = true;
             justin.valigettaTaken = true;
             dialogSequence();
-            cameraOn = true;
         }
 
         if (cameraOn && Input.GetKeyDown(KeyCode.Return))
@@ -99,7 +99,10 @@ public class ValigettaEmpty : MonoBehaviour
         //sdoppio camera
         camera1.GetComponent<Camera>().rect = new Rect(0, 0.5f, 1, 1);
         camera2.GetComponent<Camera>().rect = new Rect(0, -0.5f, 1, 1);
-
+        ConversationManager.Instance.EndConversation();
+        GameObject canvas = GameObject.FindGameObjectWithTag("Dialog");
+        Canvas can = canvas.GetComponent<Canvas>();
+        can.worldCamera = thirdCamera;
     }
 
     private void dialogSequence()
@@ -123,6 +126,7 @@ public class ValigettaEmpty : MonoBehaviour
     private IEnumerator conversationCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        cameraOn = true;
         ConversationManager.Instance.StartConversation(conversation);
 
 
