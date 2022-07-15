@@ -60,9 +60,20 @@ public class InventoryMenu : MonoBehaviour
             }
             else
             {
-                Vector3 instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 3f;
-                Quaternion instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
                 string buttonText = buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
+                Vector3 instPos = new Vector3();
+                Quaternion instRot = new Quaternion();
+                if (buttonText.Equals("key") || buttonText.Equals("rustyKey"))
+                {
+                    instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 30f + 
+                        globalVariables.justin.transform.up * 10f;
+                    instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
+                }
+                else
+                {
+                    instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 3f;
+                    instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
+                }
                 string name = "Meshes/"+buttonText;
                 GameObject goInstance = Instantiate(Resources.Load(name) as GameObject, instPos, Quaternion.identity);
                 goInstance.name = buttonText;
