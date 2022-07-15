@@ -42,7 +42,7 @@ public class Justin : MonoBehaviour
     public bool _dash;
     private float maxDashCheckDistance = 3f;
     [SerializeField] private LayerMask dashLayerMask;
-    private float maxInteractCheckDistance = 5f;
+    private float maxInteractCheckDistance = 10f;
     public Interactable interactable;
     private GameObject timeCapsule;
     private InventoryMenu inventoryMenu;
@@ -320,7 +320,7 @@ public class Justin : MonoBehaviour
         }
 
         //attivazione e chiusura menu inventario davanti a capsula del tempo
-        if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 4 && Input.GetKeyDown(KeyCode.X))
+        if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 20 && Input.GetKeyDown(KeyCode.X))
         {
             inventoryMenu.setMenuTrue();
             inventoryMenu.setBehaviour();

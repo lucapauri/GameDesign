@@ -56,6 +56,7 @@ public class GlobalVariables : MonoBehaviour
         agingSets.Add("SphereInteractable", "OldSphere");
         agingSets.Add("NewSphere", "OldNewSphere");
         agingSets.Add("DinoEgg ", "BabyDino ");
+        agingSets.Add("Tdevice", "TDeviceAGED");
 
     }
 
