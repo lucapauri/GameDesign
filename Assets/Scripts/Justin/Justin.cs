@@ -159,6 +159,7 @@ public class Justin : MonoBehaviour
 
         if (onMovingPlat)
         {
+            Debug.Log(onMovingPlat);
             _characterController.Move(transform.up * platInfo.collider.gameObject.GetComponent<PiattaformeMobili>().movSpeed * Time.deltaTime);
             _velocity.y += - _gravity * Time.deltaTime;
             _characterController.Move(_velocity * Time.deltaTime);

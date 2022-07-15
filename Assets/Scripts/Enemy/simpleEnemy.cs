@@ -34,6 +34,7 @@ public class simpleEnemy : MonoBehaviour
     private AnimationClip[] clips;
     private float TrexAttackTime;
     private float DeathTime;
+    private float TomahawkTime;
     private bool dead;
     public float huntLimitDistance;
     public bool onPlatform;
@@ -69,7 +70,8 @@ public class simpleEnemy : MonoBehaviour
     {
         none,
         trex,
-        robot
+        robot,
+        indiano
     }
 
     public MachineStatus currentStatus;
@@ -123,6 +125,9 @@ public class simpleEnemy : MonoBehaviour
 
                     case "Death":
                         DeathTime = clip.length;
+                        break;
+                    case "Armature|TomahawkLaunch":
+                        TomahawkTime = clip.length;
                         break;
 
                     default:
@@ -271,11 +276,27 @@ public class simpleEnemy : MonoBehaviour
 
                 //definisco comportamento per nemici range
             case simpleEnemy.Type.rangeEnemy:
+                if (GetComponent<Animator>())
+                {
+                    enemyAnimator.SetTrigger("Attack");
+                }
 
-                enemyBullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2f + transform.up * 1.5f, Quaternion.identity);
-                bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
-                bullet.shooter = this;
-                bullet.transform.up = transform.forward;
+                switch (special)
+                {
+                    case Specials.indiano:
+                        string name = "Meshes/tomahawk";
+                        GameObject tom = Instantiate(Resources.Load(name) as GameObject, transform.position, transform.rotation);
+                        tom.transform.localScale = transform.localScale;
+                        StartCoroutine(specialBulletCoroutine(TomahawkTime/6, Specials.indiano, tom));
+                        break;
+
+                    default:
+                        enemyBullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2f + transform.up * 1.5f, Quaternion.identity);
+                        bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
+                        bullet.shooter = this;
+                        bullet.transform.up = transform.forward;
+                        break;
+                }
                 break;
         }
        
@@ -312,6 +333,26 @@ public class simpleEnemy : MonoBehaviour
 
             default:
                 StartCoroutine(waitPatrolCoroutine(0));
+                break;
+        }
+    }
+
+    public IEnumerator specialBulletCoroutine(float timeToShoot, Specials spec, GameObject tomahawk)
+    {
+        yield return new WaitForSeconds(timeToShoot);
+        Destroy(tomahawk);
+        switch (spec)
+        {
+            case Specials.indiano:
+
+                enemyBullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 1.26f + transform.up * 0.8f, transform.rotation);
+                bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
+                bullet.shooter = this;
+                bullet.transform.up = transform.forward;
+                break;
+
+            default:
+        
                 break;
         }
     }

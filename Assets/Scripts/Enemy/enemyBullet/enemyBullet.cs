@@ -90,8 +90,10 @@ public class enemyBullet : MonoBehaviour
 
         Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y +1f, transform.position.z);
 
-
-        Instantiate(explosion, explosionPoint, Quaternion.identity);
+        if (explosion != null)
+        {
+            Instantiate(explosion, explosionPoint, Quaternion.identity);
+        }
 
         Destroy(gameObject);
 
@@ -100,9 +102,11 @@ public class enemyBullet : MonoBehaviour
     private IEnumerator lifetimeOutCoroutine()
     {
         yield return new WaitForSeconds(10f);
-
-        Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-        Instantiate(explosion, explosionPoint, Quaternion.identity);
+        if (explosion != null)
+        {
+            Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            Instantiate(explosion, explosionPoint, Quaternion.identity);
+        }
 
         Destroy(gameObject);
 
