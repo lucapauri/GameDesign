@@ -36,7 +36,6 @@ public class DialoPointHub : MonoBehaviour
         if (dialogPos && isFirst && !cameraOn)
         {
             dialogSequence();
-            cameraOn = true;
             isFirst = false;
         }
 
@@ -65,6 +64,7 @@ public class DialoPointHub : MonoBehaviour
         GameObject canvas = GameObject.FindGameObjectWithTag("Dialog");
         Canvas can = canvas.GetComponent<Canvas>();
         can.worldCamera = secondCamera;
+        ConversationManager.Instance.EndConversation();
     }
 
     private void dialogSequence()
@@ -88,6 +88,7 @@ public class DialoPointHub : MonoBehaviour
     private IEnumerator conversationCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
+        cameraOn = true;
         ConversationManager.Instance.StartConversation(conversation);
 
 
