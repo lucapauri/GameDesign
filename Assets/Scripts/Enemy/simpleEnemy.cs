@@ -38,6 +38,7 @@ public class simpleEnemy : MonoBehaviour
     private bool dead;
     public float huntLimitDistance;
     public bool onPlatform;
+    public Transform shotPoint;
 
     //groundCheck
     private float _groundDistance = 1f;
@@ -182,6 +183,11 @@ public class simpleEnemy : MonoBehaviour
 
         huntLimitDistance = Mathf.Abs(wayRoot.transform.position.x - wayRoot.GetChild(0).transform.position.x);
 
+        if (shotPoint == null)
+        {
+            shotPoint = transform;
+        }
+
 
         globalVariables.enemies.Add(this);
         StartCoroutine(firstTargetCoroutine());
@@ -276,14 +282,14 @@ public class simpleEnemy : MonoBehaviour
 
                 //definisco comportamento per nemici range
             case simpleEnemy.Type.rangeEnemy:
-                if (GetComponent<Animator>())
-                {
-                    enemyAnimator.SetTrigger("Attack");
-                }
 
                 switch (special)
                 {
                     case Specials.indiano:
+                        if (GetComponent<Animator>())
+                        {
+                            enemyAnimator.SetTrigger("Attack");
+                        }
                         string name = "Meshes/tomahawk";
                         GameObject tom = Instantiate(Resources.Load(name) as GameObject, transform.position, transform.rotation);
                         tom.transform.localScale = transform.localScale;
@@ -291,10 +297,12 @@ public class simpleEnemy : MonoBehaviour
                         break;
 
                     default:
-                        enemyBullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 2f + transform.up * 1.5f, Quaternion.identity);
+                        enemyBullet bullet = Instantiate(bulletPrefab, shotPoint.position, Quaternion.identity);
                         bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
                         bullet.shooter = this;
                         bullet.transform.up = transform.forward;
+                        bullet.transform.SetParent(shotPoint);
+                        bullet.shotPoint = shotPoint;
                         break;
                 }
                 break;

@@ -54,13 +54,16 @@ public class AttackState : State
             enemy.huntLimitDistance = attackDistance * 3;
         }
 
-
     }
 
     public override void Exit()
     {
         //smetto di attaccare
         enemy.CancelInvoke("attack");
+        if (enemy.special == simpleEnemy.Specials.none)
+        {
+            enemy.enemyAnimator.SetBool("Attack", false);
+        }
     }
 
     public override void Tik()
@@ -95,9 +98,14 @@ public class AttackState : State
             float verticalDistance = Mathf.Abs(enemy.target.transform.position.y - enemy.transform.position.y);
             if (distance < attackDistance)
         {
-             //il nemico ruota in modo da puntare il target
+                if (enemy.special == simpleEnemy.Specials.none)
+                {
+                    enemy.enemyAnimator.SetBool("Attack", true);
+                }
 
-            Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
+                //il nemico ruota in modo da puntare il target
+
+                Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
             targetDirection.y = 0f;
             targetDirection.z = 0f;
             targetDirection.Normalize();
@@ -144,9 +152,14 @@ public class AttackState : State
         //se il target si sta allontanando il nemico lo insegue per un pò
         if ( distance >= attackDistance - 0.1f && distance < enemy.huntLimitDistance)
         {
+                if (enemy.special == simpleEnemy.Specials.none)
+                {
+                    enemy.enemyAnimator.SetBool("Attack", false);
+                }
 
 
-            Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
+
+                Vector3 targetDirection = enemy.target.transform.position - enemy.transform.position;
             targetDirection.y = 0f;
             targetDirection.z = 0f;
             targetDirection.Normalize();

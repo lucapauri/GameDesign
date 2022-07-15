@@ -99,8 +99,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.463116, y: 10.195204, z: 8.947189}
-  m_Center: {x: 0.5861256, y: 1.981711, z: -0.35960466}
+  m_Size: {x: 5.570707, y: 1.943645, z: 8.947189}
+  m_Center: {x: 0.20773888, y: 6.107553, z: -0.35960463}
 --- !u!114 &8191508527267070937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalVariables: {fileID: 0}
   shooter: {fileID: 0}
+  shotPoint: {fileID: 0}
   _target: {fileID: 0}
   explosion: {fileID: 2179657337937765569, guid: f394c1ffefdbb4c12be5d15333375907, type: 3}
   currentOrigin: 0

@@ -9,6 +9,7 @@ public class enemyBullet : MonoBehaviour
     private float shootForce;
 
     public simpleEnemy shooter;
+    public Transform shotPoint;
 
     public Transform _target;
 
@@ -23,6 +24,7 @@ public class enemyBullet : MonoBehaviour
     private float decreaseImpulse = 0.9f;
     private float movSpeedForward;
     private float movSpeedDown;
+    private bool readyToFire;
 
     public enum Origin
     {
@@ -42,7 +44,9 @@ public class enemyBullet : MonoBehaviour
         movSpeedForward = 4f;
         movSpeedDown = 0.1f;
         globalVariables = FindObjectOfType<GlobalVariables>();
+        readyToFire = false;
         StartCoroutine(lifetimeOutCoroutine());
+        StartCoroutine(readyToFireCoroutine());
 
         toTarget = _target.transform.position + globalVariables.justin.transform.up * 1.5f - transform.position;
 
@@ -59,8 +63,11 @@ public class enemyBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 newDir = targetDirection * movSpeedForward - transform.right * movSpeedDown;
-        rb.MovePosition(transform.position + newDir * Time.deltaTime);
+        if (readyToFire)
+        {
+            Vector3 newDir = targetDirection * movSpeedForward - transform.right * movSpeedDown;
+            rb.MovePosition(transform.position + newDir * Time.deltaTime);
+        }
     }
 
 
@@ -109,6 +116,15 @@ public class enemyBullet : MonoBehaviour
         }
 
         Destroy(gameObject);
+
+    }
+
+    private IEnumerator readyToFireCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        shotPoint.DetachChildren();
+        readyToFire = true;
+
 
     }
 
