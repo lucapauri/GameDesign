@@ -19,16 +19,16 @@ public class PlatRespawn : MonoBehaviour
 
     }
 
-    public void respawnPlat(Vector3 platPos, Quaternion platRot)
+    public void respawnPlat(Vector3 platPos, Quaternion platRot, Vector3 platScale)
     {
-        StartCoroutine(respawnPlatCoroutine(platPos, platRot));
+        StartCoroutine(respawnPlatCoroutine(platPos, platRot, platScale));
     }
 
-    public IEnumerator respawnPlatCoroutine(Vector3 platPos, Quaternion platRot)
+    public IEnumerator respawnPlatCoroutine(Vector3 platPos, Quaternion platRot, Vector3 platScale)
     {
-        Debug.Log("respawn");
         yield return new WaitForSeconds(respawnTime);
-        Instantiate(plat, platPos, platRot);
+        GameObject go = Instantiate(plat, platPos, platRot);
+        go.transform.localScale = platScale;
 
     }
 

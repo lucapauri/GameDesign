@@ -41,7 +41,7 @@ public class PiattaformeDistruttibili : MonoBehaviour
         shaking = true;
         StartCoroutine(shakeCoroutine());
         StartCoroutine(lateDestroyCoroutine());
-        manager.respawnPlat(transform.position, transform.rotation);
+        manager.respawnPlat(transform.position, transform.rotation, transform.localScale);
     }
 
     private IEnumerator shakeCoroutine()
