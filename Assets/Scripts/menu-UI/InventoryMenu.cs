@@ -66,7 +66,7 @@ public class InventoryMenu : MonoBehaviour
                 if (buttonText.Equals("key") || buttonText.Equals("rustyKey"))
                 {
                     instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 30f + 
-                        globalVariables.justin.transform.up * 10f;
+                        globalVariables.justin.transform.up * 5f;
                     instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
                 }
                 else
@@ -94,12 +94,14 @@ public class InventoryMenu : MonoBehaviour
 
     public void setMenuTrue()
     {
+        if (buttons.Count > 0) { 
         isMenu = true;
         globalVariables.justin.enabled = false;
         foreach (simpleEnemy enemy in globalVariables.enemies)
         {
             enemy.GetComponent<simpleEnemy>().enabled = false;
         }
+    }
     }
 
     public void setMenuFalse()

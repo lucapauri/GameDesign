@@ -10,6 +10,7 @@ public class InteractionsFromInventory : MonoBehaviour
 
     private float rightDistanceDino = 15f;
     private float rightDistanceBanana = 5f;
+    private float rightDistanceKey = 40f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,21 @@ public class InteractionsFromInventory : MonoBehaviour
                     go.GetComponent<BananaPlant>().enabled = true;
                 }
                 break;
+            case "key":
+                float rightPos3 = interactionMap["KeyPoint"];
+                if(Mathf.Abs(rightPos3 - instPosition.x) < rightDistanceKey)
+                {
+                    go.GetComponent<ActivateKey>().enabled = true;
+                }
+                break;
+            case "rustyKey":
+                float rightPos4 = interactionMap["KeyPoint"];
+                if (Mathf.Abs(rightPos4 - instPosition.x) < rightDistanceKey)
+                {
+                    go.GetComponent<ActivateRustyKey>().enabled = true;
+                }
+                break;
+
         }
 
     }

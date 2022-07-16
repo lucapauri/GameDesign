@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2723998135600065756}
   - component: {fileID: -7983126919544638774}
   - component: {fileID: 2714140923020397833}
+  - component: {fileID: 955592498298392500}
   m_Layer: 0
   m_Name: rustyKey
   m_TagString: Untagged
@@ -106,5 +107,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04a96eb8bfef542f496874f6a28de9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &955592498298392500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525389401184472329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a9aa6fd4b70d914eb1284a40cebc024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

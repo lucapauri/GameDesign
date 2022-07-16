@@ -193,6 +193,7 @@ public class Justin : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo, maxInteractCheckDistance))
         {
             interactable = hitInfo.transform.GetComponent<InventoryObject>();
+            Debug.Log(interactable);
             if (interactable)
             {
                 if (Input.GetKeyDown(KeyCode.X))
