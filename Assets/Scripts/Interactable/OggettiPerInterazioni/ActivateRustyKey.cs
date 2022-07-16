@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class ActivateRustyKey : MonoBehaviour
 {
+    private Animator animator;
+    private GameObject end;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("giungla");
+        animator = gameObject.GetComponent<Animator>();
+        animator.SetTrigger("rotate");
+        end = GameObject.FindGameObjectWithTag("EndLevel");
+        end.GetComponent<Animator>().SetTrigger("fade");
+        StartCoroutine(endLevelCoroutine(2f));
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private IEnumerator endLevelCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("giungla");
     }
 }
