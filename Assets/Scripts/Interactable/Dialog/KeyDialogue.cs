@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DialogueEditor;
 
-public class ActivateRustyKey : MonoBehaviour
+public class KeyDialogue : MonoBehaviour
 {
+    public NPCConversation conversation;
     // Start is called before the first frame update
     void Start()
     {
         
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("giungla");
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public NPCConversation getConversation()
+    {
+        return conversation;
     }
 }

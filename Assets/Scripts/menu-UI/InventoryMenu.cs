@@ -147,5 +147,9 @@ public class InventoryMenu : MonoBehaviour
 
     }
 
-   
+    public int getButtons()
+    {
+        return buttons.Count;
+    }
+
 }

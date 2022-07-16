@@ -54,7 +54,7 @@ public class ChiaveEmpty : MonoBehaviour
         {
             scritte.setNotActive();
             isTaken = true;
-            StartCoroutine(conversationWaitCoroutine(2f));
+            StartCoroutine(conversationWaitCoroutine(1.5f));
         }
         if (cameraOn && Input.GetKeyDown(KeyCode.Return))
         {
@@ -81,6 +81,7 @@ public class ChiaveEmpty : MonoBehaviour
         ConversationManager.Instance.EndConversation();
         GameObject canvas = GameObject.FindGameObjectWithTag("Dialog");
         Canvas can = canvas.GetComponent<Canvas>();
+        can.worldCamera = fourthCamera;
     }
 
     private void dialogSequence()

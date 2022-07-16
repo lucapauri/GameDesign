@@ -10,7 +10,7 @@ public class InteractionsFromInventory : MonoBehaviour
 
     private float rightDistanceDino = 15f;
     private float rightDistanceBanana = 5f;
-    private float rightDistanceKey = 40f;
+    private float rightDistanceKey = 5f;
 
     // Start is called before the first frame update
     void Start()
