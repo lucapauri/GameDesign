@@ -44,12 +44,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Abito
-    second: {fileID: 2100000, guid: ba4c24c2fad8a461a978928b9b7c2327, type: 2}
+    second: {fileID: 2100000, guid: 8189d9b304a7cd94f93d400c32a2c8b0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: occhi
-    second: {fileID: 2100000, guid: 45db22d32f1c9441aba9bfd3d6ed41de, type: 2}
+    second: {fileID: 2100000, guid: c85cfff5b6b47684198acbc79a9ad0c5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
