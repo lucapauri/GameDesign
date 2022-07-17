@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatRespawn : MonoBehaviour
 {
-    private float respawnTime = 4f;
+    private float respawnTime = 6f;
     public GameObject plat; //da aggiungere un prefab per le piattaforme nel deserto
 
     // Start is called before the first frame update
