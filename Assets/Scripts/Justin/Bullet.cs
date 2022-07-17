@@ -6,19 +6,24 @@ public class Bullet : MonoBehaviour
 {
 
    private GlobalVariables globalVariables;
+    private bool firstColl;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        firstColl = true;
         globalVariables = FindObjectOfType<GlobalVariables>();
     }
 
     void OnCollisionEnter(Collision collision)
 
     {
+        Destroy(gameObject);
+
+
         // codice per la collisione del proiettile con dei nemici
-        if (collision.gameObject.layer == 7 || collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 7 || collision.gameObject.layer == 8 && firstColl)
         {
 
             teleportEnemy(collision.gameObject, globalVariables.currentTimeline);
@@ -30,16 +35,13 @@ public class Bullet : MonoBehaviour
         {
             teleportBullet(collision.gameObject, globalVariables.currentTimeline);
         }
-
-        Destroy(gameObject);
-
+        firstColl = false;
     }
 
     //funzione per il teletrasporto dei nemici
     public void teleportEnemy(GameObject enemy, int timeline)
     {
         float bias = globalVariables.upPlaneHeight - globalVariables.downPlaneHeight;
-        globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
         Vector3 upPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y + bias, enemy.transform.position.z);
         Vector3 downPos = new Vector3(enemy.transform.position.x, enemy.transform.position.y - bias, enemy.transform.position.z);
         Quaternion newRot = enemy.transform.rotation;
@@ -49,7 +51,7 @@ public class Bullet : MonoBehaviour
             oldPlat = enemy.GetComponent<NemicoCity>().platform.position;
         }
 
-        Destroy(enemy);
+        globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
 
         if (timeline > 0)
         {
@@ -105,6 +107,7 @@ public class Bullet : MonoBehaviour
             }
             
         }
+        Destroy(enemy);
 
         //aggiungi un'interfaccia generica per poi istanziare quella anzichè il gameobject, in modo da abilitare gli script come fai quando sposti justin
     }

@@ -62,13 +62,16 @@ public class PatrolState : State
 
         foreach (simpleEnemy intruder in enemy.globalVariables.enemies)
         {
-            bool intrusion = intruder.originalTimeline != enemy.originalTimeline;
-            bool sameTimeline = intruder.currentTimeline == enemy.currentTimeline;
-            float distanceFromIntruder = Mathf.Abs(enemy.transform.position.x - intruder.transform.position.x);
-            if (distanceFromIntruder < targetVisibleDistance && intrusion && sameTimeline)
+            if(intruder!= null)
             {
-                enemy.target = intruder.gameObject;
-                enemy.currentStatus = simpleEnemy.MachineStatus.Attack;
+                bool intrusion = intruder.originalTimeline != enemy.originalTimeline;
+                bool sameTimeline = intruder.currentTimeline == enemy.currentTimeline;
+                float distanceFromIntruder = Mathf.Abs(enemy.transform.position.x - intruder.transform.position.x);
+                if (distanceFromIntruder < targetVisibleDistance && intrusion && sameTimeline)
+                {
+                    enemy.target = intruder.gameObject;
+                    enemy.currentStatus = simpleEnemy.MachineStatus.Attack;
+                }
             }
         }
 

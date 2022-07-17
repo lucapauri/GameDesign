@@ -188,8 +188,9 @@ public class simpleEnemy : MonoBehaviour
             shotPoint = transform;
         }
 
+       
+            globalVariables.enemies.Add(this);
 
-        globalVariables.enemies.Add(this);
         StartCoroutine(firstTargetCoroutine());
 
     }

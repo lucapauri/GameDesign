@@ -10,10 +10,10 @@ public class Trigger : MonoBehaviour
 
     private float verticalTriggerDistance = 2.2f;
     private float horizontalTriggerDistance = 2f;
-    private float horizontalDestroyDistance = 4f;
+    private float horizontalDestroyDistance = 6f;
 
     private Animator anim;
-    private simpleEnemy Robot;
+    public simpleEnemy Robot;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +21,6 @@ public class Trigger : MonoBehaviour
         globalVariables = FindObjectOfType<GlobalVariables>();
         Door = GameObject.FindGameObjectWithTag("Door");
         anim = GetComponent<Animator>();
-
-        foreach (simpleEnemy enemy in globalVariables.enemies)
-        {
-            if (enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot);
-        }
     }
 
     // Update is called once per frame
@@ -46,6 +41,7 @@ public class Trigger : MonoBehaviour
             else if (triggerPosition)
             {
                 noRespawn(Robot);
+                globalVariables.enemies.Remove(Robot);
                 anim.SetTrigger("Down");
                 Debug.Log("Down");
 
@@ -68,29 +64,30 @@ public class Trigger : MonoBehaviour
         respawnRobot.GetComponent<simpleEnemy>().enabled = true;
         respawnRobot.GetComponent<simpleEnemy>().wayRoot = wayroot;
         respawnRobot.GetComponent<simpleEnemy>().currentOrigin = simpleEnemy.Origin.Original;
-
         globalVariables.enemies.Remove(enemy.GetComponent<simpleEnemy>());
         globalVariables.enemies.Add(respawnRobot.GetComponent<simpleEnemy>());
         Destroy(enemy.gameObject);
+        searchRobotCoroutine();
     }
 
     private void noRespawn(simpleEnemy enemy)
     {
-        globalVariables.enemies.Remove(enemy);
         Destroy(enemy.gameObject);
         Destroy(Door);
     }
 
     private IEnumerator searchRobotCoroutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         foreach (simpleEnemy enemy in globalVariables.enemies)
         {
-            if (enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot)
+            if (enemy != null)
             {
-                Robot = enemy;
+                if (enemy.GetComponent<simpleEnemy>().special == simpleEnemy.Specials.robot)
+                {
+                    Robot = enemy;
+                }
             }
-
         }
     }
 }
