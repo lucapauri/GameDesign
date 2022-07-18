@@ -5,12 +5,24 @@ using DialogueEditor;
 
 public class ActivateKey : MonoBehaviour
 {
+    NewControls controls;
     private Camera dialogcamera;
     private NPCConversation conversation;
     private DialogCamera dialogCamera;
     private GlobalVariables globalVariables;
     private bool cameraOn;
     private Vector3 startPos;
+
+    private void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.SkipDialog.performed += ctx => Skip();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +38,20 @@ public class ActivateKey : MonoBehaviour
         dialogSequence();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Skip()
     {
-        if (cameraOn && Input.GetKeyDown(KeyCode.Return))
+        if (cameraOn)
         {
             ConversationManager.Instance.PressSelectedOption();
             cameraOn = false;
             endDialog();
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+      
     }
 
     private void endDialog()
