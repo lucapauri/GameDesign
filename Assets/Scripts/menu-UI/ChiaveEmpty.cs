@@ -5,6 +5,7 @@ using DialogueEditor;
 
 public class ChiaveEmpty : MonoBehaviour
 {
+    NewControls controls;
     //per scritte
     private GameObject justin;
     private Scritte scritte;
@@ -18,6 +19,18 @@ public class ChiaveEmpty : MonoBehaviour
     private bool cameraOn;
     private Vector3 startPos;
     public Camera fourthCamera;
+
+    private void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.Grab.performed += ctx => Grab();
+        controls.JustinController.SkipDialog.performed += ctx => Skip();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +46,26 @@ public class ChiaveEmpty : MonoBehaviour
         isTaken = false;
     }
 
+    private void Grab()
+    {
+        if (isActive)
+        {
+            scritte.setNotActive();
+            isTaken = true;
+            StartCoroutine(conversationWaitCoroutine(1.5f));
+        }
+    }
+
+    private void Skip()
+    {
+        if (cameraOn)
+        {
+            ConversationManager.Instance.PressSelectedOption();
+            cameraOn = false;
+            endDialog();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,25 +75,13 @@ public class ChiaveEmpty : MonoBehaviour
         }
         if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 10 && !isTaken)
         {
-            scritte.setActive("Premi X per raccogliere la chiave", null);
+            scritte.setActive("Press Y to grab the key", null);
             isActive = true;
         }
-        if (isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 10)
+        if (justin != null && isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 10)
         {
             scritte.setNotActive();
             isActive = false;
-        }
-        if (isActive && Input.GetKeyDown(KeyCode.X))
-        {
-            scritte.setNotActive();
-            isTaken = true;
-            StartCoroutine(conversationWaitCoroutine(1.5f));
-        }
-        if (cameraOn && Input.GetKeyDown(KeyCode.Return))
-        {
-            ConversationManager.Instance.PressSelectedOption();
-            cameraOn = false;
-            endDialog();
         }
     }
 

@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Justin : MonoBehaviour
 {
 
     //moving variables
+    NewControls controls;
     [SerializeField] private Transform _cameraT;
     [SerializeField] private float _speed = 5f;
     private Transform planeDown;
@@ -52,7 +54,7 @@ public class Justin : MonoBehaviour
     public bool gunTaken;
     public bool valigettaTaken;
     private bool timeTravel;
-
+    private bool destroyed;
 
     //animation variables
     private Animator animator;
@@ -62,6 +64,86 @@ public class Justin : MonoBehaviour
     private float throwTime;
     private float fireTime;
 
+    private void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.Jump.performed += ctx => Jump();
+        controls.JustinController.TimeTravel.performed += ctx => TimeTravel();
+        controls.JustinController.Shoot.performed += ctx => ShootInput();
+        controls.JustinController.Dash.performed += ctx => Dash();
+        controls.JustinController.InputSpeed.performed += ctx => _inputSpeed = ctx.ReadValue<float>();
+        controls.JustinController.InputSpeed.canceled += ctx => _inputSpeed = 0f;
+        controls.JustinController.Grab.performed += ctx => Grab();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
+
+    private void Grab()
+    {
+        if (!destroyed)
+        {
+            RaycastHit hitInfo;
+            Ray ray = new Ray(transform.position + transform.up * 1.5f, transform.forward);
+            if (Physics.Raycast(ray, out hitInfo, maxInteractCheckDistance))
+            {
+                interactable = hitInfo.transform.GetComponent<InventoryObject>();
+                if (interactable)
+                {
+                    animator.SetTrigger("Grab");
+                    StartCoroutine(grabEndingCoroutine(grabTime / 4));
+                }
+            }
+        }
+    }
+
+    private void Jump()
+    {
+        if (!destroyed)
+        {
+            if (gameObject.GetComponent<Justin>().isActiveAndEnabled)
+            {
+                if (_isGrounded && !highJump)
+                {
+                    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+                    animator.SetTrigger("Jump");
+
+                }
+                if (highJump)
+                {
+                    _velocity.y = Mathf.Sqrt(_jumpHeight * -4f * _gravity);
+                    animator.SetTrigger("Jump");
+
+                }
+            }
+        }
+    }
+
+    private void TimeTravel()
+    {
+        if (valigettaTaken && globalVariables.currentTimeline > 0 && !timeTravel)
+        {
+            timeTravelDown();
+            timeTravel = true;
+        }
+        //spostarsi sulla timeline sovrastante
+        if (valigettaTaken && globalVariables.currentTimeline < 1 && !timeTravel)
+        {
+            timeTravelUp();
+            timeTravel = true;
+        }
+    }
+
+    private void ShootInput()
+    {
+        if (gunLoaded == true && gunTaken && !destroyed)
+        {
+            animator.SetTrigger("Fire");
+            Shoot();
+        }
+    }
 
 
     void Start()
@@ -92,6 +174,7 @@ public class Justin : MonoBehaviour
 
         //inizializzo variabili
 
+        destroyed = false;
         gunLoaded = true;
         _dash = false;
         _gravity = -9.81f;
@@ -181,7 +264,7 @@ public class Justin : MonoBehaviour
             movingTime = movingTime + 0.003f;
         animator.SetFloat("Blend", movingTime);
 
-        _inputSpeed = Input.GetAxis("Horizontal");
+        //_inputSpeed = Input.GetAxis("Horizontal");
         _inputVector = new Vector3(-1 * _inputSpeed, 0, 0);
 
 
@@ -190,7 +273,7 @@ public class Justin : MonoBehaviour
         //raycast per gli interactable
         RaycastHit hitInfo;
         Ray ray = new Ray(transform.position + transform.up * 1.5f, transform.forward);
-        if (Physics.Raycast(ray, out hitInfo, maxInteractCheckDistance))
+        /*if (Physics.Raycast(ray, out hitInfo, maxInteractCheckDistance))
         {
             interactable = hitInfo.transform.GetComponent<InventoryObject>();
             if (interactable)
@@ -202,7 +285,7 @@ public class Justin : MonoBehaviour
                 }
 
             }
-        }
+        }*/
 
         //raycasting per togliere i collider ai nemici in dash
         if (Physics.Raycast(ray, out hitInfo, maxDashCheckDistance, dashLayerMask) && !_dash && _inputSpeed > 0f)
@@ -241,6 +324,7 @@ public class Justin : MonoBehaviour
         {
             
             Destroy(gameObject);
+            destroyed = true;
         }
 
 
@@ -259,13 +343,18 @@ public class Justin : MonoBehaviour
 
 
 
+        //gravity
 
+        _velocity.y += _gravity * Time.deltaTime;
+        _characterController.Move(_velocity * Time.deltaTime);
+        _velocity.y += _gravity * Time.deltaTime;
+        _characterController.Move(_velocity * Time.deltaTime);
 
 
         //COMANDI-->
 
         //jumping
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded && !highJump)
+        /*if (Input.GetKeyDown(KeyCode.Space) && _isGrounded && !highJump)
         {
             _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
             animator.SetTrigger("Jump");
@@ -283,13 +372,6 @@ public class Justin : MonoBehaviour
         {
             inventoryMenu.setMenuTrue();
         }
-
-        //gravity
-       
-        _velocity.y +=  _gravity * Time.deltaTime;
-        _characterController.Move( _velocity * Time.deltaTime);
-        _velocity.y += _gravity * Time.deltaTime;
-        _characterController.Move(_velocity * Time.deltaTime);
 
 
         //spostarsi sulla timeline sottostante
@@ -329,9 +411,9 @@ public class Justin : MonoBehaviour
             inventoryMenu.setMenuTrue();
             inventoryMenu.setBehaviour();
         }
-
+        */
     }
-
+       
 
     //passo al time sequence inferiore
     private void timeTravelDown()
@@ -464,6 +546,7 @@ public class Justin : MonoBehaviour
         Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + groundDistance, planeUp.position.z);
         Quaternion newRotation = transform.rotation;
         Destroy(this.gameObject);
+        destroyed = true;
         Justin justin = Instantiate(this, newPosition, newRotation);
         justin.enabled = true;
         justin.gameObject.GetComponent<Animator>().enabled = true;
@@ -483,6 +566,7 @@ public class Justin : MonoBehaviour
         Quaternion newRotation = transform.rotation;
 
         Destroy(this.gameObject);
+        destroyed = true;
 
         Justin justin = Instantiate(this, newPosition, newRotation);
         justin.enabled = true;

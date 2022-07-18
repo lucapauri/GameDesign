@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DialogueEditor;
+using UnityEngine.InputSystem;
 
 public class DialoPointHub : MonoBehaviour
 {
+    NewControls controls;
     public NPCConversation conversation;
     public DialogCamera dialogCamera;
 
@@ -16,6 +18,27 @@ public class DialoPointHub : MonoBehaviour
     private Vector3 startPos;
     private bool isFirst;
     public Camera secondCamera;
+
+    void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.SkipDialog.performed += ctx => Skip();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
+
+    void Skip()
+    {
+        if (cameraOn)
+        {
+            ConversationManager.Instance.PressSelectedOption();
+            endDialog();
+            cameraOn = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -38,14 +61,6 @@ public class DialoPointHub : MonoBehaviour
             dialogSequence();
             isFirst = false;
         }
-
-        if (cameraOn && Input.GetKeyDown(KeyCode.Return))
-        {
-            ConversationManager.Instance.PressSelectedOption();
-            endDialog();
-            cameraOn = false;
-        }
-
     }
 
     private void endDialog()

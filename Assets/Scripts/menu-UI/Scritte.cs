@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class Scritte : MonoBehaviour
 {
+    private NewControls controls;
     private GameObject panel;
     public bool isActive;
     private GameObject activeGo;
+
+    void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.Grab.performed += ctx => Grab();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -17,15 +29,20 @@ public class Scritte : MonoBehaviour
         panel.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Grab()
     {
-        if (isActive == true && Input.GetKeyDown(KeyCode.X))
+        if (isActive == true)
         {
             isActive = false;
             setNotActive();
             Destroy(activeGo);
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+       
     }
 
     public void setActive(string text, GameObject gameObject)

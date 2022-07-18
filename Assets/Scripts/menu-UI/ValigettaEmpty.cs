@@ -5,6 +5,7 @@ using DialogueEditor;
 
 public class ValigettaEmpty : MonoBehaviour
 {
+    private NewControls controls;
     public NPCConversation conversation;
     public DialogCamera dialogCamera;
     private GlobalVariables globalVariables;
@@ -20,6 +21,19 @@ public class ValigettaEmpty : MonoBehaviour
     private bool finished;
     public Camera thirdCamera;
 
+    void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.Grab.performed += ctx => Grab();
+        controls.JustinController.SkipDialog.performed += ctx => Skip();
+        controls.JustinController.TimeTravel.performed += ctx => Eliminate();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,45 +48,53 @@ public class ValigettaEmpty : MonoBehaviour
         globalVariables = FindObjectOfType<GlobalVariables>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Grab()
     {
-        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 15 && !isTaken)
-        {
-            scritte.setActive("Premi X per prendere la valigetta", valigetta);
-            isActive = true;
-        }
-        if (scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
-        {
-            scritte.setNotActive();
-            isActive = false;
-        }
-        //parte dialogo e prendo valigetta
-        if (isActive && Input.GetKeyDown(KeyCode.X) && !cameraOn)
+        if (isActive)
         {
             isTaken = true;
             justin.valigettaTaken = true;
             dialogSequence();
         }
+    }
 
-        if (cameraOn && Input.GetKeyDown(KeyCode.Return))
+    private void Skip()
+    {
+        if (cameraOn)
         {
             ConversationManager.Instance.PressSelectedOption();
             endDialog();
             cameraOn = false;
             finished = true;
         }
+    }
 
-        if(isTaken && finished)
-        {
-            scritte.setActive("Premi M per spostarti nella timeline sottostante", null);
-        }
-
-        if (isTaken && finished && Input.GetKeyDown(KeyCode.M))
+    private void Eliminate()
+    {
+        if (isTaken && finished)
         {
             scritte.setNotActive();
             finished = false;
-            Destroy(gameObject);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 15 && !isTaken)
+        {
+            scritte.setActive("Press Y to grab the case", valigetta);
+            isActive = true;
+        }
+        if (justin != null && scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
+        {
+            scritte.setNotActive();
+            isActive = false;
+        }
+
+        if(isTaken && finished)
+        {
+            scritte.setActive("Press X to change timeline", null);
         }
 
     }

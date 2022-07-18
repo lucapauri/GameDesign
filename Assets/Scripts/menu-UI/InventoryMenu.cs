@@ -25,7 +25,7 @@ public class InventoryMenu : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {/*
         if (isMenu == true)
             SetPause();
         else
@@ -89,7 +89,7 @@ public class InventoryMenu : MonoBehaviour
 
         if (isActive() && Input.GetKeyDown(KeyCode.Escape))
             setMenuFalse();
-
+        */
     }
 
     public void setMenuTrue()
@@ -142,9 +142,9 @@ public class InventoryMenu : MonoBehaviour
         go.transform.SetParent(menu.transform, false);
         Vector3 buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y, menu.transform.position.z);
         buttonPos.x = buttonPos.x + buttons.Count * 1920 / 4;
-        go.GetComponent<RectTransform>().position = buttonPos;   /**globalVariables.inventory.Keys.Count*/
+        go.GetComponent<RectTransform>().position = buttonPos;   
         go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = name;
-
+        
     }
 
     public int getButtons()
