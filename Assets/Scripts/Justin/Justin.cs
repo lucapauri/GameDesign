@@ -74,11 +74,31 @@ public class Justin : MonoBehaviour
         controls.JustinController.InputSpeed.performed += ctx => _inputSpeed = ctx.ReadValue<float>();
         controls.JustinController.InputSpeed.canceled += ctx => _inputSpeed = 0f;
         controls.JustinController.Grab.performed += ctx => Grab();
+        controls.JustinController.OpenInventory.performed += ctx =>
+        {
+            if (!destroyed)
+            {
+                inventoryMenu.setMenuTrue();
+            }
+        };
+        controls.JustinController.OpenTimeCapsule.performed += ctx => OpenTimeCapsule();
     }
 
     private void OnEnable()
     {
         controls.JustinController.Enable();
+    }
+
+    private void OpenTimeCapsule()
+    {
+        if (!destroyed)
+        {
+            if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 20)
+            {
+                inventoryMenu.setMenuTrue();
+                inventoryMenu.setBehaviour();
+            }
+        }
     }
 
     private void Grab()

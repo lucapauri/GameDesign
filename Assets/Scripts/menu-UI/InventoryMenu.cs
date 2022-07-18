@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryMenu : MonoBehaviour
 {
+    NewControls controls;
     public static bool isMenu = false;
     public GameObject menu;
     public GameObject buttonPrefab;
@@ -12,6 +13,20 @@ public class InventoryMenu : MonoBehaviour
     private GlobalVariables globalVariables;
     private int activeButton;
     public bool openTimeCapsule;
+
+    private void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.ScrollInvRx.performed += ctx => ScrollRx();
+        controls.JustinController.ScrollInvSx.performed += ctx => ScrollSx();
+        controls.JustinController.EscInv.performed += ctx => Return();
+        controls.JustinController.SelectInv.performed += ctx => SelectItem();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
 
     private void Start()
     {
@@ -23,15 +38,19 @@ public class InventoryMenu : MonoBehaviour
         activeButton = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {/*
-        if (isMenu == true)
-            SetPause();
-        else
-            Resume();
+    private void ScrollRx()
+    {
+        if (activeButton < buttons.Count - 1)
+        {
+            buttons[activeButton].GetComponent<Animator>().SetBool("Selected", false);
+            activeButton++;
+            buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
+        }
+    }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && activeButton > 0)
+    private void ScrollSx()
+    {
+        if (activeButton > 0)
         {
             Debug.Log(buttons.Count);
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", false);
@@ -39,15 +58,20 @@ public class InventoryMenu : MonoBehaviour
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
 
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && activeButton < buttons.Count - 1)
+    private void Return()
+    {
+        if (isActive())
         {
-            buttons[activeButton].GetComponent<Animator>().SetBool("Selected", false);
-            activeButton++;
-            buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
+            setMenuFalse();
+            openTimeCapsule = false;
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Return) && menu.activeInHierarchy)
+    private void SelectItem()
+    {
+        if (menu.activeInHierarchy)
         {
             //controllo se il menù è stato aperto per interagire con la capsula del tempo o per posizionare un oggetto
             if (openTimeCapsule)
@@ -65,7 +89,7 @@ public class InventoryMenu : MonoBehaviour
                 Quaternion instRot = new Quaternion();
                 if (buttonText.Equals("key") || buttonText.Equals("rustyKey"))
                 {
-                    instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 30f + 
+                    instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 30f +
                         globalVariables.justin.transform.up * 5f;
                     instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
                 }
@@ -74,7 +98,7 @@ public class InventoryMenu : MonoBehaviour
                     instPos = globalVariables.justin.transform.position + globalVariables.justin.transform.forward * 3f;
                     instRot = Quaternion.LookRotation(-Vector3.up, Vector3.right);
                 }
-                string name = "Meshes/"+buttonText;
+                string name = "Meshes/" + buttonText;
                 GameObject goInstance = Instantiate(Resources.Load(name) as GameObject, instPos, Quaternion.identity);
                 goInstance.name = buttonText;
                 Destroy(buttons[activeButton]);
@@ -86,10 +110,15 @@ public class InventoryMenu : MonoBehaviour
             }
             openTimeCapsule = false;
         }
+    }
 
-        if (isActive() && Input.GetKeyDown(KeyCode.Escape))
-            setMenuFalse();
-        */
+    // Update is called once per frame
+    void Update()
+    {
+        if (isMenu == true)
+            SetPause();
+        else
+            Resume();
     }
 
     public void setMenuTrue()

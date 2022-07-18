@@ -25,7 +25,7 @@ public class ScrittaUsaChiave : MonoBehaviour
         if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 3 
             && inventory.getButtons() > 0)
         {
-            scritte.setActive("Istanzia qui la chiave", null);
+            scritte.setActive("Press RB to open inventory", null);
             isActive = true;
         }
         if (isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 3)

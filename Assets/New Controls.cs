@@ -89,6 +89,60 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""34368654-3c60-456e-aee4-8e636a629f9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenTimeCapsule"",
+                    ""type"": ""Button"",
+                    ""id"": ""1997582a-9d61-4037-bbfd-e79a5302595e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollInvRx"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa68d0e4-2082-4b4e-9130-7f1a1a7bd562"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollInvSx"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ca08d7d-6d4f-4cca-ad65-87555eb5b24e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EscInv"",
+                    ""type"": ""Button"",
+                    ""id"": ""110ea5c7-300a-417c-9898-6e1f83fbf931"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectInv"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdb3da0e-0991-44c0-9f61-bb387271946e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -168,6 +222,72 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecbdc07d-7ba9-470e-a26f-1668c625d959"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e492d17f-f035-4bc8-bf04-48e433dc2866"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenTimeCapsule"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd388fbc-7948-4c21-b6f1-7793c9165e7f"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollInvRx"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f13a73b4-1bea-475f-989d-301191b0d9f0"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollInvSx"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44b0660a-9a85-4e8c-82bd-f1da58af0644"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EscInv"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2451cc10-4940-4dbc-8869-2deabd838ce3"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectInv"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -183,6 +303,12 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         m_JustinController_Dash = m_JustinController.FindAction("Dash", throwIfNotFound: true);
         m_JustinController_InputSpeed = m_JustinController.FindAction("InputSpeed", throwIfNotFound: true);
         m_JustinController_Grab = m_JustinController.FindAction("Grab", throwIfNotFound: true);
+        m_JustinController_OpenInventory = m_JustinController.FindAction("OpenInventory", throwIfNotFound: true);
+        m_JustinController_OpenTimeCapsule = m_JustinController.FindAction("OpenTimeCapsule", throwIfNotFound: true);
+        m_JustinController_ScrollInvRx = m_JustinController.FindAction("ScrollInvRx", throwIfNotFound: true);
+        m_JustinController_ScrollInvSx = m_JustinController.FindAction("ScrollInvSx", throwIfNotFound: true);
+        m_JustinController_EscInv = m_JustinController.FindAction("EscInv", throwIfNotFound: true);
+        m_JustinController_SelectInv = m_JustinController.FindAction("SelectInv", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +375,12 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_JustinController_Dash;
     private readonly InputAction m_JustinController_InputSpeed;
     private readonly InputAction m_JustinController_Grab;
+    private readonly InputAction m_JustinController_OpenInventory;
+    private readonly InputAction m_JustinController_OpenTimeCapsule;
+    private readonly InputAction m_JustinController_ScrollInvRx;
+    private readonly InputAction m_JustinController_ScrollInvSx;
+    private readonly InputAction m_JustinController_EscInv;
+    private readonly InputAction m_JustinController_SelectInv;
     public struct JustinControllerActions
     {
         private @NewControls m_Wrapper;
@@ -260,6 +392,12 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_JustinController_Dash;
         public InputAction @InputSpeed => m_Wrapper.m_JustinController_InputSpeed;
         public InputAction @Grab => m_Wrapper.m_JustinController_Grab;
+        public InputAction @OpenInventory => m_Wrapper.m_JustinController_OpenInventory;
+        public InputAction @OpenTimeCapsule => m_Wrapper.m_JustinController_OpenTimeCapsule;
+        public InputAction @ScrollInvRx => m_Wrapper.m_JustinController_ScrollInvRx;
+        public InputAction @ScrollInvSx => m_Wrapper.m_JustinController_ScrollInvSx;
+        public InputAction @EscInv => m_Wrapper.m_JustinController_EscInv;
+        public InputAction @SelectInv => m_Wrapper.m_JustinController_SelectInv;
         public InputActionMap Get() { return m_Wrapper.m_JustinController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -290,6 +428,24 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                 @Grab.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnGrab;
+                @OpenInventory.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnOpenInventory;
+                @OpenTimeCapsule.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnOpenTimeCapsule;
+                @OpenTimeCapsule.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnOpenTimeCapsule;
+                @OpenTimeCapsule.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnOpenTimeCapsule;
+                @ScrollInvRx.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnScrollInvRx;
+                @ScrollInvRx.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnScrollInvRx;
+                @ScrollInvRx.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnScrollInvRx;
+                @ScrollInvSx.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnScrollInvSx;
+                @ScrollInvSx.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnScrollInvSx;
+                @ScrollInvSx.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnScrollInvSx;
+                @EscInv.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnEscInv;
+                @EscInv.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnEscInv;
+                @EscInv.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnEscInv;
+                @SelectInv.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnSelectInv;
+                @SelectInv.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnSelectInv;
+                @SelectInv.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnSelectInv;
             }
             m_Wrapper.m_JustinControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -315,6 +471,24 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @OpenInventory.started += instance.OnOpenInventory;
+                @OpenInventory.performed += instance.OnOpenInventory;
+                @OpenInventory.canceled += instance.OnOpenInventory;
+                @OpenTimeCapsule.started += instance.OnOpenTimeCapsule;
+                @OpenTimeCapsule.performed += instance.OnOpenTimeCapsule;
+                @OpenTimeCapsule.canceled += instance.OnOpenTimeCapsule;
+                @ScrollInvRx.started += instance.OnScrollInvRx;
+                @ScrollInvRx.performed += instance.OnScrollInvRx;
+                @ScrollInvRx.canceled += instance.OnScrollInvRx;
+                @ScrollInvSx.started += instance.OnScrollInvSx;
+                @ScrollInvSx.performed += instance.OnScrollInvSx;
+                @ScrollInvSx.canceled += instance.OnScrollInvSx;
+                @EscInv.started += instance.OnEscInv;
+                @EscInv.performed += instance.OnEscInv;
+                @EscInv.canceled += instance.OnEscInv;
+                @SelectInv.started += instance.OnSelectInv;
+                @SelectInv.performed += instance.OnSelectInv;
+                @SelectInv.canceled += instance.OnSelectInv;
             }
         }
     }
@@ -328,5 +502,11 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnInputSpeed(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
+        void OnOpenTimeCapsule(InputAction.CallbackContext context);
+        void OnScrollInvRx(InputAction.CallbackContext context);
+        void OnScrollInvSx(InputAction.CallbackContext context);
+        void OnEscInv(InputAction.CallbackContext context);
+        void OnSelectInv(InputAction.CallbackContext context);
     }
 }

@@ -4,16 +4,39 @@ using UnityEngine;
 
 public class CapsuleEmpty : MonoBehaviour
 {
+    private NewControls controls;
     private GameObject justin;
     private Scritte scritte;
     private bool isActive;
+    private bool destroyed;
+
+    private void Awake()
+    {
+        controls = new NewControls();
+        controls.JustinController.OpenTimeCapsule.performed += ctx => Eliminate();
+    }
+
+    private void OnEnable()
+    {
+        controls.JustinController.Enable();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        destroyed = false;
         scritte = FindObjectOfType<Scritte>();
         justin = GameObject.FindGameObjectWithTag("Player");
         isActive = false;
+    }
+
+    private void Eliminate()
+    {
+        if (isActive && !destroyed)
+        {
+            scritte.setNotActive();
+            destroyed = true;
+        }
     }
 
     // Update is called once per frame
@@ -23,20 +46,15 @@ public class CapsuleEmpty : MonoBehaviour
         {
             justin = GameObject.FindGameObjectWithTag("Player");
         }
-        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 16)
+        if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 16 && !destroyed)
         {
-            scritte.setActive("Premi X per usare la capsula del tempo", null);
+            scritte.setActive("Press LB to open the time capsule", null);
             isActive = true;
         }
-        if (isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 16)
+        if (justin != null && isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 16)
         {
             scritte.setNotActive();
             isActive = false;
-        }
-        if (isActive && Input.GetKeyDown(KeyCode.X))
-        {
-            scritte.setNotActive();
-            Destroy(gameObject);
         }
     }
 }
