@@ -8,7 +8,7 @@ public class DialogHubReturn : MonoBehaviour
     NewControls controls;
     public NPCConversation conversation;
     public DialogCamera dialogCamera;
-
+    public GameObject canv;
     private GlobalVariables globalVariables;
 
 
@@ -41,6 +41,7 @@ public class DialogHubReturn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canv = GameObject.FindGameObjectWithTag("EndLevel");
         isFirst = true;
         startPos = dialogCamera.transform.position;
         cameraOn = false;
@@ -76,8 +77,8 @@ public class DialogHubReturn : MonoBehaviour
         dialogCamera.transform.position = startPos;
         GameObject canvas = GameObject.FindGameObjectWithTag("Dialog");
         Canvas can = canvas.GetComponent<Canvas>();
-        
         ConversationManager.Instance.EndConversation();
+        canv.GetComponent<Animator>().SetTrigger("fade");
     }
 
     private void dialogSequence()

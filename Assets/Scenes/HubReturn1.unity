@@ -518,8 +518,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f933495c78cfed0448acd5b6684e2251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversation: {fileID: 0}
-  dialogCamera: {fileID: 0}
+  conversation: {fileID: 901118831}
+  dialogCamera: {fileID: 719539000}
+  canv: {fileID: 0}
 --- !u!4 &398728395
 Transform:
   m_ObjectHideFlags: 0
@@ -980,7 +981,7 @@ GameObject:
   - component: {fileID: 901118832}
   - component: {fileID: 901118831}
   m_Layer: 0
-  m_Name: testConversation
+  m_Name: testConversation5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -999,10 +1000,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":-74.5,"yPos":118},"ID":5,"ParamActions":[],"TMPFontGUID":null,"Text":"Press
-    B to continue.","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":5}],"EditorInfo":{"isRoot":true,"xPos":-65,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Oh
-    no! The crystal exploded! You are our only hope, start by climbing up to the
-    top to get the case!","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Directress","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":55,"yPos":118},"ID":5,"ParamActions":[],"TMPFontGUID":null,"Text":"Press
+    B to continue.","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":5}],"EditorInfo":{"isRoot":true,"xPos":64.5,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Boh
+    qua dice qualcosa","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Directress","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
