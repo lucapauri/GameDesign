@@ -290,6 +290,54 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MenuController"",
+            ""id"": ""722119c8-f638-48cd-bc6f-732e54344894"",
+            ""actions"": [
+                {
+                    ""name"": ""ScrollRx"",
+                    ""type"": ""Button"",
+                    ""id"": ""2394bd70-5e38-425c-8cf6-407f5801ab8f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollSx"",
+                    ""type"": ""Button"",
+                    ""id"": ""3c2aaa0c-fca4-42ca-a535-1962c31cfa6e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a97ebdd7-6a67-44e6-8a7c-5b616f3b0750"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollRx"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e7ab5fa-19d5-45d4-bcc4-b817eb4efd52"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollSx"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -309,6 +357,10 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         m_JustinController_ScrollInvSx = m_JustinController.FindAction("ScrollInvSx", throwIfNotFound: true);
         m_JustinController_EscInv = m_JustinController.FindAction("EscInv", throwIfNotFound: true);
         m_JustinController_SelectInv = m_JustinController.FindAction("SelectInv", throwIfNotFound: true);
+        // MenuController
+        m_MenuController = asset.FindActionMap("MenuController", throwIfNotFound: true);
+        m_MenuController_ScrollRx = m_MenuController.FindAction("ScrollRx", throwIfNotFound: true);
+        m_MenuController_ScrollSx = m_MenuController.FindAction("ScrollSx", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -493,6 +545,47 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         }
     }
     public JustinControllerActions @JustinController => new JustinControllerActions(this);
+
+    // MenuController
+    private readonly InputActionMap m_MenuController;
+    private IMenuControllerActions m_MenuControllerActionsCallbackInterface;
+    private readonly InputAction m_MenuController_ScrollRx;
+    private readonly InputAction m_MenuController_ScrollSx;
+    public struct MenuControllerActions
+    {
+        private @NewControls m_Wrapper;
+        public MenuControllerActions(@NewControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ScrollRx => m_Wrapper.m_MenuController_ScrollRx;
+        public InputAction @ScrollSx => m_Wrapper.m_MenuController_ScrollSx;
+        public InputActionMap Get() { return m_Wrapper.m_MenuController; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuControllerActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuControllerActions instance)
+        {
+            if (m_Wrapper.m_MenuControllerActionsCallbackInterface != null)
+            {
+                @ScrollRx.started -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollRx;
+                @ScrollRx.performed -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollRx;
+                @ScrollRx.canceled -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollRx;
+                @ScrollSx.started -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollSx;
+                @ScrollSx.performed -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollSx;
+                @ScrollSx.canceled -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollSx;
+            }
+            m_Wrapper.m_MenuControllerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ScrollRx.started += instance.OnScrollRx;
+                @ScrollRx.performed += instance.OnScrollRx;
+                @ScrollRx.canceled += instance.OnScrollRx;
+                @ScrollSx.started += instance.OnScrollSx;
+                @ScrollSx.performed += instance.OnScrollSx;
+                @ScrollSx.canceled += instance.OnScrollSx;
+            }
+        }
+    }
+    public MenuControllerActions @MenuController => new MenuControllerActions(this);
     public interface IJustinControllerActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -508,5 +601,10 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         void OnScrollInvSx(InputAction.CallbackContext context);
         void OnEscInv(InputAction.CallbackContext context);
         void OnSelectInv(InputAction.CallbackContext context);
+    }
+    public interface IMenuControllerActions
+    {
+        void OnScrollRx(InputAction.CallbackContext context);
+        void OnScrollSx(InputAction.CallbackContext context);
     }
 }

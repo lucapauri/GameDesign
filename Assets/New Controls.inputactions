@@ -268,6 +268,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MenuController",
+            "id": "722119c8-f638-48cd-bc6f-732e54344894",
+            "actions": [
+                {
+                    "name": "ScrollRx",
+                    "type": "Button",
+                    "id": "2394bd70-5e38-425c-8cf6-407f5801ab8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollSx",
+                    "type": "Button",
+                    "id": "3c2aaa0c-fca4-42ca-a535-1962c31cfa6e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a97ebdd7-6a67-44e6-8a7c-5b616f3b0750",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollRx",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e7ab5fa-19d5-45d4-bcc4-b817eb4efd52",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollSx",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

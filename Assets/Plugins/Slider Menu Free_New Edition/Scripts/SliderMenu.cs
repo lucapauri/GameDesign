@@ -42,8 +42,8 @@ public enum nextbuttonverticalalign{
 
 
 public class SliderMenu : MonoBehaviour {
-	
 
+	
 	//=======================================Begin Main Objects===========================================
 	public		bool							MainObjectBlock;
 	public 		Canvas 							SliderMenuCanvas;										//Custom Canvas Object (Scroll Object Parent)
@@ -475,6 +475,7 @@ public class SliderMenu : MonoBehaviour {
 
 			//#############################################################################Begin Slider Magnet
 			if (SliderMagnet) {
+				/*
 				if (!Input.GetMouseButton (0) || (Input.touchSupported && Input.touchCount == 0)) {				//If Not Drag (In Desktop And Mobile Platform)
 					for (int s = 0; s < Slides.Count; s++) {
 						if (HorizontalScrollbar.GetComponent<Scrollbar> ().value > (ScrollStep / 2) + (s - 1) * ScrollStep && HorizontalScrollbar.GetComponent<Scrollbar> ().value <= Mathf.Clamp ((ScrollStep / 2) + s * ScrollStep, 0, 1)) {
@@ -485,7 +486,7 @@ public class SliderMenu : MonoBehaviour {
 							);
 						}
 					}
-				}
+				}*/
 			}
 			//###############################################################################End Slider Magnet
 
@@ -508,9 +509,9 @@ public class SliderMenu : MonoBehaviour {
 				PreviousButtonObject.GetComponent<Button> ().interactable 	= PreviousButtonActive;										//Enable Previous Button
 				NextButtonObject.GetComponent<Button> ().interactable 		= NextButtonActive;											//Enable Next Button
 
-				if (Input.GetMouseButton (0) || (Input.touchSupported && Input.touchCount == 0)) {
+				/*if (Input.GetMouseButton (0) || (Input.touchSupported && Input.touchCount == 0)) {
 					ButtonClicked = false;
-				}
+				}*/
 				if (ButtonClicked == true) {
 					HorizontalScrollbar.GetComponent<Scrollbar> ().value = Mathf.Lerp (
 						HorizontalScrollbar.GetComponent<Scrollbar> ().value, 
@@ -757,6 +758,7 @@ public class SliderMenu : MonoBehaviour {
 
 			//#############################################################################Begin Slider Magnet
 			if (SliderMagnet) {
+				/*
 				if (!Input.GetMouseButton (0) || (Input.touchSupported && Input.touchCount == 0)) {
 					for (int s = 0; s < Slides.Count; s++) {
 						if (VerticalScrollbar.GetComponent<Scrollbar> ().value > (ScrollStep / 2) + (s - 1) * ScrollStep && VerticalScrollbar.GetComponent<Scrollbar> ().value <= Mathf.Clamp ((ScrollStep / 2) + s * ScrollStep, 0, 1)) {
@@ -767,7 +769,7 @@ public class SliderMenu : MonoBehaviour {
 							);
 						}
 					}
-				}
+				}*/
 			}
 			//###############################################################################End Slider Magnet
 
@@ -792,9 +794,9 @@ public class SliderMenu : MonoBehaviour {
 				PreviousButtonObject.GetComponent<Button> ().interactable = PreviousButtonActive;
 				NextButtonObject.GetComponent<Button> ().interactable = NextButtonActive;
 
-				if (Input.GetMouseButton (0) || (Input.touchSupported && Input.touchCount == 0)) {
+				/*if (Input.GetMouseButton (0) || (Input.touchSupported && Input.touchCount == 0)) {
 					ButtonClicked = false;
-				}
+				}*/
 				if (ButtonClicked == true) {
 					VerticalScrollbar.GetComponent<Scrollbar> ().value = Mathf.Lerp(
 						VerticalScrollbar.GetComponent<Scrollbar> ().value, 
@@ -820,14 +822,14 @@ public class SliderMenu : MonoBehaviour {
 		}
 		//======================================End Vertical Slider Menu======================================
 
-		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		/*if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
 			PreviousButton();
         }
 		if (Input.GetKeyDown(KeyCode.RightArrow))
         {
 			NextButton();
-        }
+        }*/
 
 	}
 
@@ -847,6 +849,7 @@ public class SliderMenu : MonoBehaviour {
 
 	//..................................Begin Previous Button's Function..................................
 	public void PreviousButton(){
+		
 		if(ScrollType==scrolltype.Horizontal){
 			k = HorizontalScrollbar.GetComponent<Scrollbar> ().value;
 		}
