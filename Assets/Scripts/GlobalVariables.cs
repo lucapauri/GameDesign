@@ -7,9 +7,12 @@ public class GlobalVariables : MonoBehaviour
     public Justin justin;
     public GameObject deathMenuUp;
     public GameObject deathMenuDown;
+    public GameObject UiCristalli;
+    public GameObject UiVite;
 
     public int currentTimeline;
     public int crystalsNumber;
+    private int totCrystals;
 
     public float upPlaneHeight;
     public float downPlaneHeight;
@@ -29,6 +32,7 @@ public class GlobalVariables : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totCrystals = FindObjectsOfType<Cristallo>().Length;
         crystalsNumber = 0;
         enemyLife = 0;
         currentTimeline = 1;
@@ -42,6 +46,14 @@ public class GlobalVariables : MonoBehaviour
 
     private void Update()
     {
+        string num = crystalsNumber + " / " + totCrystals;
+        UiCristalli.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = num;
+
+
+        string life = justinLife.ToString();
+        UiVite.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = life;
+
+
         if (justinLife == 0)
         {
             foreach (simpleEnemy enemy in enemies)
