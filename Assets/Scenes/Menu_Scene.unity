@@ -1130,6 +1130,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 351642386607453124}
     - target: {fileID: 394424715767597354, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 351642386607453128}
+    - target: {fileID: 394424715767597354, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
       objectReference: {fileID: 21300000, guid: e76461f52944c47369a15bc7a6cfaeae, type: 3}
