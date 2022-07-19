@@ -252,6 +252,7 @@ MonoBehaviour:
   crystalsNumber: 0
   upPlaneHeight: 0
   downPlaneHeight: 0
+  lv: 0
   enemies: []
   justinLife: 0
   enemyLife: 0
@@ -1829,6 +1830,7 @@ MonoBehaviour:
   conversation: {fileID: 682524870}
   dialogCamera: {fileID: 1783834395}
   canv: {fileID: 0}
+  lv: 1
 --- !u!4 &371705134
 Transform:
   m_ObjectHideFlags: 0

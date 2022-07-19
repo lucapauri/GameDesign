@@ -10,7 +10,11 @@ public class DialogHubReturn : MonoBehaviour
     public DialogCamera dialogCamera;
     public GameObject canv;
     private GlobalVariables globalVariables;
-
+    public enum livello
+    {
+        return1,return2
+    }
+    public livello lv;
 
     private float rightDistance = 7f;
     private bool cameraOn;
@@ -79,6 +83,15 @@ public class DialogHubReturn : MonoBehaviour
         Canvas can = canvas.GetComponent<Canvas>();
         ConversationManager.Instance.EndConversation();
         canv.GetComponent<Animator>().SetTrigger("fade");
+        switch (lv)
+        {
+            case livello.return1:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("DesertoCitta");
+                break;
+            case livello.return2:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+                break;
+        }
     }
 
     private void dialogSequence()

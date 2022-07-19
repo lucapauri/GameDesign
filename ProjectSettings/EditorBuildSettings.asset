@@ -5,10 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Giungla.unity
     guid: 9661ac9d4a54c544e81f4f3f21c8db12
   - enabled: 1
     path: Assets/Scenes/DesertoCitta.unity
     guid: a3137172f6516144f822d53cda41904e
+  - enabled: 1
+    path: Assets/Scenes/HubReturn2.unity
+    guid: e893a3d3b201c134cb3da435abc79ec5
+  - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 829a86ba161cdd840842063447f41aab
+  - enabled: 1
+    path: Assets/Scenes/HubReturn1.unity
+    guid: a6a85218fcbdd754aace023fa162e6c8
+  - enabled: 1
+    path: Assets/Scenes/Hub.unity
+    guid: 9624214f91a9cc74e825d9c7b8e19390
   m_configObjects: {}

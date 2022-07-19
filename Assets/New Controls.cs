@@ -312,6 +312,24 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""69d41f75-680d-4d5d-9ef2-0a9650410a0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""be9fbe73-73fb-4ac8-bfb0-55ea7d8b0272"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -334,6 +352,28 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ScrollSx"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f18dcf4c-870b-4b77-a4fb-3d805f8670ee"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbfff988-92aa-406d-8562-d9677d687b59"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -361,6 +401,8 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         m_MenuController = asset.FindActionMap("MenuController", throwIfNotFound: true);
         m_MenuController_ScrollRx = m_MenuController.FindAction("ScrollRx", throwIfNotFound: true);
         m_MenuController_ScrollSx = m_MenuController.FindAction("ScrollSx", throwIfNotFound: true);
+        m_MenuController_Back = m_MenuController.FindAction("Back", throwIfNotFound: true);
+        m_MenuController_Select = m_MenuController.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -551,12 +593,16 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
     private IMenuControllerActions m_MenuControllerActionsCallbackInterface;
     private readonly InputAction m_MenuController_ScrollRx;
     private readonly InputAction m_MenuController_ScrollSx;
+    private readonly InputAction m_MenuController_Back;
+    private readonly InputAction m_MenuController_Select;
     public struct MenuControllerActions
     {
         private @NewControls m_Wrapper;
         public MenuControllerActions(@NewControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @ScrollRx => m_Wrapper.m_MenuController_ScrollRx;
         public InputAction @ScrollSx => m_Wrapper.m_MenuController_ScrollSx;
+        public InputAction @Back => m_Wrapper.m_MenuController_Back;
+        public InputAction @Select => m_Wrapper.m_MenuController_Select;
         public InputActionMap Get() { return m_Wrapper.m_MenuController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -572,6 +618,12 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                 @ScrollSx.started -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollSx;
                 @ScrollSx.performed -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollSx;
                 @ScrollSx.canceled -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnScrollSx;
+                @Back.started -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnBack;
+                @Select.started -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_MenuControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -582,6 +634,12 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                 @ScrollSx.started += instance.OnScrollSx;
                 @ScrollSx.performed += instance.OnScrollSx;
                 @ScrollSx.canceled += instance.OnScrollSx;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
             }
         }
     }
@@ -606,5 +664,7 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
     {
         void OnScrollRx(InputAction.CallbackContext context);
         void OnScrollSx(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }

@@ -26,6 +26,6 @@ public class ActivateRustyKey : MonoBehaviour
     private IEnumerator endLevelCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("giungla");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Giungla");
     }
 }

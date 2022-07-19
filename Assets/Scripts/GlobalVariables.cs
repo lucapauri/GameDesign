@@ -16,7 +16,12 @@ public class GlobalVariables : MonoBehaviour
 
     public float upPlaneHeight;
     public float downPlaneHeight;
+    public enum livello
+    {
+        hub,vietnam,usa
+    }
 
+    public livello lv;
     public List<simpleEnemy> enemies = new List<simpleEnemy>();
 
 
@@ -49,7 +54,10 @@ public class GlobalVariables : MonoBehaviour
         string num = crystalsNumber + " / " + totCrystals;
         UiCristalli.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = num;
 
-
+        if(crystalsNumber == totCrystals)
+        {
+            NextLevel();
+        }
         string life = justinLife.ToString();
         UiVite.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = life;
 
@@ -82,6 +90,18 @@ public class GlobalVariables : MonoBehaviour
         agingSets.Add("Tdevice", "TDeviceAGED");
         agingSets.Add("key", "rustyKey");
 
+    }
+
+    private void NextLevel() {
+        switch (lv)
+        {
+            case livello.vietnam:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("HubReturn1");
+                break;
+            case livello.usa:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("HubReturn2");
+                break;
+        }
     }
 
 

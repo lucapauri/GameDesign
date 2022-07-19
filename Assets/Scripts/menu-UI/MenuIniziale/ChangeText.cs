@@ -18,11 +18,18 @@ public class ChangeText : MonoBehaviour
         controls = new NewControls();
         controls.MenuController.ScrollRx.performed += ctx => { NextCounter(); };
         controls.MenuController.ScrollSx.performed += ctx => { PreviousCounter(); };
+        controls.MenuController.Back.performed += ctx => { Back(); };
+        controls.MenuController.Select.performed += ctx => { SelectLevel(); };
     }
 
     private void OnEnable()
     {
         controls.MenuController.Enable();
+    }
+
+    public void NewGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Hub");
     }
 
     private void NextCounter()
@@ -40,6 +47,30 @@ public class ChangeText : MonoBehaviour
         {
             counter--;
             sliderMenu.PreviousButton();
+        }
+    }
+
+    private void Back()
+    {
+        if(ready)
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+    }
+
+    private void SelectLevel()
+    {
+        if (ready)
+        {
+            switch (counter){
+                case 0:
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Hub");
+                    break;
+                case 1:
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Giungla");
+                    break;
+                case 2:
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("DesertoCitta");
+                    break;
+            }
         }
     }
 

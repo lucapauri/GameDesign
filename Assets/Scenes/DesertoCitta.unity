@@ -3319,6 +3319,7 @@ MonoBehaviour:
   crystalsNumber: 0
   upPlaneHeight: 0
   downPlaneHeight: 0
+  lv: 2
   enemies: []
   justinLife: 0
   enemyLife: 0
