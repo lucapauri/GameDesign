@@ -5,6 +5,8 @@ using UnityEngine;
 public class GlobalVariables : MonoBehaviour
 {
     public Justin justin;
+    public GameObject deathMenuUp;
+    public GameObject deathMenuDown;
 
     public int currentTimeline;
     public int crystalsNumber;
@@ -30,7 +32,7 @@ public class GlobalVariables : MonoBehaviour
         crystalsNumber = 0;
         enemyLife = 0;
         currentTimeline = 1;
-        justinLife = 20;
+        justinLife = 1;
         upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
@@ -40,6 +42,15 @@ public class GlobalVariables : MonoBehaviour
 
     private void Update()
     {
+        if (justinLife == 0)
+        {
+            foreach (simpleEnemy enemy in enemies)
+            {
+                enemy.enabled = false;
+            }
+            deathMenuUp.SetActive(true);
+            deathMenuDown.SetActive(true);
+        }
         
     }
 
