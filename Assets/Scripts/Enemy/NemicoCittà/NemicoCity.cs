@@ -39,6 +39,7 @@ public class NemicoCity : MonoBehaviour
     private float DeathTime;
     private bool dead;
     public float huntLimitDistance;
+    public Transform shotPoint;
 
     //groundCheck
     private float _groundDistance = 0.3f;
@@ -215,11 +216,14 @@ public class NemicoCity : MonoBehaviour
     public void attack()
     {
         readyToPatrol = false;
-        BulletNemicoCity bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 3f + transform.up * 2f, Quaternion.identity);
+        BulletNemicoCity bullet = Instantiate(bulletPrefab, shotPoint.position, Quaternion.identity);
+        bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
         bullet.shooter = this;
         bullet.transform.up = transform.forward;
-       
-  }
+        bullet.transform.SetParent(shotPoint);
+        bullet.shotPoint = shotPoint;
+
+    }
 
     public IEnumerator DeathCoroutineAndRespawn(float timeToEndAnim)
     {
