@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 75b34faa0c9bc4023a42b46ce743aebf
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Taurunum Ferrum W00 Iron
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: da8adbc77da41424eb71a815c76064f4, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
