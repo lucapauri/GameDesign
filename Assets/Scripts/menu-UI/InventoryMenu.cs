@@ -169,8 +169,17 @@ public class InventoryMenu : MonoBehaviour
         GameObject go = Instantiate(buttonPrefab);
         buttons.Add(go);
         go.transform.SetParent(menu.transform, false);
-        Vector3 buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y, menu.transform.position.z);
-        buttonPos.x = buttonPos.x + buttons.Count * 1920 / 4;
+        Vector3 buttonPos = new Vector3();
+        if (buttons.Count < 4)
+        {
+            buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y, menu.transform.position.z);
+            buttonPos.x = buttonPos.x + buttons.Count * 1920 / 4;
+        }else if(buttons.Count < 7)
+        {
+            buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y - 300, menu.transform.position.z);
+            buttonPos.x = buttonPos.x + buttons.Count * 1920 / 4;
+        }
+        else { }
         go.GetComponent<RectTransform>().position = buttonPos;   
         go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = name;
         
