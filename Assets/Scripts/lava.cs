@@ -60,7 +60,7 @@ public class lava : MonoBehaviour
 
         if (destroyJustinPositionV && destroyJustinPositionH)
         {
-            Destroy(globalVariables.justin.gameObject);
+            globalVariables.justinLife = 0;
         }
 
         nemicoCity = FindObjectOfType<NemicoCity>();
