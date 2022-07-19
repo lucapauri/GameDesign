@@ -106,7 +106,13 @@ public class InventoryMenu : MonoBehaviour
                 interactions.checkInteractions(goInstance, instPos);
                 globalVariables.inventory.Remove(buttonText);
                 setMenuFalse();
-
+                List<string> names = new List<string>();
+                buttons.ForEach(b => {
+                    names.Add(b.GetComponentInChildren<TMPro.TextMeshProUGUI>().text);
+                    Destroy(b);
+                });
+                buttons = new List<GameObject>();
+                names.ForEach(n => addButton(n));
             }
             openTimeCapsule = false;
         }
@@ -172,17 +178,16 @@ public class InventoryMenu : MonoBehaviour
         Vector3 buttonPos = new Vector3();
         if (buttons.Count < 4)
         {
-            buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y, menu.transform.position.z);
+            buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y + 200, menu.transform.position.z);
             buttonPos.x = buttonPos.x + buttons.Count * 1920 / 4;
         }else if(buttons.Count < 7)
         {
-            buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y - 300, menu.transform.position.z);
-            buttonPos.x = buttonPos.x + buttons.Count * 1920 / 4;
+            buttonPos = new Vector3(menu.transform.position.x - 960, menu.transform.position.y - 200, menu.transform.position.z);
+            buttonPos.x = buttonPos.x + (buttons.Count - 3) * 1920 / 4;
         }
         else { }
         go.GetComponent<RectTransform>().position = buttonPos;   
         go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = name;
-        
     }
 
     public int getButtons()
