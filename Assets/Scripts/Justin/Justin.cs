@@ -191,6 +191,7 @@ public class Justin : MonoBehaviour
             enemy.justin = this;
         }
 
+        
 
         _characterController = GetComponent<CharacterController>();
         source = GetComponent<AudioSource>();
@@ -259,7 +260,9 @@ public class Justin : MonoBehaviour
         source.pitch = 2;
         source.Play();
         Debug.Log("audioTpLandingOn");
-
+        source.enabled = true;
+        GetComponent<AudioListener>().enabled = true;
+        GetComponentInChildren<AudioSource>().enabled = true;
     }
 
 
