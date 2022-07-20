@@ -316,8 +316,8 @@ MonoBehaviour:
   justin: {fileID: 0}
   deathMenuUp: {fileID: 1449054565}
   deathMenuDown: {fileID: 575155861}
-  UiCristalli: {fileID: 1672459912}
-  UiVite: {fileID: 644496915003660805, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+  UiCristalli: {fileID: 382543958}
+  UiVite: {fileID: 321098118}
   currentTimeline: 0
   crystalsNumber: 0
   upPlaneHeight: 0
@@ -325,7 +325,6 @@ MonoBehaviour:
   lv: 1
   enemies: []
   justinLife: 0
-  enemyLife: 0
 --- !u!4 &50732431
 Transform:
   m_ObjectHideFlags: 0
@@ -2478,7 +2477,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136249298}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -5674,6 +5673,11 @@ PrefabInstance:
     - {fileID: -1052442552786483476, guid: 42363a06ade6041bfaf21c4cf51e26f7, type: 3}
     - {fileID: 1724399451467427324, guid: 42363a06ade6041bfaf21c4cf51e26f7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 42363a06ade6041bfaf21c4cf51e26f7, type: 3}
+--- !u!1 &321098118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4111642146784169874, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+  m_PrefabInstance: {fileID: 1139122936835712661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &333658362
 GameObject:
   m_ObjectHideFlags: 0
@@ -5895,6 +5899,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2332516974453239286, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
   m_PrefabInstance: {fileID: 718351497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &382543958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4402336499398754064, guid: 52bf017ee5f66478bb07c5565bca8032, type: 3}
+  m_PrefabInstance: {fileID: 4402336498736417778}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &405729072
 GameObject:
@@ -6384,6 +6393,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 63f7d64daba18413d9b7799bcb933399, type: 2}
     m_RemovedComponents:
     - {fileID: 2882743236284608380, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
+    - {fileID: 6574152993605210830, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
 --- !u!1 &499716867
 GameObject:
@@ -9637,19 +9647,19 @@ MonoBehaviour:
   source: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
-  bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
+  bulletPrefab: {fileID: -3399620581182216499, guid: bf39efd6f0b8342e8b8e0490879b7d3c, type: 3}
   enemyLife: 0
   readyToPatrol: 0
   huntLimitDistance: 0
   onPlatform: 1
-  shotPoint: {fileID: 0}
+  shotPoint: {fileID: 247250958}
   _enemyGroundMask:
     serializedVersion: 2
     m_Bits: 192
   _isGrounded: 0
   currentStatus: 0
   currentOrigin: 0
-  enemyType: 0
+  enemyType: 1
   special: 2
 --- !u!4 &966945574
 Transform:
@@ -9659,7 +9669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966945571}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 45.31, y: 98.88, z: -23}
+  m_LocalPosition: {x: 50.38, y: 98.88, z: -23}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 247250958}
@@ -9705,7 +9715,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -9740,7 +9750,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -17505,7 +17515,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496080214}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -18124,6 +18134,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 63f7d64daba18413d9b7799bcb933399, type: 2}
     m_RemovedComponents:
     - {fileID: 2882743236284608380, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
+    - {fileID: 6574152993605210830, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
 --- !u!1 &1643039904 stripped
 GameObject:
@@ -19998,13 +20009,13 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.49803925, g: 0.49803925, b: 0.49803925, a: 0}
-  m_projectionMatrixMode: 2
-  m_GateFitMode: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 70.41, y: 52.63}
+  m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 24
+  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -20013,10 +20024,10 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 95.268654
+  field of view: 50
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -20058,6 +20069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertOffset: 3
+  justin: {fileID: 0}
 --- !u!1001 &1651812015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20127,11 +20139,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92d249592c99349718a630e835863911, type: 3}
---- !u!1 &1672459912 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4402336500386397562, guid: 52bf017ee5f66478bb07c5565bca8032, type: 3}
-  m_PrefabInstance: {fileID: 4402336498736417778}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1676337536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21321,11 +21328,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8366324800366813449, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -107.1
+      value: 44.31
       objectReference: {fileID: 0}
     - target: {fileID: 8366324800366813449, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 94
+      value: 100.7
       objectReference: {fileID: 0}
     - target: {fileID: 8366324800366813449, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23659,12 +23666,56 @@ PrefabInstance:
       value: UiVite
       objectReference: {fileID: 0}
     - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_text
+      value: 4/5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
       propertyPath: m_fontSize
-      value: 52
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
       propertyPath: m_fontSizeBase
-      value: 52
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.topLeft.g
+      value: 0.973356
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.topLeft.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.topRight.b
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.topRight.g
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.topRight.r
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.g
+      value: 0.973356
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.b
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.g
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822228862933347309, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.r
+      value: 0.3679245
       objectReference: {fileID: 0}
     - target: {fileID: 4826245382404606766, guid: 16218b47a64c144f79f98fb293a890c3, type: 3}
       propertyPath: m_SizeDelta.y
@@ -24800,6 +24851,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 63f7d64daba18413d9b7799bcb933399, type: 2}
     m_RemovedComponents:
     - {fileID: 2882743236284608380, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
+    - {fileID: 6574152993605210830, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db426ed53facb4a2cac939830e076e4c, type: 3}
 --- !u!1 &8306097166114976266 stripped
 GameObject:

@@ -16,7 +16,7 @@ public class DownCamera : MonoBehaviour
     private GlobalVariables globalVariables;
 
     private Vector3 futurePos;
-    private Transform justin;
+    public Transform justin;
 
 
     // Start is called before the first frame update
@@ -31,29 +31,31 @@ public class DownCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (globalVariables.currentTimeline == 1)
-        {
-            verticalShift = globalVariables.justin.transform.position.y - globalVariables.upPlaneHeight;
-        }
-        if (globalVariables.currentTimeline == 0)
-        {
-            verticalShift = globalVariables.justin.transform.position.y - globalVariables.downPlaneHeight;
-        }
-
         justin = globalVariables.justin.transform;
 
-        if (justin.transform.forward.x > 0f)
+        if (justin != null)
         {
-            futurePos = new Vector3(justin.position.x + horizOffset, globalVariables.downPlaneHeight + verticalShift + vertOffset, transform.position.z);
-        }
+            if (globalVariables.currentTimeline == 1)
+            {
+                verticalShift = globalVariables.justin.transform.position.y - globalVariables.upPlaneHeight;
+            }
+            if (globalVariables.currentTimeline == 0)
+            {
+                verticalShift = globalVariables.justin.transform.position.y - globalVariables.downPlaneHeight;
+            }
 
-        else
-        {
-            futurePos = new Vector3(justin.position.x - horizOffset, globalVariables.downPlaneHeight + verticalShift + vertOffset, transform.position.z);
-        }
+            if (justin.transform.forward.x > 0f)
+            {
+                futurePos = new Vector3(justin.position.x + horizOffset, globalVariables.downPlaneHeight + verticalShift + vertOffset, transform.position.z);
+            }
 
-        transform.position = Vector3.Lerp(transform.position, futurePos, offsetSmoothing * Time.deltaTime);
+            else
+            {
+                futurePos = new Vector3(justin.position.x - horizOffset, globalVariables.downPlaneHeight + verticalShift + vertOffset, transform.position.z);
+            }
+
+            transform.position = Vector3.Lerp(transform.position, futurePos, offsetSmoothing * Time.deltaTime);
+        }
 
     }
 }

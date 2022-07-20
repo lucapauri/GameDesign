@@ -52,7 +52,7 @@ public class PatrolState : State
                 enemy.source.Play();
                 break;
             case simpleEnemy.Specials.trex:
-                //enemy.InvokeRepeating("specialSound", 5f, 14.23f);
+                enemy.InvokeRepeating("specialSound", 5f, 14.23f);
                 break;
         }
     }

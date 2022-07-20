@@ -26,6 +26,7 @@ public class enemyBullet : MonoBehaviour
     private float movSpeedDown;
     private bool readyToFire;
     public AudioSource source;
+    private float lifeTime;
 
     public enum Origin
     {
@@ -46,7 +47,16 @@ public class enemyBullet : MonoBehaviour
         movSpeedDown = 0.1f;
         globalVariables = FindObjectOfType<GlobalVariables>();
         readyToFire = false;
-        StartCoroutine(lifetimeOutCoroutine());
+        if (shooter.special != simpleEnemy.Specials.robot)
+        {
+            lifeTime = 10f;
+        }
+        else
+        {
+            lifeTime = 2f;
+        }
+
+        StartCoroutine(lifetimeOutCoroutine(lifeTime));
         StartCoroutine(readyToFireCoroutine());
 
         toTarget = _target.transform.position + globalVariables.justin.transform.up * 1.5f - transform.position;
@@ -65,7 +75,7 @@ public class enemyBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (readyToFire)
+        if (readyToFire && shooter.special!= simpleEnemy.Specials.robot)
         {
             Vector3 newDir = targetDirection * movSpeedForward - transform.right * movSpeedDown;
             rb.MovePosition(transform.position + newDir * Time.deltaTime);
@@ -77,46 +87,52 @@ public class enemyBullet : MonoBehaviour
     void OnCollisionEnter(Collision collision)
 
     {
-
-        switch (collision.gameObject.layer)
+        if (shooter.special != simpleEnemy.Specials.robot)
         {
-            case 10: // justin
+            switch (collision.gameObject.layer)
+            {
+                case 10: // justin
 
-                globalVariables.justinDamage();
+                    globalVariables.justinDamage();
 
-                break;
-
-
-            case 8: //nemici 
-                collision.gameObject.GetComponent<simpleEnemy>().enemyLife -= 1;
-                break;
+                    break;
 
 
-            case 11: //distruttibili
-                Destroy(collision.gameObject);
-                break;
-        }
+                case 8: //nemici 
+                    collision.gameObject.GetComponent<simpleEnemy>().enemyLife -= 1;
+                    break;
 
-        Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y +1f, transform.position.z);
 
-        if (explosion != null)
-        {
-            Instantiate(explosion, explosionPoint, Quaternion.identity);
+                case 11: //distruttibili
+                    Destroy(collision.gameObject);
+                    break;
+            }
+
+            Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+
+            if (explosion != null)
+            {
+                Instantiate(explosion, explosionPoint, Quaternion.identity);
+            }
         }
 
         Destroy(gameObject);
 
     }
 
-    private IEnumerator lifetimeOutCoroutine()
+    private IEnumerator lifetimeOutCoroutine(float time)
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(time);
         if (explosion != null)
         {
             Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
             Instantiate(explosion, explosionPoint, Quaternion.identity);
         }
 
+        if (shooter.special == simpleEnemy.Specials.robot)
+        {
+            globalVariables.justinDamage();
+        }
         Destroy(gameObject);
 
     }
@@ -124,13 +140,15 @@ public class enemyBullet : MonoBehaviour
     private IEnumerator readyToFireCoroutine()
     {
         yield return new WaitForSeconds(1f);
-        shotPoint.DetachChildren();
-        readyToFire = true;
-        source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
-        AudioClip track = Resources.Load("Audio/Oggetti/EnemyShoot") as AudioClip;
-        source.clip = track;
-        source.Play();
-
+        if (shooter.special != simpleEnemy.Specials.robot)
+        {
+            shotPoint.DetachChildren();
+            readyToFire = true;
+            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            AudioClip track = Resources.Load("Audio/Oggetti/EnemyShoot") as AudioClip;
+            source.clip = track;
+            source.Play();
+        }
     }
 
 

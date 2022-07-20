@@ -28,8 +28,6 @@ public class GlobalVariables : MonoBehaviour
 
     public int justinLife;
 
-    public int enemyLife;
-
     public Dictionary<string, GameObject> inventory = new Dictionary<string, GameObject>();
 
     public Dictionary<string, string> agingSets = new Dictionary<string, string>();
@@ -40,9 +38,8 @@ public class GlobalVariables : MonoBehaviour
     {
         totCrystals = FindObjectsOfType<Cristallo>().Length;
         crystalsNumber = 0;
-        enemyLife = 0;
         currentTimeline = 1;
-        justinLife = 15;
+        justinLife = 1;
         upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
@@ -85,8 +82,9 @@ public class GlobalVariables : MonoBehaviour
         {
             NextLevel();
         }
-        string life = justinLife.ToString();
-        UiVite.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = life;
+
+        UiVite.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = " " + justinLife;
+        Debug.Log(justinLife.ToString());
 
 
         if (justinLife == 0)

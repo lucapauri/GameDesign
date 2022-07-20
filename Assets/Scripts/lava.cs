@@ -56,19 +56,22 @@ public class lava : MonoBehaviour
 
         }
 
-        float verticalJustinDistance = Mathf.Abs(globalVariables.justin.transform.position.y - transform.position.y);
-        float horizontalJustinDistance = Mathf.Abs(globalVariables.justin.transform.position.x - transform.position.x);
-
-        bool destroyJustinPositionV = verticalJustinDistance < verticalDestroyDistance;
-        bool destroyJustinPositionH = horizontalJustinDistance < HorizontalDestroyDistance;
-
-        if (destroyJustinPositionV && destroyJustinPositionH)
+        if (globalVariables.justin != null)
         {
-            globalVariables.justin.source.clip = lavaDeath;
-            globalVariables.justin.source.pitch = 2;
-            globalVariables.justin.source.Play();
-            Debug.Log("audioLavaDeathOn");
-            StartCoroutine(killingCoroutine(lavaTime));
+            float verticalJustinDistance = Mathf.Abs(globalVariables.justin.transform.position.y - transform.position.y);
+            float horizontalJustinDistance = Mathf.Abs(globalVariables.justin.transform.position.x - transform.position.x);
+
+            bool destroyJustinPositionV = verticalJustinDistance < verticalDestroyDistance;
+            bool destroyJustinPositionH = horizontalJustinDistance < HorizontalDestroyDistance;
+
+            if (destroyJustinPositionV && destroyJustinPositionH)
+            {
+                globalVariables.justin.source.clip = lavaDeath;
+                globalVariables.justin.source.pitch = 2;
+                globalVariables.justin.source.Play();
+                Debug.Log("audioLavaDeathOn");
+                StartCoroutine(killingCoroutine(lavaTime));
+            }
         }
 
         nemicoCity = FindObjectOfType<NemicoCity>();

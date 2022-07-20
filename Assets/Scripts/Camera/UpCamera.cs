@@ -31,29 +31,31 @@ public class UpCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (globalVariables.currentTimeline == 1)
+        if (globalVariables.justin != null )
         {
-            verticalShift = globalVariables.justin.transform.position.y - globalVariables.upPlaneHeight;
-        }
-        if (globalVariables.currentTimeline == 0)
-        {
-            verticalShift = globalVariables.justin.transform.position.y - globalVariables.downPlaneHeight;
-        }
+            if (globalVariables.currentTimeline == 1)
+            {
+                verticalShift = globalVariables.justin.transform.position.y - globalVariables.upPlaneHeight;
+            }
+            if (globalVariables.currentTimeline == 0)
+            {
+                verticalShift = globalVariables.justin.transform.position.y - globalVariables.downPlaneHeight;
+            }
 
-        justin = globalVariables.justin.transform;
+            justin = globalVariables.justin.transform;
 
-        if (justin.transform.forward.x > 0f)
-        {
-            futurePos = new Vector3(justin.position.x + horizOffset, globalVariables.upPlaneHeight + verticalShift + vertOffset, transform.position.z);
+            if (justin.transform.forward.x > 0f)
+            {
+                futurePos = new Vector3(justin.position.x + horizOffset, globalVariables.upPlaneHeight + verticalShift + vertOffset, transform.position.z);
+            }
+
+            else
+            {
+                futurePos = new Vector3(justin.position.x - horizOffset, globalVariables.upPlaneHeight + verticalShift + vertOffset, transform.position.z);
+            }
+
+            transform.position = Vector3.Lerp(transform.position, futurePos, offsetSmoothing * Time.deltaTime);
         }
-
-        else
-        {
-            futurePos = new Vector3(justin.position.x - horizOffset, globalVariables.upPlaneHeight + verticalShift + vertOffset, transform.position.z);
-        }
-
-        transform.position = Vector3.Lerp(transform.position, futurePos, offsetSmoothing * Time.deltaTime);
 
     }
 }

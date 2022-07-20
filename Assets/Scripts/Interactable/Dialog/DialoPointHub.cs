@@ -53,13 +53,16 @@ public class DialoPointHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Mathf.Abs(globalVariables.justin.transform.position.x - transform.position.x);
-        bool dialogPos = distance < rightDistance && globalVariables.justin._isGrounded;
-
-        if (dialogPos && isFirst && !cameraOn)
+        if (globalVariables.justin != null)
         {
-            dialogSequence();
-            isFirst = false;
+            float distance = Mathf.Abs(globalVariables.justin.transform.position.x - transform.position.x);
+            bool dialogPos = distance < rightDistance && globalVariables.justin._isGrounded;
+
+            if (dialogPos && isFirst && !cameraOn)
+            {
+                dialogSequence();
+                isFirst = false;
+            }
         }
     }
 
