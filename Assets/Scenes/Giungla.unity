@@ -5799,7 +5799,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 0
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: -1194884658076479853, guid: 28cafc6a6bf3d4a1fa8ea7cbafdcb6a1, type: 3}
@@ -6010,7 +6009,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 1
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -9261,7 +9259,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 1
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -9638,7 +9635,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 0
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -12602,7 +12598,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 1
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -12728,7 +12723,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 1
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -15342,6 +15336,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 6179316715750658658, guid: 05ef5030f5db64d478ecf61e43c5c564, type: 3}
   interactions: {fileID: 0}
   openTimeCapsule: 0
+  source: {fileID: 0}
 --- !u!114 &1449974525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16674,6 +16669,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6556843233693178080, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6565782424479633161, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000017166137
@@ -16713,6 +16712,10 @@ PrefabInstance:
     - target: {fileID: 6650819975744757003, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690445741728009068, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
+      propertyPath: rolloffMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6736884045562991237, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_Name
@@ -17867,7 +17870,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 0
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 1
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -18508,6 +18510,10 @@ PrefabInstance:
     - target: {fileID: 2099670101991087378, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.23572941
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115978564614230166, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 8256
       objectReference: {fileID: 0}
     - target: {fileID: 2119872450347225021, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_Layer
@@ -19844,6 +19850,10 @@ PrefabInstance:
     - target: {fileID: 8917863489233095074, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_LocalPosition.z
       value: 3.0647113
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919305901160700323, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 8256
       objectReference: {fileID: 0}
     - target: {fileID: 8945741272311494641, guid: 8a142c447ef8c4e99a39da2a47a41c25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21311,11 +21321,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8366324800366813449, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -105.83
+      value: -70.2
       objectReference: {fileID: 0}
     - target: {fileID: 8366324800366813449, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 91.28
+      value: 40.4
       objectReference: {fileID: 0}
     - target: {fileID: 8366324800366813449, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22963,7 +22973,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 0
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 0
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}
@@ -23086,7 +23095,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   standing: 0
   source: {fileID: 0}
-  trexSource: {fileID: 0}
   currentTimeline: 0
   originalTimeline: 0
   bulletPrefab: {fileID: 8191508527267070937, guid: abb7946ba5f9a4c9c8696af3afb727db, type: 3}

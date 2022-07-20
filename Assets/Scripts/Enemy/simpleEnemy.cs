@@ -18,7 +18,6 @@ public class simpleEnemy : MonoBehaviour
     public CharacterController controller;
     public bool standing;
     public AudioSource source;
-    public AudioSource trexSource;
 
 
     private FiniteStateMachine<simpleEnemy> finiteStateMachine;
@@ -90,8 +89,11 @@ public class simpleEnemy : MonoBehaviour
     {
 
         globalVariables = FindObjectOfType<GlobalVariables>();
-        source = GetComponent<AudioSource>();
-        source.enabled = true;
+        if (special != Specials.trex)
+        {
+            source = GetComponent<AudioSource>();
+            source.enabled = true;
+        }
         
         // voglio che il mio nemico sappia se si trova nella sua timeline oppure no
         switch (currentOrigin)
@@ -147,14 +149,11 @@ public class simpleEnemy : MonoBehaviour
         {
             enemyLife = 1000;
             AudioSource[] sources = GetComponentsInChildren<AudioSource>();
-            trexSource = sources[1];
-            source = sources[0];
-
+            source = sources[2];
         }
         else
         {
             enemyLife = 1;
-            trexSource = null;
         }
 
 
@@ -269,14 +268,8 @@ public class simpleEnemy : MonoBehaviour
                         switch (special)
                         {
                             case Specials.trex:
+                            source.Stop();
                             StartCoroutine(hitTargetCoroutine(TrexAttackTime / 3));
-                            AudioClip track2 = Resources.Load("Audio/Enemies/Trex/NewDinoSteps") as AudioClip;
-                            source.clip = track2;
-                            source.pitch = 2.5f;
-                            source.spatialBlend = 1;
-                            source.loop = true;
-                            source.Play();
-                            trexSource.clip = null;
                             break;
 
                             default:
@@ -292,13 +285,7 @@ public class simpleEnemy : MonoBehaviour
                     switch (special)
                     {
                         case Specials.trex:
-                            AudioClip track2 = Resources.Load("Audio/Enemies/Trex/NewDinoSteps") as AudioClip;
-                            source.clip = track2;
-                            source.pitch = 2.5f;
-                            source.spatialBlend = 1;
-                            source.loop = true;
-                            source.Play();
-                            trexSource.clip = null;
+                            source.Stop();
                             StartCoroutine(hitTargetCoroutine(TrexAttackTime / 3));
                             break;
 
@@ -347,11 +334,11 @@ public class simpleEnemy : MonoBehaviour
         {
             case Specials.trex:
                 AudioClip track2 = Resources.Load("Audio/Enemies/Trex/DinoRoar") as AudioClip;
-                trexSource.clip = track2;
-                trexSource.pitch = 2;
-                trexSource.spatialBlend = 1;
-                trexSource.loop = false;
-                trexSource.Play();
+                source.clip = track2;
+                source.pitch = 2;
+                source.spatialBlend = 1;
+                source.loop = false;
+                source.Play();
                 break;
 
             default:
@@ -421,13 +408,6 @@ public class simpleEnemy : MonoBehaviour
      
         yield return new WaitForSeconds(timeToEndAnim);
         readyToPatrol = true;
-        if (special == Specials.trex)
-        {
-            source.clip = null;
-            trexSource.clip = null;
-        }
-       
-
     }
 
     public IEnumerator DeathCoroutine(float timeToEndAnim)

@@ -52,12 +52,6 @@ public class PatrolState : State
                 enemy.source.Play();
                 break;
             case simpleEnemy.Specials.trex:
-                AudioClip track2 = Resources.Load("Audio/Enemies/Trex/NewDinoSteps") as AudioClip;
-                enemy.source.clip = track2;
-                enemy.source.pitch = 2;
-                enemy.source.spatialBlend = 1;
-                enemy.source.loop = true;
-                enemy.source.Play();
                 enemy.InvokeRepeating("specialSound", 5f, 14.23f);
                 break;
         }
