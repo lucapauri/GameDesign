@@ -9,6 +9,7 @@ public class GlobalVariables : MonoBehaviour
     public GameObject deathMenuDown;
     public GameObject UiCristalli;
     public GameObject UiVite;
+    private AudioSource soundtrackSource;
 
     public int currentTimeline;
     public int crystalsNumber;
@@ -46,6 +47,32 @@ public class GlobalVariables : MonoBehaviour
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
 
+        soundtrackSource = justin.GetComponentInChildren<AudioSource>();
+        switch (lv)
+        {
+            case livello.hub:
+                AudioClip track1 = Resources.Load("Audio/Soundtrack/jump") as AudioClip;
+                soundtrackSource.clip = track1;
+                soundtrackSource.pitch = 1;
+                soundtrackSource.Play();
+                Debug.Log("HubSoundtrackOn");
+                break;
+            case livello.vietnam:
+                AudioClip track2 = Resources.Load("Audio/Soundtrack/jump") as AudioClip;
+                soundtrackSource.clip = track2;
+                soundtrackSource.pitch = 1;
+                soundtrackSource.Play();
+                Debug.Log("VietSoundtrackOn");
+                break;
+            case livello.usa:
+                AudioClip track3 = Resources.Load("Audio/Soundtrack/jump") as AudioClip;
+                soundtrackSource.clip = track3;
+                soundtrackSource.pitch = 1;
+                soundtrackSource.Play();
+                Debug.Log("UsaSoundtrackOn");
+                break;
+        }
+
 
     }
 
@@ -64,6 +91,11 @@ public class GlobalVariables : MonoBehaviour
 
         if (justinLife == 0)
         {
+            AudioClip track = Resources.Load("Audio/Justin/Damage") as AudioClip;
+            justin.source.clip = track;
+            justin.source.pitch = 2;
+            justin.source.Play();
+            Debug.Log("audioDamageOn");
             foreach (simpleEnemy enemy in enemies)
             {
                 enemy.enabled = false;
@@ -72,6 +104,18 @@ public class GlobalVariables : MonoBehaviour
             deathMenuDown.SetActive(true);
         }
         
+    }
+
+
+
+    public void justinDamage()
+    {
+        justinLife--;
+        AudioClip track = Resources.Load("Audio/Justin/Damage") as AudioClip;
+        justin.source.clip = track;
+        justin.source.pitch = 2;
+        justin.source.Play();
+        Debug.Log("audioDamageOn");
     }
 
     public void inventoryAging(string key)

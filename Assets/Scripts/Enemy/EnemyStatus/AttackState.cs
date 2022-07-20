@@ -46,6 +46,10 @@ public class AttackState : State
         {
             case simpleEnemy.Specials.robot:
                 attackDistance = 2f;
+                AudioClip track = Resources.Load("Audio/Enemies/Robot/RobotAttack") as AudioClip;
+                enemy.source.clip = track;
+                enemy.source.pitch = 2;
+                enemy.source.Play();
                 break;
         }
 

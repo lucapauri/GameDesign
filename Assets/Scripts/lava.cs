@@ -11,7 +11,8 @@ public class lava : MonoBehaviour
     private Vector3 nemicoCityPos;
     private NemicoCity nemicoCity;
     public List<simpleEnemy> enemyList = new List<simpleEnemy>();
-
+    private AudioClip lavaDeath;
+    private float lavaTime;
 
 
     // Start is called before the first frame update
@@ -26,6 +27,9 @@ public class lava : MonoBehaviour
         {
             enemyList = globalVariables.enemies;
         }
+
+        lavaDeath = Resources.Load("Audio/Justin/lavaDeath") as AudioClip;
+        lavaTime = lavaDeath.length;
     }
 
     // Update is called once per frame
@@ -60,7 +64,11 @@ public class lava : MonoBehaviour
 
         if (destroyJustinPositionV && destroyJustinPositionH)
         {
-            globalVariables.justinLife = 0;
+            globalVariables.justin.source.clip = lavaDeath;
+            globalVariables.justin.source.pitch = 2;
+            globalVariables.justin.source.Play();
+            Debug.Log("audioLavaDeathOn");
+            StartCoroutine(killingCoroutine(lavaTime));
         }
 
         nemicoCity = FindObjectOfType<NemicoCity>();
@@ -79,8 +87,11 @@ public class lava : MonoBehaviour
         {
             nemicoCity.enemyLife = 0;
         }
+    }
 
-
-
+    private IEnumerator killingCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        globalVariables.justinLife = 0;
     }
 }

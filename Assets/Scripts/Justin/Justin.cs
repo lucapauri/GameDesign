@@ -64,6 +64,9 @@ public class Justin : MonoBehaviour
     private float throwTime;
     private float fireTime;
 
+    // audio variables
+    public AudioSource source;
+
     private void Awake()
     {
         controls = new NewControls();
@@ -137,6 +140,12 @@ public class Justin : MonoBehaviour
                     animator.SetTrigger("Jump");
 
                 }
+
+                AudioClip track = Resources.Load("Audio/Justin/jump") as AudioClip;
+                source.clip = track;
+                source.pitch = 1;
+                source.Play();
+                Debug.Log("audioJumpOn");
             }
         }
     }
@@ -154,6 +163,11 @@ public class Justin : MonoBehaviour
             timeTravelUp();
             timeTravel = true;
         }
+        AudioClip track = Resources.Load("Audio/Justin/tp_arrivo") as AudioClip;
+        source.clip = track;
+        source.pitch = 1;
+        source.Play();
+        Debug.Log("audioTpStartOn");
     }
 
     private void ShootInput()
@@ -179,6 +193,7 @@ public class Justin : MonoBehaviour
 
 
         _characterController = GetComponent<CharacterController>();
+        source = GetComponent<AudioSource>();
 
 
         //trovo i piani per lo spostamento 
@@ -239,6 +254,11 @@ public class Justin : MonoBehaviour
 
         timeTravel = false;
 
+        AudioClip track = Resources.Load("Audio/Justin/tp_partenza") as AudioClip;
+        source.clip = track;
+        source.pitch = 2;
+        source.Play();
+        Debug.Log("audioTpLandingOn");
 
     }
 
@@ -491,6 +511,11 @@ public class Justin : MonoBehaviour
     {
         _speed = 30f;
         _dash = true;
+        AudioClip track = Resources.Load("Audio/Justin/dash") as AudioClip;
+        source.clip = track;
+        source.pitch = 1;
+        source.Play();
+        Debug.Log("audioDashOn");
         StartCoroutine(dashEndingCoroutine(dashTime));
 
     }
@@ -552,6 +577,11 @@ public class Justin : MonoBehaviour
         globalVariables.inventory.Add(interactable.gameObject.name, interactable.gameObject);
         inventoryMenu.addButton(interactable.gameObject.name);
         Destroy(interactable.gameObject);
+        AudioClip track = Resources.Load("Audio/Justin/Grab") as AudioClip;
+        source.clip = track;
+        source.pitch = 1;
+        source.Play();
+        Debug.Log("audioGrabOn");
 
     }
 

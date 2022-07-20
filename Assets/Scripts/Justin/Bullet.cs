@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 
    private GlobalVariables globalVariables;
     private bool firstColl;
+    private AudioSource source;
 
 
     // Start is called before the first frame update
@@ -14,6 +15,12 @@ public class Bullet : MonoBehaviour
     {
         firstColl = true;
         globalVariables = FindObjectOfType<GlobalVariables>();
+        source = GetComponent<AudioSource>();
+        AudioClip track = Resources.Load("Audio/Justin/shot") as AudioClip;
+        source.clip = track;
+        source.pitch = 1;
+        source.Play();
+        Debug.Log("audioShotOn");
     }
 
     void OnCollisionEnter(Collision collision)

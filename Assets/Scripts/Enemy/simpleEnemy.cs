@@ -17,6 +17,7 @@ public class simpleEnemy : MonoBehaviour
     public Animator enemyAnimator;
     public CharacterController controller;
     public bool standing;
+    public AudioSource source;
 
 
     private FiniteStateMachine<simpleEnemy> finiteStateMachine;
@@ -88,6 +89,7 @@ public class simpleEnemy : MonoBehaviour
     {
 
         globalVariables = FindObjectOfType<GlobalVariables>();
+        source = GetComponent<AudioSource>();
         
         // voglio che il mio nemico sappia se si trova nella sua timeline oppure no
         switch (currentOrigin)
@@ -224,6 +226,11 @@ public class simpleEnemy : MonoBehaviour
             {
                 enemyAnimator.SetTrigger("Death");
             }
+            AudioClip track = Resources.Load("Audio/Justin/Damage") as AudioClip;
+            source.clip = track;
+            source.pitch = 2;
+            source.Play();
+            Debug.Log("audioEnemyDamageOn");
             StartCoroutine(DeathCoroutine(DeathTime));
         }
 
@@ -329,7 +336,7 @@ public class simpleEnemy : MonoBehaviour
         }
         else if (target.GetComponent<Justin>() && target.GetComponent<Justin>()._isGrounded)
         {
-            globalVariables.justinLife -= 1;
+            globalVariables.justinDamage();
            
         }
 

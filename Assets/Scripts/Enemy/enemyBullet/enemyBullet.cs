@@ -80,7 +80,7 @@ public class enemyBullet : MonoBehaviour
         {
             case 10: // justin
 
-                globalVariables.justinLife -= 1;
+                globalVariables.justinDamage();
 
                 break;
 

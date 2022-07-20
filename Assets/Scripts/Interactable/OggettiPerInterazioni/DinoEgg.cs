@@ -13,10 +13,18 @@ public class DinoEgg : MonoBehaviour
     private int vibrato = 3;
     private bool fadeout = true;
     public GameObject dino;
+    private AudioSource source;
+    private AudioClip track;
 
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
+        track = Resources.Load("Audio/Oggetti/Uovo") as AudioClip;
+        source.clip = track;
+        source.pitch = 1.5f;
+        source.Play();
+        Debug.Log("audioUovoOn");
 
         shakeSequence = DOTween.Sequence();
 
@@ -26,7 +34,7 @@ public class DinoEgg : MonoBehaviour
                   Destroy(this.gameObject);
               }
               )) ;
-
+       
     }
 
     private void generateDino()

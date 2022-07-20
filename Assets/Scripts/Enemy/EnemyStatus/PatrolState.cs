@@ -41,6 +41,16 @@ public class PatrolState : State
         {
             targetVisibleDistance = 4f;
         }
+
+        switch (enemy.special)
+        {
+            case simpleEnemy.Specials.robot:
+                AudioClip track = Resources.Load("Audio/Enemies/Robot/RobotPatrol") as AudioClip;
+                enemy.source.clip = track;
+                enemy.source.pitch = 1;
+                enemy.source.Play();
+                break;
+        }
     }
 
     public override void Exit()
