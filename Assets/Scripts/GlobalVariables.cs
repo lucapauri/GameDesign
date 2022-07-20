@@ -39,7 +39,7 @@ public class GlobalVariables : MonoBehaviour
         totCrystals = FindObjectsOfType<Cristallo>().Length;
         crystalsNumber = 0;
         currentTimeline = 1;
-        justinLife = 1;
+        justinLife = 5;
         upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();

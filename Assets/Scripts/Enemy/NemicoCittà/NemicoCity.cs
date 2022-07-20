@@ -229,7 +229,7 @@ public class NemicoCity : MonoBehaviour
     {
 
         yield return new WaitForSeconds(timeToEndAnim);
-        GameObject go = Instantiate(this.gameObject, oldPlatform + Vector3.up * 1f, transform.rotation);
+        GameObject go = Instantiate(this.gameObject, oldPlatform + Vector3.up * 2f, transform.rotation); //sostituire oldPlatform con platform?
         NemicoCity script = go.GetComponent<NemicoCity>();
         script.enabled = true;
         switch (currentOrigin)
