@@ -581,6 +581,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 6179316715750658658, guid: 05ef5030f5db64d478ecf61e43c5c564, type: 3}
   interactions: {fileID: 0}
   openTimeCapsule: 0
+  source: {fileID: 0}
 --- !u!114 &164274374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3719,6 +3720,7 @@ MonoBehaviour:
   justin: {fileID: 882837650}
   valigetta: {fileID: 1486859948}
   thirdCamera: {fileID: 1403428078}
+  source: {fileID: 0}
 --- !u!1 &926195992
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,6 +3897,7 @@ MonoBehaviour:
   crystalsNumber: 0
   upPlaneHeight: 0
   downPlaneHeight: 0
+  lv: 0
   enemies: []
   justinLife: 0
   enemyLife: 0

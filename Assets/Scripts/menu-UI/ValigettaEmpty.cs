@@ -20,6 +20,7 @@ public class ValigettaEmpty : MonoBehaviour
     private GameObject camera2;
     private bool finished;
     public Camera thirdCamera;
+    public AudioSource source;
 
     void Awake()
     {
@@ -52,9 +53,11 @@ public class ValigettaEmpty : MonoBehaviour
     {
         if (isActive)
         {
-            isTaken = true;
+            Animator anim = justin.GetComponent<Animator>();
+            anim.SetTrigger("Grab");
+            StartCoroutine(grabEndingCoroutine(4 / 4));
             justin.valigettaTaken = true;
-            dialogSequence();
+            StartCoroutine(conversationWaitCoroutine(1.5f));
         }
     }
 
@@ -83,7 +86,7 @@ public class ValigettaEmpty : MonoBehaviour
     {
         if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 15 && !isTaken)
         {
-            scritte.setActive("Press Y to grab the case", valigetta);
+            scritte.setActive("Press Y to grab the case",null);
             isActive = true;
         }
         if (justin != null && scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
@@ -152,5 +155,25 @@ public class ValigettaEmpty : MonoBehaviour
         ConversationManager.Instance.StartConversation(conversation);
 
 
+    }
+
+    private IEnumerator conversationWaitCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dialogSequence();
+
+
+    }
+
+    private IEnumerator grabEndingCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        source = justin.GetComponent<AudioSource>();
+        AudioClip track = Resources.Load("Audio/Justin/Grab") as AudioClip;
+        source.clip = track;
+        source.pitch = 1;
+        source.Play();
+        isTaken = true;
+        Destroy(valigetta);
     }
 }

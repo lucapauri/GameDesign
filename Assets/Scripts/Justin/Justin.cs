@@ -21,6 +21,7 @@ public class Justin : MonoBehaviour
     private float rotationSpeed = 100f;
     private Vector3 _targetDirection;
     private Vector3 _velocity;
+    private bool lastGrounded;
 
     //jump variables
     [SerializeField] private float _gravity;
@@ -98,8 +99,8 @@ public class Justin : MonoBehaviour
         {
             if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 20)
             {
-                inventoryMenu.setMenuTrue();
                 inventoryMenu.setBehaviour();
+                inventoryMenu.setMenuTrue();
             }
         }
     }
@@ -182,6 +183,7 @@ public class Justin : MonoBehaviour
 
     void Start()
     {
+        lastGrounded = true;
         //trovo gli script necessari
         globalVariables = FindObjectOfType<GlobalVariables>();
         globalVariables.justin = this;
@@ -455,6 +457,13 @@ public class Justin : MonoBehaviour
             inventoryMenu.setBehaviour();
         }
         */
+        if(!lastGrounded && _isGrounded)
+        {
+            AudioClip track = Resources.Load("Audio/Justin/Landing") as AudioClip;
+            source.clip = track;
+            source.Play();
+        }
+        lastGrounded = _isGrounded;
     }
        
 

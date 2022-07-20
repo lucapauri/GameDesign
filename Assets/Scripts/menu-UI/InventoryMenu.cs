@@ -13,6 +13,7 @@ public class InventoryMenu : MonoBehaviour
     private GlobalVariables globalVariables;
     private int activeButton;
     public bool openTimeCapsule;
+    public AudioSource source;
 
     private void Awake()
     {
@@ -45,6 +46,10 @@ public class InventoryMenu : MonoBehaviour
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", false);
             activeButton++;
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
+            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            AudioClip track = Resources.Load("Audio/Oggetti/UI") as AudioClip;
+            source.clip = track;
+            source.Play();
         }
     }
 
@@ -56,7 +61,10 @@ public class InventoryMenu : MonoBehaviour
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", false);
             activeButton--;
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
-
+            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            AudioClip track = Resources.Load("Audio/Oggetti/UI") as AudioClip;
+            source.clip = track;
+            source.Play();
         }
     }
 
@@ -66,6 +74,9 @@ public class InventoryMenu : MonoBehaviour
         {
             setMenuFalse();
             openTimeCapsule = false;
+            AudioClip track = Resources.Load("Audio/Oggetti/UI") as AudioClip;
+            source.clip = track;
+            source.Play();
         }
     }
 
@@ -81,6 +92,9 @@ public class InventoryMenu : MonoBehaviour
                 globalVariables.inventoryAging(oldKey);
                 setMenuFalse();
                 buttons[activeButton].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = newKey;
+                AudioClip track = Resources.Load("Audio/Oggetti/Capsula") as AudioClip;
+                source.clip = track;
+                source.Play();
             }
             else
             {
@@ -113,6 +127,9 @@ public class InventoryMenu : MonoBehaviour
                 });
                 buttons = new List<GameObject>();
                 names.ForEach(n => addButton(n));
+                AudioClip track = Resources.Load("Audio/Oggetti/Instantiate") as AudioClip;
+                source.clip = track;
+                source.Play();
             }
             openTimeCapsule = false;
         }
@@ -136,7 +153,21 @@ public class InventoryMenu : MonoBehaviour
         {
             enemy.GetComponent<simpleEnemy>().enabled = false;
         }
-    }
+            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            if (openTimeCapsule)
+            {
+                AudioClip track = Resources.Load("Audio/Oggetti/Capsula") as AudioClip;
+                source.clip = track;
+                source.Play();
+            }
+            else
+            {
+                AudioClip track = Resources.Load("Audio/Oggetti/UI") as AudioClip;
+                source.clip = track;
+                source.Play();
+            }
+        }
+
     }
 
     public void setMenuFalse()
