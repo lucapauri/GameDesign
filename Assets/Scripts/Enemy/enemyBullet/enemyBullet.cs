@@ -25,6 +25,7 @@ public class enemyBullet : MonoBehaviour
     private float movSpeedForward;
     private float movSpeedDown;
     private bool readyToFire;
+    public AudioSource source;
 
     public enum Origin
     {
@@ -58,6 +59,7 @@ public class enemyBullet : MonoBehaviour
         {
             targetDirection = transform.up;
         }
+        
 
     }
 
@@ -124,7 +126,10 @@ public class enemyBullet : MonoBehaviour
         yield return new WaitForSeconds(1f);
         shotPoint.DetachChildren();
         readyToFire = true;
-
+        source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        AudioClip track = Resources.Load("Audio/Oggetti/EnemyShoot") as AudioClip;
+        source.clip = track;
+        source.Play();
 
     }
 

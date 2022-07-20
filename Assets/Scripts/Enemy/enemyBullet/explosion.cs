@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class explosion : MonoBehaviour
 {
+
+    public AudioSource source;
     public enum type
     {
         bullet,
@@ -18,6 +20,10 @@ public class explosion : MonoBehaviour
         {
             case type.bullet:
                 StartCoroutine(bulletCoroutine());
+                source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+                AudioClip track = Resources.Load("Audio/Oggetti/Esplosione") as AudioClip;
+                source.clip = track;
+                source.Play();
                 break;
             case type.dust:
                 StartCoroutine(dustCoroutine());
