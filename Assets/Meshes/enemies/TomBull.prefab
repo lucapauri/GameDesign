@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalVariables: {fileID: 0}
   shooter: {fileID: 0}
+  shotPoint: {fileID: 0}
   _target: {fileID: 0}
   explosion: {fileID: 0}
   currentOrigin: 0
@@ -131,6 +132,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3003c3b91c48d4343b7df0a2e77aa929, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 65b04e9b6f3564c28a5f91adc4a5d918, type: 2}
     - target: {fileID: 919132149155446097, guid: 3003c3b91c48d4343b7df0a2e77aa929, type: 3}
       propertyPath: m_Name
       value: TomBullet
