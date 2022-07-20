@@ -29,6 +29,8 @@ public class BabyPtero : MonoBehaviour
     private float rotationSpeed= 30f;
     private float movSpeed = 10f;
 
+    public AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,11 @@ public class BabyPtero : MonoBehaviour
         readyToKill = false;
         globalVariables = FindObjectOfType<GlobalVariables>();
         wayroot = GameObject.FindGameObjectWithTag("PteroWayroot").transform;
-
+        source = GetComponent<AudioSource>();
+        AudioClip track = Resources.Load("Audio/Enemies/BabyDino/BabyDino") as AudioClip;
+        source.clip = track;
+        source.pitch = 1;
+        source.Play();
         starting();
 
     }

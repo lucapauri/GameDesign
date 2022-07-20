@@ -45,10 +45,20 @@ public class PatrolState : State
         switch (enemy.special)
         {
             case simpleEnemy.Specials.robot:
-                AudioClip track = Resources.Load("Audio/Enemies/Robot/RobotPatrol") as AudioClip;
-                enemy.source.clip = track;
+                AudioClip track1 = Resources.Load("Audio/Enemies/Robot/RobotPatrol") as AudioClip;
+                enemy.source.clip = track1;
                 enemy.source.pitch = 1;
+                enemy.source.spatialBlend = 1;
                 enemy.source.Play();
+                break;
+            case simpleEnemy.Specials.trex:
+                AudioClip track2 = Resources.Load("Audio/Enemies/Trex/NewDinoSteps") as AudioClip;
+                enemy.source.clip = track2;
+                enemy.source.pitch = 2;
+                enemy.source.spatialBlend = 1;
+                enemy.source.loop = true;
+                enemy.source.Play();
+                enemy.InvokeRepeating("specialSound", 5f, 14.23f);
                 break;
         }
     }
@@ -56,6 +66,7 @@ public class PatrolState : State
     public override void Exit()
     {
         walkingSequence.Kill();
+        enemy.CancelInvoke("specialSound");
     }
 
     public override void Tik()
