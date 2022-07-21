@@ -29,7 +29,7 @@ public class ChangeText : MonoBehaviour
 
     public void NewGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Hub");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("InitScene");
     }
 
     private void NextCounter()

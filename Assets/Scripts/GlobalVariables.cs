@@ -144,10 +144,10 @@ public class GlobalVariables : MonoBehaviour
         switch (lv)
         {
             case livello.vietnam:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("HubReturn1");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("TransitionScene1");
                 break;
             case livello.usa:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("HubReturn2");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("TransitionScene2");
                 break;
         }
     }
