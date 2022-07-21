@@ -40,7 +40,7 @@ public class PatrolStateCity : State
             enemy.enemyAnimator.SetBool("Walk", true);
         }
 
-        shift = enemy.platform.gameObject.GetComponent<Collider>().bounds.extents.x;
+        shift = enemy.platform.gameObject.GetComponent<Collider>().bounds.extents.x - 0.6f;
 
     }
 
@@ -71,16 +71,18 @@ public class PatrolStateCity : State
 
             if (enemy.platform.GetComponent<PiattaformeMobili>())
         {
-            movVec = Vector3.forward * movSpeed * Time.deltaTime + Vector3.up * enemy.platform.GetComponent<PiattaformeMobili>().movSpeed * Time.deltaTime;
-
+            movVec = Vector3.forward * movSpeed * Time.deltaTime - Vector3.up * enemy.platform.GetComponent<PiattaformeMobili>().movSpeed * Time.deltaTime;
+            enemy.transform.Translate(movVec);
+            
         }
 
         else
         {
             movVec = Vector3.forward * movSpeed * Time.deltaTime;
+            enemy.transform.Translate(movVec);
         }
            
-            enemy.transform.Translate(movVec);
+            
 
 
 

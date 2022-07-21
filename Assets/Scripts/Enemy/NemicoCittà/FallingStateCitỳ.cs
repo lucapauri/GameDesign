@@ -18,7 +18,7 @@ public class FallingStateCity : State
 
     public override void Enter()
     {
-
+        Debug.Log("falling");
     }
 
     public override void Tik()
@@ -30,7 +30,7 @@ public class FallingStateCity : State
         enemy.transform.Translate(movVec);
 
 
-        if (enemy._isGrounded && !enemy.standing)
+        if (!enemy._isGrounded && !enemy.standing)
         {
             enemy.currentStatus = NemicoCity.MachineStatus.Patrol;
         }

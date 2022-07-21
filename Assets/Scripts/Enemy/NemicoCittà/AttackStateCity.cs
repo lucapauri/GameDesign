@@ -57,7 +57,7 @@ public class AttackStateCity : State
     {
         if (movingPlatform)
         {
-            movVec = enemy.platform.GetComponent<PiattaformeMobili>().movSpeed * Vector3.up * Time.deltaTime;
+            movVec = - enemy.platform.GetComponent<PiattaformeMobili>().movSpeed * Vector3.up * Time.deltaTime;
             enemy.transform.Translate(movVec);
         }
 

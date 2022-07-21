@@ -42,7 +42,7 @@ public class NemicoCity : MonoBehaviour
     public Transform shotPoint;
 
     //groundCheck
-    private float _groundDistance = 0.3f;
+    private float _groundDistance = 0.6f;
     [SerializeField] private LayerMask _enemyGroundMask;
     public bool _isGrounded;
 
@@ -67,14 +67,14 @@ public class NemicoCity : MonoBehaviour
     public MachineStatus currentStatus;
     public Origin currentOrigin;
     public Type enemyType;
-
+    
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
         globalVariables = FindObjectOfType<GlobalVariables>();
         justin = globalVariables.justin;
 
@@ -91,7 +91,7 @@ public class NemicoCity : MonoBehaviour
             {
                 platform = plat;
             }
-
+             
 
         }
 
@@ -186,9 +186,7 @@ public class NemicoCity : MonoBehaviour
         }
 
 
-        RaycastHit groundInfo;
-        Ray groundRay = new Ray(transform.position, -transform.up);
-        _isGrounded = !Physics.Raycast(groundRay, out groundInfo, _groundDistance, _enemyGroundMask);
+        _isGrounded = ((transform.position.y - platform.position.y) > 0.8f);
 
         if (_isGrounded)
         {
@@ -217,7 +215,7 @@ public class NemicoCity : MonoBehaviour
     {
         readyToPatrol = false;
         BulletNemicoCity bullet = Instantiate(bulletPrefab, shotPoint.position, Quaternion.identity);
-        bullet.GetComponent<enemyBullet>().currentOrigin = enemyBullet.Origin.Original;
+        bullet.GetComponent<BulletNemicoCity>().currentOrigin = BulletNemicoCity.Origin.Original;
         bullet.shooter = this;
         bullet.transform.up = transform.forward;
         bullet.transform.SetParent(shotPoint);
@@ -229,7 +227,7 @@ public class NemicoCity : MonoBehaviour
     {
 
         yield return new WaitForSeconds(timeToEndAnim);
-        GameObject go = Instantiate(this.gameObject, oldPlatform + Vector3.up * 2f, transform.rotation); //sostituire oldPlatform con platform?
+        GameObject go = Instantiate(this.gameObject, oldPlatform, transform.rotation); //sostituire oldPlatform con platform?
         NemicoCity script = go.GetComponent<NemicoCity>();
         script.enabled = true;
         switch (currentOrigin)
