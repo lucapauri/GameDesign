@@ -10,7 +10,7 @@ public class UpCamera : MonoBehaviour
     private float verticalShift;
     private float horizOffset = 0f;
     public float vertOffset;
-    private float offsetSmoothing = 1f;
+    private float offsetSmoothing = 3f;
 
     private CharacterController _characterController;
     private GlobalVariables globalVariables;

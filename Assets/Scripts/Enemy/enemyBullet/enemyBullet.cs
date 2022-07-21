@@ -144,7 +144,7 @@ public class enemyBullet : MonoBehaviour
         {
             shotPoint.DetachChildren();
             readyToFire = true;
-            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            source = GetComponent<AudioSource>();
             AudioClip track = Resources.Load("Audio/Oggetti/EnemyShoot") as AudioClip;
             source.clip = track;
             source.Play();
@@ -152,7 +152,7 @@ public class enemyBullet : MonoBehaviour
         else
         {
             readyToFire = true;
-            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            source = GetComponent<AudioSource>();
             AudioClip track = Resources.Load("Audio/Enemies/Robot/HexBull") as AudioClip;
             source.clip = track;
             source.Play();
