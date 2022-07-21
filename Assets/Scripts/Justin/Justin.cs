@@ -22,6 +22,8 @@ public class Justin : MonoBehaviour
     private Vector3 _targetDirection;
     private Vector3 _velocity;
     private bool lastGrounded;
+    private float initSpeed;
+    [SerializeField] private float _dashSpeed = 30f;
 
     //jump variables
     [SerializeField] private float _gravity;
@@ -278,7 +280,7 @@ public class Justin : MonoBehaviour
         source.enabled = true;
         GetComponent<AudioListener>().enabled = true;
         GetComponentInChildren<AudioSource>().enabled = true;
-
+        initSpeed = _speed;
     }
 
 
@@ -535,7 +537,7 @@ public class Justin : MonoBehaviour
     //funzione per il dash
     private void Dash()
     {
-        _speed = 30f;
+        _speed = _dashSpeed;
         _dash = true;
         AudioClip track = Resources.Load("Audio/Justin/dash") as AudioClip;
         source.clip = track;
@@ -583,7 +585,7 @@ public class Justin : MonoBehaviour
     private IEnumerator dashEndingCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        _speed = 5f;
+        _speed = initSpeed;
         _dash = false;
     }
 

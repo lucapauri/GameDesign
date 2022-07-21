@@ -33,6 +33,7 @@ public class Scritte : MonoBehaviour
     {
         if (isActive == true)
         {
+            
             isActive = false;
             setNotActive();
             Destroy(activeGo);

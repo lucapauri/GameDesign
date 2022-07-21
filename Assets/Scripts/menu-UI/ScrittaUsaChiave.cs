@@ -25,16 +25,19 @@ public class ScrittaUsaChiave : MonoBehaviour
         if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 3 
             && inventory.getButtons() > 0)
         {
+            Debug.Log("active");
             scritte.setActive("Press RB to open inventory", null);
             isActive = true;
         }
         if (isActive && Vector3.Distance(gameObject.transform.position, justin.transform.position) > 3)
         {
+            Debug.Log("not active");
             scritte.setNotActive();
             isActive = false;
         }
         if (isActive && inventory.getButtons() < 1)
         {
+            Debug.Log("notactive2");
             scritte.setNotActive();
         }
     }

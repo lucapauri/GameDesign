@@ -21,6 +21,7 @@ public class ValigettaEmpty : MonoBehaviour
     private bool finished;
     public Camera thirdCamera;
     public AudioSource source;
+    private bool isFirst;
 
     void Awake()
     {
@@ -38,6 +39,7 @@ public class ValigettaEmpty : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isFirst = false;
         finished = false;
         scritte = FindObjectOfType<Scritte>();
         isActive = false;
@@ -86,11 +88,13 @@ public class ValigettaEmpty : MonoBehaviour
     {
         if (justin != null && Vector3.Distance(gameObject.transform.position, justin.transform.position) < 15 && !isTaken)
         {
+            isFirst = true;
             scritte.setActive("Press Y to grab the case",null);
             isActive = true;
         }
-        if (justin != null && scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
+        if (isFirst && justin != null && scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
         {
+            Debug.Log("notactivevAal");
             scritte.setNotActive();
             isActive = false;
         }
