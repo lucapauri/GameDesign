@@ -32,6 +32,7 @@ public class JustinManagerMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         startScale = transform.localScale;
         startPos = transform.position;
         startRot = transform.rotation;
