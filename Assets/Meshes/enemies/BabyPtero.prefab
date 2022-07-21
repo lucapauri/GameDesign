@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalVariables: {fileID: 0}
   wayroot: {fileID: 0}
+  source: {fileID: 0}
 --- !u!65 &65049810511666572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -856,7 +857,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4611759551533685079, guid: 94072111f9408458d9cf8f85b4519705, type: 3}
+  - {fileID: 2100000, guid: f28246af446794a88a48c7652de81845, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
