@@ -49,6 +49,7 @@ public class AttackState : State
                 AudioClip track = Resources.Load("Audio/Enemies/Robot/RobotAttack") as AudioClip;
                 enemy.source.clip = track;
                 enemy.source.pitch = 2;
+                enemy.source.loop = true;
                 enemy.source.Play();
                 break;
         }

@@ -56,6 +56,7 @@ public class Justin : MonoBehaviour
     public bool valigettaTaken;
     private bool timeTravel;
     private bool destroyed;
+    public int inputMul;
 
     //animation variables
     private Animator animator;
@@ -75,7 +76,7 @@ public class Justin : MonoBehaviour
         controls.JustinController.TimeTravel.performed += ctx => TimeTravel();
         controls.JustinController.Shoot.performed += ctx => ShootInput();
         controls.JustinController.Dash.performed += ctx => Dash();
-        controls.JustinController.InputSpeed.performed += ctx => _inputSpeed = ctx.ReadValue<float>();
+        controls.JustinController.InputSpeed.performed += ctx => _inputSpeed = inputMul * ctx.ReadValue<float>();
         controls.JustinController.InputSpeed.canceled += ctx => _inputSpeed = 0f;
         controls.JustinController.Grab.performed += ctx => Grab();
         controls.JustinController.OpenInventory.performed += ctx =>

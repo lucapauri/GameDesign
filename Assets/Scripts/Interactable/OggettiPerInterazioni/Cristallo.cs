@@ -25,7 +25,6 @@ public class Cristallo : MonoBehaviour
             source.clip = track;
             source.pitch = 1;
             source.Play();
-            Debug.Log("audioCristalloOn");
         }
     }
 

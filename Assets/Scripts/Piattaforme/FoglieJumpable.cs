@@ -11,6 +11,8 @@ public class FoglieJumpable : MonoBehaviour
     public GameObject colliderPlaceholder;
     private GlobalVariables globalVariables;
     private Animator anim;
+    private AudioSource source;
+    private AudioClip track;
 
     private void Awake()
     {
@@ -33,13 +35,18 @@ public class FoglieJumpable : MonoBehaviour
         if (rightJustinPositionH && rightJustinPositionV)
         {
             anim.SetTrigger("Launch");
-
+            Destroy(gameObject);
+            source.clip = track;
+            source.pitch = 1;
+            source.Play();
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
+        track = Resources.Load("Audio/Oggetti/LancioFoglia") as AudioClip;
         rightHorizontalDistance = colliderPlaceholder.GetComponent<Collider>().bounds.extents.x;
         rightVerticalDistance = 6f;
         globalVariables = FindObjectOfType<GlobalVariables>();

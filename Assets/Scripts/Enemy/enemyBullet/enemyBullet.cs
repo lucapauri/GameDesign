@@ -149,6 +149,14 @@ public class enemyBullet : MonoBehaviour
             source.clip = track;
             source.Play();
         }
+        else
+        {
+            readyToFire = true;
+            source = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+            AudioClip track = Resources.Load("Audio/Enemies/Robot/HexBull") as AudioClip;
+            source.clip = track;
+            source.Play();
+        }
     }
 
 
