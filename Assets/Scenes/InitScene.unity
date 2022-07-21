@@ -470,14 +470,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "in un luogo che \xE8 sempre esistito e sempre esister\xE0, l'agenzia del
-    tempo veglia sul cristallo del tempo, un manuffatto antico quanto l'universo.
-    \n\nIl potere del cristallo garantisce l'equilibrio fra le linee temporali, perch\xE8
-    tutto si ripeta esattamente come \xE8 sempre stato.\n\nTuttavia, un enorme cataclisma
-    si \xE8 abbattuto sull' agenzia: il cristallo \xE8 stato distrutto. \ni suoi
-    frammenti si sono sparsi per tutte le linee temporali. \n\nL' unica speranza
-    per la salvezza dello spazio-tempo \xE8 recuperare i frammenti e riunificare
-    il cristallo.  \n\nSembra una missione impossibile, ma non per l'agente Time,
+  m_text: "In a place that always existed and always will, the Time Agency watches
+    over The Crystal , a manufact as ancient as Time itself. \n\nThe power of The
+    Crystal mantains balance among different timelines, for everything to repeat
+    as It always did.\n\nHowever, a huge doom fell over the agency: The Crystal was
+    destroyed. \nIts fragments are now spead all over the timelines. \n\nThe only
+    hope to save the space-time continuum is to collect those fragments and to rebuild
+    The Crystal.  \n\nIt sounds like a mission impossible, but not for agent Time,
     Justin Time. \n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a6a79de16a1ac41b6a260e57f266265b, type: 2}
