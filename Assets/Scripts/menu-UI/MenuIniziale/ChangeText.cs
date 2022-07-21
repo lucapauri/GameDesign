@@ -30,6 +30,7 @@ public class ChangeText : MonoBehaviour
     public void NewGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("InitScene");
+        controls.MenuController.Disable();
     }
 
     private void NextCounter()
@@ -71,6 +72,7 @@ public class ChangeText : MonoBehaviour
                     UnityEngine.SceneManagement.SceneManager.LoadScene("DesertoCitta");
                     break;
             }
+            controls.MenuController.Disable();
         }
     }
 

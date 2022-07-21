@@ -35,7 +35,7 @@ public class FoglieJumpable : MonoBehaviour
         if (rightJustinPositionH && rightJustinPositionV)
         {
             anim.SetTrigger("Launch");
-            Destroy(gameObject);
+            source = GetComponent<AudioSource>();
             source.clip = track;
             source.pitch = 1;
             source.Play();

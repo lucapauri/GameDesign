@@ -25,7 +25,8 @@ public class lava : MonoBehaviour
 
         foreach (simpleEnemy enemy in globalVariables.enemies)
         {
-            enemyList = globalVariables.enemies;
+            if(enemy != null)
+                enemyList = globalVariables.enemies;
         }
 
         lavaDeath = Resources.Load("Audio/Justin/lavaDeath") as AudioClip;

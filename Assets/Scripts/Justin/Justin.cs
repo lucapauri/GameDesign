@@ -31,6 +31,7 @@ public class Justin : MonoBehaviour
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _jumpMask;
     [SerializeField] private LayerMask _platMask;
+    [SerializeField] private LayerMask enemyMask;
     [SerializeField] private float _jumpHeight = 1f;
     public bool _isGrounded;
     private bool highJump;
@@ -59,7 +60,7 @@ public class Justin : MonoBehaviour
     private bool timeTravel;
     private bool destroyed;
     public int inputMul;
-
+    private bool onMovingEnemy;
 
     //animation variables
     private Animator animator;
@@ -91,7 +92,14 @@ public class Justin : MonoBehaviour
         controls.JustinController.TimeTravel.performed += ctx => TimeTravel();
         controls.JustinController.Shoot.performed += ctx => ShootInput();
         controls.JustinController.Dash.performed += ctx => Dash();
-        controls.JustinController.InputSpeed.performed += ctx => _inputSpeed = inputMul * ctx.ReadValue<float>();
+        controls.JustinController.InputSpeed.performed += ctx => { 
+            if (onMovingEnemy && ctx.ReadValue<float>() > 0)
+            {
+                _inputSpeed = 0f;
+                Debug.Log("fermooooooo");
+            }else
+                _inputSpeed = inputMul * ctx.ReadValue<float>();
+        };
         controls.JustinController.InputSpeed.canceled += ctx => _inputSpeed = 0f;
         controls.JustinController.Grab.performed += ctx => Grab();
         controls.JustinController.OpenInventory.performed += ctx =>
@@ -302,6 +310,11 @@ public class Justin : MonoBehaviour
         RaycastHit platInfo;
         Ray platRay = new Ray(transform.position, -transform.up);
         onMovingPlat = Physics.Raycast(platRay, out platInfo, _groundDistance, _platMask);
+
+        RaycastHit enemyInfo;
+        Ray enemyRay = new Ray(transform.position + transform.up * 1f, transform.forward);
+        onMovingEnemy = Physics.Raycast(enemyRay, out enemyInfo, 5f, enemyMask);
+        Debug.Log("c?eeeeeee  " + onMovingEnemy);
 
         if (onMovingPlat)
         {
@@ -537,14 +550,17 @@ public class Justin : MonoBehaviour
     //funzione per il dash
     private void Dash()
     {
-        _speed = _dashSpeed;
-        _dash = true;
-        AudioClip track = Resources.Load("Audio/Justin/dash") as AudioClip;
-        source.clip = track;
-        source.pitch = 1;
-        source.Play();
-        Debug.Log("audioDashOn");
-        StartCoroutine(dashEndingCoroutine(dashTime));
+        if (!destroyed)
+        {
+            _speed = _dashSpeed;
+            _dash = true;
+            AudioClip track = Resources.Load("Audio/Justin/dash") as AudioClip;
+            source.clip = track;
+            source.pitch = 1;
+            source.Play();
+            Debug.Log("audioDashOn");
+            StartCoroutine(dashEndingCoroutine(dashTime));
+        }
 
     }
 

@@ -39,7 +39,7 @@ public class GlobalVariables : MonoBehaviour
         totCrystals = FindObjectsOfType<Cristallo>().Length;
         crystalsNumber = 0;
         currentTimeline = 1;
-        justinLife = 5;
+        justinLife = 15;
         upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
@@ -121,5 +121,21 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
+    public void BackToMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+    }
 
+    public void ReLoad()
+    {
+        switch (lv)
+        {
+            case livello.vietnam:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("giungla");
+                break;
+            case livello.usa:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("DesertoCitta");
+                break;
+        }
+    }
 }

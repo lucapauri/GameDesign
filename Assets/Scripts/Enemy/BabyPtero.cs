@@ -53,16 +53,19 @@ public class BabyPtero : MonoBehaviour
         {
             foreach (simpleEnemy intruder in globalVariables.enemies)
             {
-                bool intrusion = intruder.originalTimeline != originalTimeline;
-                bool sameTimeline = intruder.currentTimeline == currentTimeline;
-                float distanceFromIntruder = Mathf.Abs(wayroot.transform.position.x - intruder.transform.position.x);
-                float verticalDistance = Mathf.Abs(wayroot.transform.position.y - intruder.transform.position.y);
-                if (distanceFromIntruder < targetVisibleDistance && intrusion && sameTimeline && verticalDistance < 5f)
+                if (intruder != null)
                 {
-                    target = intruder.gameObject;
-                    targetFound = true;
-                    walkingSequence.Pause();
+                    bool intrusion = intruder.originalTimeline != originalTimeline;
+                    bool sameTimeline = intruder.currentTimeline == currentTimeline;
+                    float distanceFromIntruder = Mathf.Abs(wayroot.transform.position.x - intruder.transform.position.x);
+                    float verticalDistance = Mathf.Abs(wayroot.transform.position.y - intruder.transform.position.y);
+                    if (distanceFromIntruder < targetVisibleDistance && intrusion && sameTimeline && verticalDistance < 5f)
+                    {
+                        target = intruder.gameObject;
+                        targetFound = true;
+                        walkingSequence.Pause();
 
+                    }
                 }
             }
         }
