@@ -521,6 +521,7 @@ MonoBehaviour:
   conversation: {fileID: 901118831}
   dialogCamera: {fileID: 719539000}
   canv: {fileID: 0}
+  lv: 0
 --- !u!4 &398728395
 Transform:
   m_ObjectHideFlags: 0
@@ -1000,9 +1001,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":55,"yPos":118},"ID":5,"ParamActions":[],"TMPFontGUID":null,"Text":"Press
-    B to continue.","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":5}],"EditorInfo":{"isRoot":true,"xPos":64.5,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Boh
-    qua dice qualcosa","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Directress","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":-26.5,"yPos":122},"ID":5,"ParamActions":[],"TMPFontGUID":null,"Text":"Press
+    B to continue.","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":5}],"EditorInfo":{"isRoot":true,"xPos":-28,"yPos":19},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Good
+    job agent Time. The pieces you recovered stabilised the crystal, at least for
+    now.\r I heard that one of our security robots attacked you in Vietnam. Strange..very
+    strange. Anyway, let''s focus on your next mission.\n","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Directress","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -1064,13 +1067,14 @@ MonoBehaviour:
   deathMenuDown: {fileID: 0}
   UiCristalli: {fileID: 0}
   UiVite: {fileID: 0}
+  soundtrackSource: {fileID: 0}
   currentTimeline: 0
   crystalsNumber: 0
   upPlaneHeight: 0
   downPlaneHeight: 0
+  lv: 0
   enemies: []
   justinLife: 0
-  enemyLife: 0
 --- !u!4 &1233089867
 Transform:
   m_ObjectHideFlags: 0
@@ -1623,6 +1627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertOffset: 23.5
+  justin: {fileID: 0}
 --- !u!81 &1690487822
 AudioListener:
   m_ObjectHideFlags: 0
