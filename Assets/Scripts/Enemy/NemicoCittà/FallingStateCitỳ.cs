@@ -30,7 +30,7 @@ public class FallingStateCity : State
         enemy.transform.Translate(movVec);
 
 
-        if (!enemy._isGrounded && !enemy.standing)
+        if (enemy._isGrounded)
         {
             enemy.currentStatus = NemicoCity.MachineStatus.Patrol;
         }

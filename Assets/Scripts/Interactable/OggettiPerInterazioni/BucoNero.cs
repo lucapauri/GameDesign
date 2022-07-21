@@ -8,7 +8,7 @@ public class BucoNero : MonoBehaviour
     private Animator anim;
     private float collapseTime;
     private AnimationClip[] clips;
-    private float rightDis = 3f;
+    private float rightDis = 1f;
     private Justin justin;
     private GlobalVariables globalVariables;
     // Start is called before the first frame update

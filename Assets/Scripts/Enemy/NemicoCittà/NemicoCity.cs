@@ -42,7 +42,7 @@ public class NemicoCity : MonoBehaviour
     public Transform shotPoint;
 
     //groundCheck
-    private float _groundDistance = 0.6f;
+    private float _groundDistance = 0.3f;
     [SerializeField] private LayerMask _enemyGroundMask;
     public bool _isGrounded;
 
@@ -151,11 +151,11 @@ public class NemicoCity : MonoBehaviour
         //TRANSITIONS
         finiteStateMachine.AddTransition(patrolState, attackState, () => currentStatus == MachineStatus.Attack);
         finiteStateMachine.AddTransition(attackState, patrolState, () => currentStatus == MachineStatus.Patrol);
-        finiteStateMachine.AddTransition(patrolState, fallingState, () => currentStatus == MachineStatus.Falling);
-        finiteStateMachine.AddTransition(attackState, fallingState, () => currentStatus == MachineStatus.Falling);
-        finiteStateMachine.AddTransition(fallingState, patrolState, () => currentStatus == MachineStatus.Patrol);
-        finiteStateMachine.AddTransition(fallingState, attackState, () => currentStatus == MachineStatus.Attack);
-
+        //finiteStateMachine.AddTransition(patrolState, fallingState, () => currentStatus == MachineStatus.Falling);
+        //finiteStateMachine.AddTransition(attackState, fallingState, () => currentStatus == MachineStatus.Falling);
+        //finiteStateMachine.AddTransition(fallingState, patrolState, () => currentStatus == MachineStatus.Patrol);
+        //finiteStateMachine.AddTransition(fallingState, attackState, () => currentStatus == MachineStatus.Attack);
+        
 
         //scelgo lo stato iniziale
         if (standing)
@@ -186,11 +186,13 @@ public class NemicoCity : MonoBehaviour
         }
 
 
-        _isGrounded = ((transform.position.y - platform.position.y) > 0.8f);
-
-        if (_isGrounded)
+        RaycastHit groundInfo;
+        Ray groundRay = new Ray(transform.position, -transform.up);
+        _isGrounded = Physics.Raycast(groundRay, out groundInfo, _groundDistance, _enemyGroundMask);
+        Debug.Log("grounded "+_isGrounded);
+        if (!_isGrounded)
         {
-            currentStatus = MachineStatus.Falling;
+            transform.Translate(-Vector3.up * Time.deltaTime*3f);
         }
 
         finiteStateMachine.Tik();
@@ -227,7 +229,7 @@ public class NemicoCity : MonoBehaviour
     {
 
         yield return new WaitForSeconds(timeToEndAnim);
-        GameObject go = Instantiate(this.gameObject, oldPlatform, transform.rotation); //sostituire oldPlatform con platform?
+        GameObject go = Instantiate(this.gameObject, oldPlatform + Vector3.up*3f, transform.rotation); //sostituire oldPlatform con platform?
         NemicoCity script = go.GetComponent<NemicoCity>();
         script.enabled = true;
         switch (currentOrigin)
