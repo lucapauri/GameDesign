@@ -57,6 +57,12 @@ public class ChangeText : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
     }
 
+    public void Quittt()
+    {
+        UnityEngine.Application.Quit();
+        Debug.Log("partita");
+    }
+
     private void SelectLevel()
     {
         if (ready)
