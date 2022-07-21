@@ -44,43 +44,12 @@ public class GlobalVariables : MonoBehaviour
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
 
-        soundtrackSource = justin.GetComponentsInChildren<AudioSource>()[1];
-        switch (lv)
-        {
-            case livello.hub:
-                AudioClip track1 = Resources.Load("Audio/Soundtrack/Hub") as AudioClip;
-                soundtrackSource.clip = track1;
-                soundtrackSource.pitch = 1;
-                soundtrackSource.loop = true;
-                soundtrackSource.Play();
-                Debug.Log("HubSoundtrackOn");
-                justin.inputMul = 1;
-                break;
-            case livello.vietnam:
-                AudioClip track2 = Resources.Load("Audio/Soundtrack/Giungla") as AudioClip;
-                soundtrackSource.clip = track2;
-                soundtrackSource.pitch = 1;
-                soundtrackSource.loop = true;
-                soundtrackSource.Play();
-                Debug.Log("VietSoundtrackOn");
-                justin.inputMul = -1;
-                break;
-            case livello.usa:
-                AudioClip track3 = Resources.Load("Audio/Soundtrack/Citta") as AudioClip;
-                soundtrackSource.clip = track3;
-                soundtrackSource.pitch = 1;
-                soundtrackSource.loop = true;
-                soundtrackSource.Play();
-                Debug.Log("UsaSoundtrackOn");
-                justin.inputMul = 1;
-                break;
-        }
-
 
     }
 
     private void Update()
     {
+        Debug.Log("");
         string num = crystalsNumber + " / " + totCrystals;
         UiCristalli.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = num;
 

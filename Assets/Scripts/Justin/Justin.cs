@@ -58,6 +58,7 @@ public class Justin : MonoBehaviour
     private bool destroyed;
     public int inputMul;
 
+
     //animation variables
     private Animator animator;
     private float movingTime;
@@ -199,7 +200,6 @@ public class Justin : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         source = GetComponent<AudioSource>();
 
-
         //trovo i piani per lo spostamento 
         planeDown = GameObject.FindGameObjectWithTag("PlaneDown").transform;
         planeUp = GameObject.FindGameObjectWithTag("PlaneUp").transform;
@@ -266,6 +266,7 @@ public class Justin : MonoBehaviour
         source.enabled = true;
         GetComponent<AudioListener>().enabled = true;
         GetComponentInChildren<AudioSource>().enabled = true;
+
     }
 
 
