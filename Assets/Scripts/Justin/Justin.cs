@@ -72,6 +72,18 @@ public class Justin : MonoBehaviour
 
     private void Awake()
     {
+        switch (globalVariables.lv)
+        {
+            case GlobalVariables.livello.hub:
+                inputMul = 1;
+                break;
+            case GlobalVariables.livello.vietnam:
+                inputMul = -1;
+                break;
+            case GlobalVariables.livello.usa:
+                inputMul = -1;
+                break;
+        }
         controls = new NewControls();
         controls.JustinController.Jump.performed += ctx => Jump();
         controls.JustinController.TimeTravel.performed += ctx => TimeTravel();
