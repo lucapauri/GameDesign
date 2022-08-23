@@ -24,6 +24,7 @@ public class Justin : MonoBehaviour
     private bool lastGrounded;
     private float initSpeed;
     [SerializeField] private float _dashSpeed = 30f;
+    private bool teleporting;
 
     //jump variables
     [SerializeField] private float _gravity;
@@ -93,10 +94,9 @@ public class Justin : MonoBehaviour
         controls.JustinController.Shoot.performed += ctx => ShootInput();
         controls.JustinController.Dash.performed += ctx => Dash();
         controls.JustinController.InputSpeed.performed += ctx => { 
-            if (onMovingEnemy && ctx.ReadValue<float>() > 0)
+            if ((onMovingEnemy && ctx.ReadValue<float>() > 0))
             {
                 _inputSpeed = 0f;
-                Debug.Log("fermooooooo");
             }else
                 _inputSpeed = inputMul * ctx.ReadValue<float>();
         };
@@ -179,12 +179,14 @@ public class Justin : MonoBehaviour
     {
         if (valigettaTaken && globalVariables.currentTimeline > 0 && !timeTravel)
         {
+            teleporting = true;
             timeTravelDown();
             timeTravel = true;
         }
         //spostarsi sulla timeline sovrastante
         if (valigettaTaken && globalVariables.currentTimeline < 1 && !timeTravel)
         {
+            teleporting = true;
             timeTravelUp();
             timeTravel = true;
         }
@@ -207,6 +209,7 @@ public class Justin : MonoBehaviour
 
     void Start()
     {
+        teleporting = false;
         lastGrounded = true;
         //trovo gli script necessari
         globalVariables = FindObjectOfType<GlobalVariables>();
@@ -295,8 +298,11 @@ public class Justin : MonoBehaviour
 
     void Update()
     {
-
-
+        if (teleporting && _isGrounded)
+        {
+            _inputSpeed = 0f;
+        }
+       
         //Ground Check
         //_isGrounded = Physics.CheckSphere(transform.position, _groundDistance, _groundMask);
 
