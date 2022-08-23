@@ -329,12 +329,16 @@ public class Justin : MonoBehaviour
 
 
         //animazione
-        if (Math.Abs(_inputSpeed) > 0.1)
+        if (Mathf.Abs(_inputSpeed) > 0.0001f && _isGrounded)
+        {
             animator.SetBool("Walk", true);
-        if (Math.Abs(_inputSpeed) < 0.1)
+        }
+        else if (movingTime < 0.03f)
+        {
             animator.SetBool("Walk", false);
-        if (!animator.GetBool("Walk") || Math.Abs(_inputSpeed) < 0.1)
-            movingTime = 0;
+        }
+        if (Math.Abs(_inputSpeed) < 0.1 && movingTime > 0.1)
+            movingTime -= 0.1f;
         else
             movingTime = movingTime + 0.003f;
         animator.SetFloat("Blend", movingTime);
@@ -406,14 +410,7 @@ public class Justin : MonoBehaviour
         //ANIMAZIONE-->
 
         //camminata
-        if (Mathf.Abs(_inputSpeed) > 0.1 && _isGrounded)
-        {
-            animator.SetBool("Walk", true);
-        }
-        else
-        {
-            animator.SetBool("Walk", false);
-        }
+        
 
 
 
