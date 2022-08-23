@@ -47,7 +47,7 @@ public class GlobalVariables : MonoBehaviour
                 jumpHeight = 5f;
                 break;
             case livello.vietnam:
-                gravity = 9.81f;
+                gravity = -9.81f;
                 jumpHeight = 5f;
                 break;
 
