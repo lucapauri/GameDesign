@@ -10,6 +10,8 @@ public class GlobalVariables : MonoBehaviour
     public GameObject UiCristalli;
     public GameObject UiVite;
     public AudioSource soundtrackSource;
+    public float gravity;
+    public float jumpHeight;
 
     public int currentTimeline;
     public int crystalsNumber;
@@ -32,6 +34,25 @@ public class GlobalVariables : MonoBehaviour
 
     public Dictionary<string, string> agingSets = new Dictionary<string, string>();
 
+    private void Awake()
+    {
+        switch (lv)
+        {
+            case livello.hub:
+                gravity = -40f;
+                jumpHeight = 25f;
+                break;
+            case livello.usa:
+                gravity = -9.81f;
+                jumpHeight = 5f;
+                break;
+            case livello.vietnam:
+                gravity = 9.81f;
+                jumpHeight = 5f;
+                break;
+
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +60,10 @@ public class GlobalVariables : MonoBehaviour
         totCrystals = FindObjectsOfType<Cristallo>().Length;
         crystalsNumber = 0;
         currentTimeline = 1;
-        justinLife = 15;
+        justinLife = 7;
         upPlaneHeight = GameObject.FindGameObjectWithTag("PlaneUp").transform.position.y;
         downPlaneHeight = GameObject.FindGameObjectWithTag("PlaneDown").transform.position.y;
         setsStart();
-
 
     }
 

@@ -26878,6 +26878,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1646888812}
     - target: {fileID: 5937210363529412012, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
+      propertyPath: _gravity
+      value: -9.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 5937210363529412012, guid: 6f8041fcf66214ed9a3b8a170d976024, type: 3}
       propertyPath: gunTaken
       value: 0
       objectReference: {fileID: 0}

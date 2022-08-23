@@ -32,7 +32,7 @@ public class Justin : MonoBehaviour
     [SerializeField] private LayerMask _jumpMask;
     [SerializeField] private LayerMask _platMask;
     [SerializeField] private LayerMask enemyMask;
-    [SerializeField] private float _jumpHeight = 1f;
+    [SerializeField] private float _jumpHeight;
     public bool _isGrounded;
     private bool highJump;
     private bool onMovingPlat;
@@ -217,7 +217,8 @@ public class Justin : MonoBehaviour
             enemy.justin = this;
         }
 
-        
+        _gravity = globalVariables.gravity;
+        _jumpHeight = globalVariables.jumpHeight;
 
         _characterController = GetComponent<CharacterController>();
         source = GetComponent<AudioSource>();
@@ -238,7 +239,7 @@ public class Justin : MonoBehaviour
         destroyed = false;
         gunLoaded = true;
         _dash = false;
-        _gravity = -9.81f;
+        //_gravity = -9.81f;
 
         if (transform.Find("fulmine_unity(Clone)") != null && transform.Find("valigetta_unity(Clone)") != null)
         {
