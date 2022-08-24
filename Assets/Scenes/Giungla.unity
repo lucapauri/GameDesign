@@ -728,6 +728,8 @@ MonoBehaviour:
   UiCristalli: {fileID: 382543958}
   UiVite: {fileID: 321098118}
   soundtrackSource: {fileID: 0}
+  gravity: 0
+  jumpHeight: 0
   currentTimeline: 0
   crystalsNumber: 0
   upPlaneHeight: 0
@@ -32410,6 +32412,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4402336499837941275, guid: 52bf017ee5f66478bb07c5565bca8032, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402336499837941275, guid: 52bf017ee5f66478bb07c5565bca8032, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4402336500386397561, guid: 52bf017ee5f66478bb07c5565bca8032, type: 3}
       propertyPath: m_Camera
       value: 

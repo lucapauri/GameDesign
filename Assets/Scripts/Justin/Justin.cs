@@ -299,7 +299,7 @@ public class Justin : MonoBehaviour
     {
         if (!_isGrounded && movingTime != 1 && !_dash)
             _speed = initSpeed / Mathf.Log(movingTime);
-        if (_isGrounded)
+        if (_isGrounded && !_dash)
             _speed = initSpeed;
 
         if (teleporting && _isGrounded)
@@ -335,21 +335,26 @@ public class Justin : MonoBehaviour
             _characterController.Move(_velocity * Time.deltaTime);
         }
 
-
+        
         //animazione
         if (Mathf.Abs(_inputSpeed) > 0.0001f && _isGrounded)
         {
             animator.SetBool("Walk", true);
         }
-        else if (movingTime < 1.03f)
+        else if (movingTime < 1.1f)
         {
             animator.SetBool("Walk", false);
         }
         if (Math.Abs(_inputSpeed) < 0.1 && movingTime >= 1.1)
+        {
             movingTime -= 0.1f;
-        else if(movingTime < 2.7)
+        }
+        else if (movingTime < 2.7 && Math.Abs(_inputSpeed) > 0.1)
+        {
             movingTime = movingTime + 0.015f;
+        }
         animator.SetFloat("Blend", Mathf.Log(movingTime));
+        Debug.Log(animator.GetFloat("Blend"));
 
         //_inputSpeed = Input.GetAxis("Horizontal");
         _inputVector = new Vector3(-1 * _inputSpeed, 0, 0);
@@ -556,7 +561,7 @@ public class Justin : MonoBehaviour
     //funzione per il dash
     private void Dash()
     {
-        if (!destroyed && !onMovingEnemy)
+        if (!destroyed && !onMovingEnemy && !teleporting)
         {
             _speed = _dashSpeed/Mathf.Log(movingTime);
             _dash = true;
@@ -645,13 +650,14 @@ public class Justin : MonoBehaviour
         float groundDistance = transform.position.y - planeDown.position.y +1f;
         Vector3 newPosition = new Vector3(transform.position.x, planeUp.position.y + groundDistance, planeUp.position.z);
         Quaternion newRotation = transform.rotation;
-        Destroy(this.gameObject);
-        destroyed = true;
         Justin justin = Instantiate(this, newPosition, newRotation);
+        justin._speed = this.initSpeed;
         justin.enabled = true;
         justin.gameObject.GetComponent<Animator>().enabled = true;
 
         justin.gameObject.name = "Justin";
+        Destroy(this.gameObject);
+        destroyed = true;
 
     }
 
@@ -665,14 +671,16 @@ public class Justin : MonoBehaviour
         Vector3 newPosition = new Vector3(transform.position.x, planeDown.position.y + groundDistance, planeDown.position.z);
         Quaternion newRotation = transform.rotation;
 
-        Destroy(this.gameObject);
-        destroyed = true;
+        
 
         Justin justin = Instantiate(this, newPosition, newRotation);
+        justin._speed = this.initSpeed;
         justin.enabled = true;
         justin.gameObject.GetComponent<Animator>().enabled = true;
 
         justin.gameObject.name = "Justin";
+        Destroy(this.gameObject);
+        destroyed = true;
     }
 
 
