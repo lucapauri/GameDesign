@@ -170,7 +170,6 @@ public class Justin : MonoBehaviour
                 source.clip = track;
                 source.pitch = 1;
                 source.Play();
-                Debug.Log("audioJumpOn");
             }
         }
     }
@@ -194,13 +193,13 @@ public class Justin : MonoBehaviour
         source.clip = track;
         source.pitch = 1;
         source.Play();
-        Debug.Log("audioTpStartOn");
     }
 
     private void ShootInput()
     {
         if (gunLoaded == true && gunTaken && !destroyed)
         {
+            teleporting = true;
             animator.SetTrigger("Fire");
             Shoot();
         }
@@ -209,6 +208,7 @@ public class Justin : MonoBehaviour
 
     void Start()
     {
+        movingTime = 1;
         teleporting = false;
         lastGrounded = true;
         //trovo gli script necessari
@@ -288,7 +288,6 @@ public class Justin : MonoBehaviour
         source.clip = track;
         source.pitch = 2;
         source.Play();
-        Debug.Log("audioTpLandingOn");
         source.enabled = true;
         GetComponent<AudioListener>().enabled = true;
         GetComponentInChildren<AudioSource>().enabled = true;
@@ -298,6 +297,11 @@ public class Justin : MonoBehaviour
 
     void Update()
     {
+        if (!_isGrounded && movingTime != 1 && !_dash)
+            _speed = initSpeed / Mathf.Log(movingTime);
+        if (_isGrounded)
+            _speed = initSpeed;
+
         if (teleporting && _isGrounded)
         {
             _inputSpeed = 0f;
@@ -321,11 +325,9 @@ public class Justin : MonoBehaviour
         RaycastHit enemyInfo;
         Ray enemyRay = new Ray(transform.position + transform.up * 1f, transform.forward);
         onMovingEnemy = Physics.Raycast(enemyRay, out enemyInfo, 5f, enemyMask);
-        Debug.Log("c?eeeeeee  " + onMovingEnemy);
 
         if (onMovingPlat)
         {
-            Debug.Log(onMovingPlat);
             _characterController.Move(transform.up * platInfo.collider.gameObject.GetComponent<PiattaformeMobili>().movSpeed * Time.deltaTime);
             _velocity.y += - _gravity * Time.deltaTime;
             _characterController.Move(_velocity * Time.deltaTime);
@@ -339,15 +341,15 @@ public class Justin : MonoBehaviour
         {
             animator.SetBool("Walk", true);
         }
-        else if (movingTime < 0.03f)
+        else if (movingTime < 1.03f)
         {
             animator.SetBool("Walk", false);
         }
-        if (Math.Abs(_inputSpeed) < 0.1 && movingTime > 0.1)
+        if (Math.Abs(_inputSpeed) < 0.1 && movingTime >= 1.1)
             movingTime -= 0.1f;
-        else
-            movingTime = movingTime + 0.003f;
-        animator.SetFloat("Blend", movingTime);
+        else if(movingTime < 2.7)
+            movingTime = movingTime + 0.015f;
+        animator.SetFloat("Blend", Mathf.Log(movingTime));
 
         //_inputSpeed = Input.GetAxis("Horizontal");
         _inputVector = new Vector3(-1 * _inputSpeed, 0, 0);
@@ -375,7 +377,7 @@ public class Justin : MonoBehaviour
         //raycasting per togliere i collider ai nemici in dash
         if (Physics.Raycast(ray, out hitInfo, maxDashCheckDistance, dashLayerMask) && !_dash && _inputSpeed > 0f)
         {
-            Debug.Log("movementBlocked");
+            
             _inputSpeed = 0;
 
         }
@@ -394,7 +396,7 @@ public class Justin : MonoBehaviour
 
         _targetDirection = _cameraT.TransformDirection(_inputVector).normalized;
         _targetDirection.y = 0f;
-        _characterController.Move(transform.forward * Mathf.Abs(_inputSpeed) * _speed * Time.deltaTime);
+        _characterController.Move(transform.forward * Mathf.Abs(_inputSpeed) * _speed * Mathf.Log(movingTime) * Time.deltaTime);
 
 
         float step = rotationSpeed * Time.deltaTime;
@@ -546,7 +548,7 @@ public class Justin : MonoBehaviour
         pistola.transform.SetParent(this.transform);
 
         StartCoroutine(shootCoroutine(fireTime/4));
-        StartCoroutine(destroyGunCoroutine(fireTime));
+        StartCoroutine(destroyGunCoroutine(fireTime/2));
         StartCoroutine(timeToShootCoroutine(shootReloadTime));
 
     }
@@ -554,15 +556,14 @@ public class Justin : MonoBehaviour
     //funzione per il dash
     private void Dash()
     {
-        if (!destroyed)
+        if (!destroyed && !onMovingEnemy)
         {
-            _speed = _dashSpeed;
+            _speed = _dashSpeed/Mathf.Log(movingTime);
             _dash = true;
             AudioClip track = Resources.Load("Audio/Justin/dash") as AudioClip;
             source.clip = track;
             source.pitch = 1;
             source.Play();
-            Debug.Log("audioDashOn");
             StartCoroutine(dashEndingCoroutine(dashTime));
         }
 
@@ -584,7 +585,7 @@ public class Justin : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Destroy(transform.Find("pistola_unity(Clone)").gameObject);
-
+        teleporting = false;
     }
 
     private IEnumerator shootCoroutine(float time)
@@ -614,6 +615,8 @@ public class Justin : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         collider.enabled = true;
+        _speed = initSpeed;
+        _dash = false;
     }
 
 
@@ -629,7 +632,6 @@ public class Justin : MonoBehaviour
         source.clip = track;
         source.pitch = 1;
         source.Play();
-        Debug.Log("audioGrabOn");
 
     }
 
