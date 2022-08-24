@@ -8,6 +8,7 @@ public class Justin : MonoBehaviour
 {
 
     //moving variables
+    private Vector3 previousInputVector;
     NewControls controls;
     [SerializeField] private Transform _cameraT;
     [SerializeField] private float _speed = 5f;
@@ -18,7 +19,7 @@ public class Justin : MonoBehaviour
     public Transform chiattone;
     private Vector3 _inputVector;
     private float _inputSpeed;
-    private float rotationSpeed = 100f;
+    private float rotationSpeed = 1000f;
     private Vector3 _targetDirection;
     private Vector3 _velocity;
     private bool lastGrounded;
@@ -208,6 +209,7 @@ public class Justin : MonoBehaviour
 
     void Start()
     {
+        previousInputVector = new Vector3(0, 0, 0);
         movingTime = 1;
         teleporting = false;
         lastGrounded = true;
@@ -403,10 +405,12 @@ public class Justin : MonoBehaviour
         _targetDirection.y = 0f;
         _characterController.Move(transform.forward * Mathf.Abs(_inputSpeed) * _speed * Mathf.Log(movingTime) * Time.deltaTime);
 
-
+        if (_inputVector == Vector3.zero)
+            _inputVector = previousInputVector;
         float step = rotationSpeed * Time.deltaTime;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, _inputVector, step, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDir, transform.up);
+        previousInputVector = _inputVector;
 
 
 
