@@ -151,7 +151,8 @@ public class Justin : MonoBehaviour
                 if (interactable)
                 {
                     animator.SetTrigger("Grab");
-                    StartCoroutine(grabEndingCoroutine(grabTime / 4));
+                    controls.JustinController.Disable();
+                    StartCoroutine(grabEndingCoroutine(grabTime/2));
                 }
             }
         }
@@ -653,7 +654,7 @@ public class Justin : MonoBehaviour
         source.clip = track;
         source.pitch = 1;
         source.Play();
-
+        controls.JustinController.Enable();
     }
 
     //coroutine per l'animazione di teletrasporto
