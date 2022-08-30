@@ -94,7 +94,6 @@ public class ValigettaEmpty : MonoBehaviour
         }
         if (isFirst && justin != null && scritte.active() && (Vector3.Distance(gameObject.transform.position, justin.transform.position) > 15 || isTaken))
         {
-            Debug.Log("notactivevAal");
             scritte.setNotActive();
             isActive = false;
         }

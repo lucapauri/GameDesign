@@ -44,7 +44,7 @@ public class Justin : MonoBehaviour
     public GlobalVariables globalVariables;
     public Bullet bulletPrefab;
     private float shootForce = 30f;
-    private float shootReloadTime = 5f;
+    private float shootReloadTime = 2f;
     private bool gunLoaded;
     private float dashTime = 0.2f;
     public bool _dash;
@@ -356,7 +356,7 @@ public class Justin : MonoBehaviour
             movingTime = movingTime + 0.015f;
         }
         animator.SetFloat("Blend", Mathf.Log(movingTime));
-        Debug.Log(animator.GetFloat("Blend"));
+        
 
         //_inputSpeed = Input.GetAxis("Horizontal");
         _inputVector = new Vector3(-1 * _inputSpeed, 0, 0);

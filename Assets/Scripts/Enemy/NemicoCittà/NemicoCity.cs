@@ -189,7 +189,6 @@ public class NemicoCity : MonoBehaviour
         RaycastHit groundInfo;
         Ray groundRay = new Ray(transform.position, -transform.up);
         _isGrounded = Physics.Raycast(groundRay, out groundInfo, _groundDistance, _enemyGroundMask);
-        Debug.Log("grounded "+_isGrounded);
         if (!_isGrounded)
         {
             transform.Translate(-Vector3.up * Time.deltaTime*3f);

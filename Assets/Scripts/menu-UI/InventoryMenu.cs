@@ -14,9 +14,11 @@ public class InventoryMenu : MonoBehaviour
     private int activeButton;
     public bool openTimeCapsule;
     public AudioSource source;
+    private MenuPause menuPause;
 
     private void Awake()
     {
+        menuPause = FindObjectOfType<MenuPause>();
         controls = new NewControls();
         controls.JustinController.ScrollInvRx.performed += ctx => ScrollRx();
         controls.JustinController.ScrollInvSx.performed += ctx => ScrollSx();
@@ -57,7 +59,6 @@ public class InventoryMenu : MonoBehaviour
     {
         if (activeButton > 0)
         {
-            Debug.Log(buttons.Count);
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", false);
             activeButton--;
             buttons[activeButton].GetComponent<Animator>().SetBool("Selected", true);
@@ -77,6 +78,10 @@ public class InventoryMenu : MonoBehaviour
             AudioClip track = Resources.Load("Audio/Oggetti/UI") as AudioClip;
             source.clip = track;
             source.Play();
+        }
+        else
+        {
+            menuPause.SetMenuTrue();
         }
     }
 
@@ -146,7 +151,7 @@ public class InventoryMenu : MonoBehaviour
 
     public void setMenuTrue()
     {
-        if (buttons.Count > 0) { 
+        if (buttons.Count > 0) {
         isMenu = true;
         globalVariables.justin.enabled = false;
         foreach (simpleEnemy enemy in globalVariables.enemies)

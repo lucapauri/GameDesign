@@ -39,7 +39,6 @@ public class PiattaformeDistruttibili : MonoBehaviour
 
     private void triggerShake()
     {
-        Debug.Log("shaking");
         shaking = true;
         StartCoroutine(shakeCoroutine());
         StartCoroutine(lateDestroyCoroutine());

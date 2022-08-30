@@ -18,7 +18,7 @@ public class FallingStateCity : State
 
     public override void Enter()
     {
-        Debug.Log("falling");
+       
     }
 
     public override void Tik()

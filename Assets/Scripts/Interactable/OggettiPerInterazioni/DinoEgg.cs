@@ -24,7 +24,7 @@ public class DinoEgg : MonoBehaviour
         source.clip = track;
         source.pitch = 1.5f;
         source.Play();
-        Debug.Log("audioUovoOn");
+        
 
         shakeSequence = DOTween.Sequence();
 

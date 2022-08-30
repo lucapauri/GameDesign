@@ -70,7 +70,6 @@ public class lava : MonoBehaviour
                 globalVariables.justin.source.clip = lavaDeath;
                 globalVariables.justin.source.pitch = 2;
                 globalVariables.justin.source.Play();
-                Debug.Log("audioLavaDeathOn");
                 StartCoroutine(killingCoroutine(lavaTime));
             }
         }

@@ -35,7 +35,7 @@ public class Gadget : MonoBehaviour
 
         if (rightPosH && rightPosV )
         {
-            Debug.Log("right");
+            
             anim.SetTrigger("TurnOn");
             bucoNero.gadgetOn++;
             this.enabled = false;

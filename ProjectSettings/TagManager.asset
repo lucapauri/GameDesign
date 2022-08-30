@@ -23,6 +23,7 @@ TagManager:
   - DialogCamera
   - Conversation
   - EndLevel
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

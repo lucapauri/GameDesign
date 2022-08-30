@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -2321690443477790868}
   - component: {fileID: -2507084559754801465}
   - component: {fileID: -173162634804606741}
+  - component: {fileID: 1054210355666805909}
   m_Layer: 0
   m_Name: 'BabyDino '
   m_TagString: Untagged
@@ -205,3 +206,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &1054210355666805909
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2915325902726615256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 137.75287, y: 155.01845, z: 114.09891}
+  m_Center: {x: 15.979719, y: 82.13295, z: -2.2891045}

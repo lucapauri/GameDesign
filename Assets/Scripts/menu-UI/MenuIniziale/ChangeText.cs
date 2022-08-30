@@ -60,7 +60,7 @@ public class ChangeText : MonoBehaviour
     public void Quittt()
     {
         UnityEngine.Application.Quit();
-        Debug.Log("partita");
+        
     }
 
     private void SelectLevel()

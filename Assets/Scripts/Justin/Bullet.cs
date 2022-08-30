@@ -20,7 +20,6 @@ public class Bullet : MonoBehaviour
         source.clip = track;
         source.pitch = 1;
         source.Play();
-        Debug.Log("audioShotOn");
     }
 
     void OnCollisionEnter(Collision collision)

@@ -237,7 +237,7 @@ public class simpleEnemy : MonoBehaviour
             source.pitch = 2;
             source.spatialBlend = 1;
             source.Play();
-            Debug.Log("audioEnemyDamageOn");
+            //Debug.Log("audioEnemyDamageOn");
             StartCoroutine(DeathCoroutine(DeathTime));
         }
 

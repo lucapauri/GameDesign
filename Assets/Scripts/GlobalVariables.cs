@@ -69,7 +69,6 @@ public class GlobalVariables : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("");
         string num = crystalsNumber + " / " + totCrystals;
         UiCristalli.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = num;
 
@@ -79,7 +78,6 @@ public class GlobalVariables : MonoBehaviour
         }
 
         UiVite.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = " " + justinLife;
-        Debug.Log(justinLife.ToString());
 
 
         if (justinLife == 0)
@@ -88,7 +86,6 @@ public class GlobalVariables : MonoBehaviour
             justin.source.clip = track;
             justin.source.pitch = 2;
             justin.source.Play();
-            Debug.Log("audioDamageOn");
             foreach (simpleEnemy enemy in enemies)
             {
                 enemy.enabled = false;
@@ -108,7 +105,6 @@ public class GlobalVariables : MonoBehaviour
         justin.source.clip = track;
         justin.source.pitch = 2;
         justin.source.Play();
-        Debug.Log("audioDamageOn");
     }
 
     public void inventoryAging(string key)
@@ -150,6 +146,9 @@ public class GlobalVariables : MonoBehaviour
     {
         switch (lv)
         {
+            case livello.hub:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Hub");
+                break;
             case livello.vietnam:
                 UnityEngine.SceneManagement.SceneManager.LoadScene("giungla");
                 break;
