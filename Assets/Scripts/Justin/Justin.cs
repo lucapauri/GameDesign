@@ -108,8 +108,9 @@ public class Justin : MonoBehaviour
         controls.JustinController.Grab.performed += ctx => Grab();
         controls.JustinController.OpenInventory.performed += ctx =>
         {
-            if (!destroyed)
+            if (!destroyed && _isGrounded && !teleporting)
             {
+                animator.SetBool("Walk", false);
                 inventoryMenu.setMenuTrue();
             }
         };
@@ -129,10 +130,11 @@ public class Justin : MonoBehaviour
 
     private void OpenTimeCapsule()
     {
-        if (!destroyed)
+        if (!destroyed && _isGrounded && !teleporting)
         {
             if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 20)
             {
+                animator.SetBool("Walk", false);
                 inventoryMenu.setBehaviour();
                 inventoryMenu.setMenuTrue();
             }

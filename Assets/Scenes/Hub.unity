@@ -232,6 +232,7 @@ MonoBehaviour:
   conversation: {fileID: 391028639}
   dialogCamera: {fileID: 1992645423}
   secondCamera: {fileID: 100353238}
+  scritta: {fileID: 264560498}
 --- !u!4 &20349577
 Transform:
   m_ObjectHideFlags: 0
@@ -1228,13 +1229,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 264560499}
+  - component: {fileID: 264560500}
   m_Layer: 0
   m_Name: DoveDeveStareJustin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &264560499
 Transform:
   m_ObjectHideFlags: 0
@@ -1249,6 +1251,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &264560500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264560498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5cdf31491f499418823e3d87158514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Press SELECT to pause the game
 --- !u!1 &286376163
 GameObject:
   m_ObjectHideFlags: 0

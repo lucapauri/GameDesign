@@ -18,6 +18,7 @@ public class DialoPointHub : MonoBehaviour
     private Vector3 startPos;
     private bool isFirst;
     public Camera secondCamera;
+    public GameObject scritta;
 
     void Awake()
     {
@@ -88,6 +89,7 @@ public class DialoPointHub : MonoBehaviour
         Canvas can = canvas.GetComponent<Canvas>();
         can.worldCamera = secondCamera;
         ConversationManager.Instance.EndConversation();
+        scritta.SetActive(true);
     }
 
     private void dialogSequence()
