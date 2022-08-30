@@ -46,6 +46,11 @@ public class Scritte : MonoBehaviour
        
     }
 
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
+
     public void setActive(string text, GameObject gameObject)
     {
         isActive = true;

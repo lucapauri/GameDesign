@@ -60,7 +60,10 @@ public class FoglieJumpable : MonoBehaviour
      
     }
 
-
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
 
 
 }

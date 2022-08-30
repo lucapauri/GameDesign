@@ -66,6 +66,12 @@ public class DialogHubReturn : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
+
+
     private void endDialog()
     {
         globalVariables.justin.GetComponent<Justin>().enabled = true;

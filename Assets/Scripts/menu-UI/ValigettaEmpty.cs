@@ -105,6 +105,11 @@ public class ValigettaEmpty : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
+
     public bool taken()
     {
         return isTaken;

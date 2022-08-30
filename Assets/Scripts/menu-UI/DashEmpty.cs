@@ -53,4 +53,10 @@ public class DashEmpty : MonoBehaviour
                 scritte.setNotActive();
             }
     }
+
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
+
 }

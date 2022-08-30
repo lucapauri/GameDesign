@@ -54,4 +54,9 @@ public class SaltoEmpty : MonoBehaviour
             isActive = false;
         }
     }
+
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
 }

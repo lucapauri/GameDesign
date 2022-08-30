@@ -105,4 +105,10 @@ public class ChangeText : MonoBehaviour
 
 
     }
+
+    private void OnDestroy()
+    {
+        controls.MenuController.Disable();
+    }
+
 }

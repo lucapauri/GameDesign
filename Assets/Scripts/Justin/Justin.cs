@@ -518,8 +518,11 @@ public class Justin : MonoBehaviour
         }
         lastGrounded = _isGrounded;
     }
-       
 
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
     //passo al time sequence inferiore
     private void timeTravelDown()
     {

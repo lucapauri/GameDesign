@@ -144,6 +144,10 @@ public class InventoryMenu : MonoBehaviour
             Resume();
     }
 
+    private void OnDestroy()
+    {
+        controls.JustinController.Disable();
+    }
     public void setMenuTrue()
     {
         if (buttons.Count > 0) {
