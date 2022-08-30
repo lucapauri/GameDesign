@@ -14,11 +14,10 @@ public class InventoryMenu : MonoBehaviour
     private int activeButton;
     public bool openTimeCapsule;
     public AudioSource source;
-    private MenuPause menuPause;
+    
 
     private void Awake()
     {
-        menuPause = FindObjectOfType<MenuPause>();
         controls = new NewControls();
         controls.JustinController.ScrollInvRx.performed += ctx => ScrollRx();
         controls.JustinController.ScrollInvSx.performed += ctx => ScrollSx();
@@ -78,10 +77,6 @@ public class InventoryMenu : MonoBehaviour
             AudioClip track = Resources.Load("Audio/Oggetti/UI") as AudioClip;
             source.clip = track;
             source.Play();
-        }
-        else
-        {
-            menuPause.SetMenuTrue();
         }
     }
 

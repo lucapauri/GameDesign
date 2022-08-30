@@ -143,6 +143,15 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""c59ff75d-c0b1-49a4-9f6f-74a6e4ddf4dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -288,6 +297,17 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                     ""action"": ""SelectInv"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f1f03a0-aa33-43fe-9bab-d5dbcb6a333d"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -397,6 +417,7 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         m_JustinController_ScrollInvSx = m_JustinController.FindAction("ScrollInvSx", throwIfNotFound: true);
         m_JustinController_EscInv = m_JustinController.FindAction("EscInv", throwIfNotFound: true);
         m_JustinController_SelectInv = m_JustinController.FindAction("SelectInv", throwIfNotFound: true);
+        m_JustinController_MenuOpen = m_JustinController.FindAction("MenuOpen", throwIfNotFound: true);
         // MenuController
         m_MenuController = asset.FindActionMap("MenuController", throwIfNotFound: true);
         m_MenuController_ScrollRx = m_MenuController.FindAction("ScrollRx", throwIfNotFound: true);
@@ -475,6 +496,7 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_JustinController_ScrollInvSx;
     private readonly InputAction m_JustinController_EscInv;
     private readonly InputAction m_JustinController_SelectInv;
+    private readonly InputAction m_JustinController_MenuOpen;
     public struct JustinControllerActions
     {
         private @NewControls m_Wrapper;
@@ -492,6 +514,7 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         public InputAction @ScrollInvSx => m_Wrapper.m_JustinController_ScrollInvSx;
         public InputAction @EscInv => m_Wrapper.m_JustinController_EscInv;
         public InputAction @SelectInv => m_Wrapper.m_JustinController_SelectInv;
+        public InputAction @MenuOpen => m_Wrapper.m_JustinController_MenuOpen;
         public InputActionMap Get() { return m_Wrapper.m_JustinController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -540,6 +563,9 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                 @SelectInv.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnSelectInv;
                 @SelectInv.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnSelectInv;
                 @SelectInv.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnSelectInv;
+                @MenuOpen.started -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnMenuOpen;
+                @MenuOpen.performed -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnMenuOpen;
+                @MenuOpen.canceled -= m_Wrapper.m_JustinControllerActionsCallbackInterface.OnMenuOpen;
             }
             m_Wrapper.m_JustinControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -583,6 +609,9 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
                 @SelectInv.started += instance.OnSelectInv;
                 @SelectInv.performed += instance.OnSelectInv;
                 @SelectInv.canceled += instance.OnSelectInv;
+                @MenuOpen.started += instance.OnMenuOpen;
+                @MenuOpen.performed += instance.OnMenuOpen;
+                @MenuOpen.canceled += instance.OnMenuOpen;
             }
         }
     }
@@ -659,6 +688,7 @@ public partial class @NewControls : IInputActionCollection2, IDisposable
         void OnScrollInvSx(InputAction.CallbackContext context);
         void OnEscInv(InputAction.CallbackContext context);
         void OnSelectInv(InputAction.CallbackContext context);
+        void OnMenuOpen(InputAction.CallbackContext context);
     }
     public interface IMenuControllerActions
     {

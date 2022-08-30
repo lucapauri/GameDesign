@@ -75,8 +75,11 @@ public class Justin : MonoBehaviour
     // audio variables
     public AudioSource source;
 
+    private MenuPause menuPause;
+
     private void Awake()
     {
+        menuPause = FindObjectOfType<MenuPause>();
         switch (globalVariables.lv)
         {
             case GlobalVariables.livello.hub:
@@ -111,11 +114,17 @@ public class Justin : MonoBehaviour
             }
         };
         controls.JustinController.OpenTimeCapsule.performed += ctx => OpenTimeCapsule();
+        controls.JustinController.MenuOpen.performed += ctx => OpenMenu();
     }
 
     private void OnEnable()
     {
         controls.JustinController.Enable();
+    }
+
+    private void OpenMenu()
+    {
+        menuPause.SetMenuTrue();
     }
 
     private void OpenTimeCapsule()

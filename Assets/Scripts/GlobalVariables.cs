@@ -140,6 +140,7 @@ public class GlobalVariables : MonoBehaviour
     public void BackToMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+        Time.timeScale = 1;
     }
 
     public void ReLoad()
@@ -156,5 +157,6 @@ public class GlobalVariables : MonoBehaviour
                 UnityEngine.SceneManagement.SceneManager.LoadScene("DesertoCitta");
                 break;
         }
+        Time.timeScale = 1;
     }
 }
