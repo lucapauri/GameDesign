@@ -89,7 +89,8 @@ public class DialoPointHub : MonoBehaviour
         Canvas can = canvas.GetComponent<Canvas>();
         can.worldCamera = secondCamera;
         ConversationManager.Instance.EndConversation();
-        scritta.SetActive(true);
+        if(scritta != null)
+            scritta.SetActive(true);
     }
 
     private void dialogSequence()

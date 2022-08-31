@@ -76,6 +76,7 @@ public class Justin : MonoBehaviour
     public AudioSource source;
 
     private MenuPause menuPause;
+    private bool dashAvailable;
 
     private void Awake()
     {
@@ -221,6 +222,7 @@ public class Justin : MonoBehaviour
 
     void Start()
     {
+        dashAvailable = true;
         previousInputVector = new Vector3(0, 0, 0);
         movingTime = 1;
         teleporting = false;
@@ -311,7 +313,7 @@ public class Justin : MonoBehaviour
 
     void Update()
     {
-        if (!_isGrounded && movingTime != 1 && !_dash)
+        if (!_isGrounded && movingTime > 1.1 && !_dash)
             _speed = initSpeed / Mathf.Log(movingTime);
         if (_isGrounded && !_dash)
             _speed = initSpeed;
@@ -452,67 +454,6 @@ public class Justin : MonoBehaviour
         _characterController.Move(_velocity * Time.deltaTime);
 
 
-        //COMANDI-->
-
-        //jumping
-        /*if (Input.GetKeyDown(KeyCode.Space) && _isGrounded && !highJump)
-        {
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-            animator.SetTrigger("Jump");
-
-        } 
-        if (Input.GetKeyDown(KeyCode.Space) && highJump)
-        {
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -4f * _gravity);
-            animator.SetTrigger("Jump");
-
-        }
-
-        //aprire l'inventario
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryMenu.setMenuTrue();
-        }
-
-
-        //spostarsi sulla timeline sottostante
-        if (Input.GetKeyDown(KeyCode.M) && valigettaTaken  && globalVariables.currentTimeline > 0 && !timeTravel)
-        {
-            timeTravelDown();
-            timeTravel = true;
-        }
-        //spostarsi sulla timeline sovrastante
-        if (Input.GetKeyDown(KeyCode.N) && valigettaTaken && globalVariables.currentTimeline < 1 && !timeTravel)
-        {
-            timeTravelUp();
-            timeTravel = true;
-        }
-        //comando di sparo
-        if (Input.GetKeyDown(KeyCode.S) && gunLoaded == true && gunTaken)
-        {
-            animator.SetTrigger("Fire");
-            Shoot();
-        }
-
-        //comando per il dash
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Dash();
-        }
-
-        //comando per usare un oggetto in inventario
-        if (Input.GetKeyDown(KeyCode.Return) && globalVariables.inventory.Count > 0)
-        {
-            //useInventoryObject(string objectName);
-        }
-
-        //attivazione e chiusura menu inventario davanti a capsula del tempo
-        if (timeCapsule != null && Vector3.Distance(timeCapsule.transform.position, transform.position) < 20 && Input.GetKeyDown(KeyCode.X))
-        {
-            inventoryMenu.setMenuTrue();
-            inventoryMenu.setBehaviour();
-        }
-        */
         if(!lastGrounded && _isGrounded)
         {
             AudioClip track = Resources.Load("Audio/Justin/Landing") as AudioClip;
@@ -580,7 +521,7 @@ public class Justin : MonoBehaviour
     //funzione per il dash
     private void Dash()
     {
-        if (!destroyed && !onMovingEnemy && !teleporting)
+        if (!destroyed && !onMovingEnemy && !teleporting && dashAvailable)
         {
             _speed = _dashSpeed/Mathf.Log(movingTime);
             _dash = true;
@@ -589,6 +530,8 @@ public class Justin : MonoBehaviour
             source.pitch = 1;
             source.Play();
             StartCoroutine(dashEndingCoroutine(dashTime));
+            dashAvailable = false;
+            StartCoroutine(timeToDashCoroutine(1f));
         }
 
     }
@@ -624,7 +567,11 @@ public class Justin : MonoBehaviour
 
     }
 
-
+    private IEnumerator timeToDashCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dashAvailable = true;
+    }
 
     //couroutine per resettare la velocità dopo il dash
     private IEnumerator dashEndingCoroutine(float time)
