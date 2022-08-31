@@ -19096,6 +19096,7 @@ MonoBehaviour:
   conversation: {fileID: 422721650}
   dialogCamera: {fileID: 1746361039}
   secondCamera: {fileID: 1943015446}
+  scritta: {fileID: 0}
 --- !u!4 &1967360239
 Transform:
   m_ObjectHideFlags: 0
@@ -24941,12 +24942,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1185009834012730408, guid: 468cd8314005c4279ade400794297684, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 44.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185009834012730408, guid: 468cd8314005c4279ade400794297684, type: 3}
       propertyPath: m_LocalPosition.x
       value: -69.81
       objectReference: {fileID: 0}
     - target: {fileID: 1185009834012730408, guid: 468cd8314005c4279ade400794297684, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 242.17
+      value: 242.12
       objectReference: {fileID: 0}
     - target: {fileID: 1185009834012730408, guid: 468cd8314005c4279ade400794297684, type: 3}
       propertyPath: m_LocalPosition.z
